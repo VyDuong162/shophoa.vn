@@ -19,10 +19,33 @@ if (session_id() === '') {
             color: white;
             text-shadow: black 1px 1px 10px;
         }
+
+        #load {
+            position: absolute;
+            z-index: 100;
+            background-color: white;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #load div {
+            height: 3em;
+            width: 3em;
+        }
     </style>
 </head>
 
 <body>
+    <div id="load">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
     <?php include_once(__DIR__ . '/../layouts/partials/header.php'); ?>
     <div class="container">
         <div class="row">
@@ -110,7 +133,7 @@ if (session_id() === '') {
                         </div>
                     </fieldset>
                     <div class="form-group text-center">
-                        <button class="btn btn-outline-success my-btn-cir font-weight-bold">Đăng ký</button>
+                        <button class="btn btn-outline-success my-btn-cir font-weight-bold" name="btn_dangky">Đăng ký</button>
                         <input type="reset" value="Nhập lại" class="btn btn-outline-danger my-btn-cir font-weight-bold">
                     </div>
                 </form>
@@ -211,8 +234,13 @@ if (session_id() === '') {
     </div>
     <?php include_once(__DIR__ . '/../layouts/partials/footer.php'); ?>
     <?php include_once(__DIR__ . '/../layouts/scripts.php'); ?>
+    <script src="/shophoa.vn/assets/vendor/jquery-validation/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="/shophoa.vn/assets/vendor/jquery-validation/localization/messages_vi.min.js" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
+            $(window).on("load", function() {
+                $("#load").fadeOut("slow");
+            });
             $('#frm_dang_ky').validate({
                 rules: {
                     ten: {

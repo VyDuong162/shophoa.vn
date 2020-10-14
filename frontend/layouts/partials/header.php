@@ -31,6 +31,9 @@
 
         <div class="navbar-collapse collapse" id="navbarSupportedContent" style="">
             <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a href="/shophoa.vn/frontend/" class="nav-link mx-2 dot">Trang chủ</a>
+                </li>
                 <li class="nav-item dropdown mx-2 dot">
                     <a class="nav-link" href="#" id="chude1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Màu hoa
