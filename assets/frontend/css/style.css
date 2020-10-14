@@ -498,7 +498,6 @@ section {
     }
 }
 
-
 #load {
     position: absolute;
     z-index: 100;
@@ -515,4 +514,18 @@ section {
 #load div {
     height: 3em;
     width: 3em;
+}
+
+#giohang{
+    position: relative;
+}
+#giohang span{
+    background-color: #ccc;
+    color: black;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 50%;
+    position: absolute;
+    top: -15px;
 }

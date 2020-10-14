@@ -7,18 +7,20 @@
                 </a>
             </div>
             <div class="col-lg-2 col-md-6 text-center mt-2 order-lg-last text-md-right">
-                <a href="" class="nav-link text-danger">
-                    Giỏ hàng : 0
+                <a href="" class="nav-link">
+                    <div id="giohang" class="text-white bg-danger btn">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        <span>10</span>
+                    </div>
                 </a>
             </div>
             <div class="col-lg-8 col-md-12">
-                <form>
+                <form name="search" id="search" method="get" action="/shophoa.vn/frontend/pages/search.php">
                     <div class="form-group">
                         <div class="text-center" style="position: relative;">
-                            <input class="form-control hoa-form-control" type="search" placeholder="tìm kiếm ..." aria-label="Search">
+                            <input name="search" id="search" class="form-control hoa-form-control" type="search" placeholder="tìm kiếm ..." aria-label="Search">
                             <button class="btn btn-outline-success my-btn-cir" id="btn-search" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                         </div>
-
                     </div>
                 </form>
             </div>
