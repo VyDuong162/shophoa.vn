@@ -15,6 +15,9 @@ if (session_id() === '') {
 </head>
 
 <body>
+    <?php include_once(__DIR__ . '/../layouts/partials/header.php'); ?>
+    
+    <?php include_once(__DIR__ . '/../layouts/partials/footer.php'); ?>
     <?php include_once(__DIR__ . '/../layouts/scripts.php'); ?>
 </body>
 

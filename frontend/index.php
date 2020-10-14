@@ -14,6 +14,7 @@ include_once(__DIR__ . '/../dbconnect.php');
     <?php include_once(__DIR__ . '/layouts/styles.php'); ?>
 </head>
 <?php include_once(__DIR__ . '/layouts/partials/header.php'); ?>
+
 <?php include_once(__DIR__ . '/layouts/partials/footer.php'); ?>
 
 <body>

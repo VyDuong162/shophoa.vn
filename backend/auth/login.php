@@ -89,7 +89,7 @@ if (session_id() === '') {
         <?php
         if (isset($_POST['btn_dang_nhap'])) {
             $ten_dang_nhap = $_POST['ten_dang_nhap'];
-            $mat_khau = $_POST['mat_khau'];
+            $mat_khau = addslashes($_POST['mat_khau']);
             $erorrs = [];
             if (empty($ten_dang_nhap)) {
                 $erorrs['ten_dang_nhap'][] = [
