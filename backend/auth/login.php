@@ -6,29 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop Hoa | Đăng nhập</title>
     <link rel="stylesheet" href="style.css">
-    <?php include_once(__DIR__.'/../layouts/styles.php'); ?>
+    <?php include_once(__DIR__ . '/../layouts/styles.php'); ?>
 </head>
 
 <body>
     <div class="container-fluid my-background">
+        <!-- form đăng nhập -->
         <form action="" method="post" name="frmDangNhap" id="frmDangNhap">
             <div class="card-group">
+                <!-- Ảnh trang trí -->
                 <div class="card" id="img-dangnhap">
-                    <div class="card-img">
-                        <img src="../imgs/dangnhapcut.jpg" height="100%" width="100%" alt="">
+                    <div class="card-img h-100">
+                        <img src="/shophoa.vn/assets/backend/img/img-login.jpg" height="100%" width="100%" alt="">
                     </div>
                 </div>
+                <!-- End ảnh trang trí -->
+                <!-- Phần đăng nhập -->
                 <div class="card">
                     <div class="card-body">
                         <h1 class="card-title text-center myfont">
                             Đăng nhập
                         </h1>
+                        <!-- Nhập tên đăng nhập -->
                         <div class="form-group">
                             <input type="text" name="ten_dang_nhap" id="ten_dang_nhap" class="form-control hoa-form-control" placeholder="Tên đăng nhập..." />
                             <div class="valid-feedback">
                                 Đã nhập.
                             </div>
                         </div>
+                        <!-- End nhập tên đăng nhập -->
+                        <!-- Nhập mật khẩu -->
                         <div class="form-group" style="position: relative;">
                             <input type="password" name="mat_khau" id="mat_khau" class="form-control hoa-form-control" placeholder="Mật khẩu..." />
                             <div class="valid-feedback">
@@ -39,6 +46,8 @@
                                 <i class="fa fa-eye" aria-hidden="true"></i>
                             </div>
                         </div>
+                        <!-- End nhập mật khẩu -->
+                        <!-- Button đăng nhập -->
                         <div class="form-group text-center">
                             <button name="btn_dang_nhap" id="btn_dang_nhap" class="btn btn-success w-100 my-btn-cir">Đăng nhập</button>
                         </div>
@@ -51,17 +60,22 @@
                                 Google
                             </button>
                         </div>
+                        <!-- End button đăng nhập -->
                         <hr>
+                        <!-- Phần thông tin thêm -->
                         <div class="text-center">
                             <a href="#" class="small">Quên mật khẩu?</a>
                         </div>
                         <div class="text-center">
                             <a href="/templatedoan/template-index/dangky.php" class="small">Đăng ký tài khoản</a>
                         </div>
+                        <!-- End phần thông tin thêm -->
                     </div>
                 </div>
+                <!-- End phần đăng nhập -->
             </div>
         </form>
+        <!-- End form đăng nhập -->
         <?php
         if (isset($_POST['btn_dang_nhap'])) {
             $ten_dang_nhap = $_POST['ten_dang_nhap'];
@@ -131,7 +145,7 @@
         }
         ?>
     </div>
-    <?php include_once(__DIR__.'/../layouts/scripts.php'); ?>
+    <?php include_once(__DIR__ . '/../layouts/scripts.php'); ?>
     <script>
         $(document).ready(function() {
             $('#frmDangNhap').validate({
