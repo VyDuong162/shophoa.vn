@@ -1,3 +1,8 @@
+<?php
+if (session_id() === '') {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="vn">
 
@@ -69,6 +74,10 @@
                         <div class="text-center">
                             <a href="/templatedoan/template-index/dangky.php" class="small">Đăng ký tài khoản</a>
                         </div>
+                        <hr>
+                        <div class="text-center small">
+                            <a href="">Trang chủ</a> | <a href="">About</a> | <a href="">Liên hệ</a>
+                        </div>
                         <!-- End phần thông tin thêm -->
                     </div>
                 </div>
@@ -132,8 +141,12 @@
         <?php endif; ?>
         <?php
         if (isset($_POST['btn_dang_nhap']) && (!isset($erorrs) || count($erorrs) == 0)) {
-            if ($ten_dang_nhap == 'admin' && $mat_khau == '123') {
-                header('Location: index.php');
+            include_once(__DIR__.'/../../dbconnect.php');
+            $sqlSelect =" SELECT * FROM khachhang kh WHERE kh.kh_tendangnhap = '$ten_dang_nhap' AND kh.kh_matkhau = '$mat_khau';";
+            $result = mysqli_query($conn, $sqlSelect);
+            if (mysqli_num_rows($result) > 0) {
+                $_SESSION['kh_tendangnhap_logged'] = $ten_dang_nhap;
+                echo '<script>location.href = "/shophoa.vn/backend/index.php";</script>';
             } else {
         ?>
                 <div id="aler" class="alert alert-danger alert-dismissible fade show my-alert" role="alert">
