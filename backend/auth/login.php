@@ -76,6 +76,7 @@
             </div>
         </form>
         <!-- End form đăng nhập -->
+        <!-- Kiểm tra logic phần backend -->
         <?php
         if (isset($_POST['btn_dang_nhap'])) {
             $ten_dang_nhap = $_POST['ten_dang_nhap'];
@@ -116,6 +117,7 @@
             }
         }
         ?>
+        <!-- End kiểm tra logic phần backend -->
         <?php if (isset($_POST['btn_dang_nhap']) && isset($erorrs) && count($erorrs) > 0) : ?>
             <div id="aler" class="alert alert-warning alert-dismissible fade show my-alert" role="alert">
                 <?php foreach ($erorrs as $fields) : ?>
@@ -148,7 +150,9 @@
     <?php include_once(__DIR__ . '/../layouts/scripts.php'); ?>
     <script>
         $(document).ready(function() {
+            // Kiểm tra logic phần frontend
             $('#frmDangNhap').validate({
+                // Phần logic
                 rules: {
                     ten_dang_nhap: {
                         required: true,
@@ -159,6 +163,7 @@
                         required: true,
                     },
                 },
+                // Phần thông báo
                 messages: {
                     ten_dang_nhap: {
                         required: "Nhập tên đăng nhập",
@@ -169,6 +174,7 @@
                         required: "Nhập mật khẩu",
                     },
                 },
+                // Phần mặc định
                 errorElement: "em",
                 errorPlacement: function(error, element) {
                     error.addClass("invalid-feedback");
@@ -186,6 +192,8 @@
                     $(element).addClass("is-valid").removeClass("is-invalid");
                 }
             });
+            // End kiểm tra logic phần frontend
+            // Chức năng ẩn hiện password
             $('#show-password').click(function() {
                 var pass = document.getElementById('mat_khau').type;
                 if (pass == 'password') {
@@ -198,8 +206,10 @@
                     document.getElementById('mat_khau').setAttribute('type', 'password');
                 }
             });
+            // End chức năng ẩn hiện password
         });
     </script>
+
 </body>
 
 </html>
