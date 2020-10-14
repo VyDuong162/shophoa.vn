@@ -14,7 +14,7 @@ if (session_id() === '') {
     <?php include_once(__DIR__ . '/../layouts/styles.php'); ?>
     <style>
         h1 {
-            background: url('../imgs/dangky1.png');
+            background: url('../../assets/shared/img/dangky1.png');
             background-size: cover;
             color: white;
             text-shadow: black 1px 1px 10px;
