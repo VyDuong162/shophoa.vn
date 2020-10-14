@@ -499,3 +499,21 @@ section {
         overflow: scroll;
     }
 }
+
+#load {
+    position: absolute;
+    z-index: 100;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#load div {
+    height: 3em;
+    width: 3em;
+}

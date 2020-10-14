@@ -15,6 +15,12 @@ if (session_id() === '') {
 </head>
 
 <body>
+    <!-- Phần loading trang web -->
+    <div id="load">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
     <div class="container-fluid my-background">
         <!-- form đăng nhập -->
         <form action="" method="post" name="frmDangNhap" id="frmDangNhap">
