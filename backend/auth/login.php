@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop Hoa | Đăng nhập</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="/templateDoAn/vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/templateDoAn/vendor/font-awesome/css/font-awesome.min.css">
+    <?php include_once(__DIR__.'/../layouts/styles.php'); ?>
 </head>
 
 <body>
@@ -132,10 +131,7 @@
         }
         ?>
     </div>
-    <script src="/templateDoAn/vendor/jquery/jquery.js"></script>
-    <script src="/templateDoAn/vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/templateDoAn/vendor/jquery-validation/jquery.validate.min.js"></script>
-    <script src="/templateDoAn/vendor/jquery-validation/localization/messages_vi.min.js"></script>
+    <?php include_once(__DIR__.'/../layouts/scripts.php'); ?>
     <script>
         $(document).ready(function() {
             $('#frmDangNhap').validate({

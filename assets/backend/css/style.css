@@ -1,0 +1,501 @@
+/*Font nghệ thuật*/
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,500,300,700);
+
+/*Hiệu chỉnh CSS*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+/* class dùng để thêm font nghệ thuật vào */
+.myfont {
+    font-family: 'Lobster', cursive;
+}
+
+.linhfont {
+    font-family: 'Mali', cursive;
+}
+
+/* Phần back-ground màu xám cho trang đăng nhập */
+.my-background {
+    height: 100vh;
+    background-color: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Bo tròn button  */
+.my-btn-cir {
+    border-radius: 50px !important;
+}
+
+/* Chỉnh lại vị trí của thông báo */
+.my-alert {
+    position: fixed !important;
+    top: 10px;
+}
+
+/* Chức nãng ẩn hiện password */
+div.show-password {
+    position: absolute;
+    top: 12px;
+    right: 8px;
+    cursor: pointer;
+    background-color: white;
+}
+
+/* Ảnh cho trang đăng nhập */
+#img-dangnhap img {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+/* Hiệu chỉnh form-control */
+.hoa-form-control {
+    border-radius: 50px !important;
+    padding: 1.5rem !important;
+    font-size: 0.8rem !important;
+}
+
+/* button mua hang  */
+.btn-add {
+    border-radius: 0 !important;
+    position: relative;
+    font-size: large !important;
+    padding: 0 !important;
+}
+
+.btn-add::before {
+    position: absolute;
+    content: '';
+    height: 1px;
+    width: 50%;
+    bottom: 0;
+    right: 50%;
+    background: #d12c4f;
+    transition: .5s;
+}
+
+.btn-add::after {
+    position: absolute;
+    content: '';
+    height: 1px;
+    width: 50%;
+    bottom: 0;
+    left: 50%;
+    background: #d12c4f;
+    transition: .5s;
+}
+
+.btn-add:hover::before {
+    width: 0%;
+}
+
+.btn-add:hover::after {
+    width: 0%;
+}
+
+
+/* Hiệu chỉnh lại nav  */
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #d12c4f !important;
+    background-color: white !important;
+}
+
+a.tab {
+    background: #f0f0f0;
+    color: black;
+    font-weight: bold;
+}
+
+a.tab:hover {
+    color: #d12c4f;
+}
+
+/* CSS phần đánh giá */
+
+.danh_gia {
+    transition: .3s;
+    cursor: pointer;
+}
+
+.danh_gia:hover {
+    color: #d12c4f;
+}
+
+
+/* reposive */
+@media only screen and (max-width: 650px) {
+    #img-dangnhap {
+        display: none;
+    }
+}
+
+.my-card {
+    border: none !important;
+}
+
+.my-card-img {
+    border-radius: 0px !important;
+    transition: .5s;
+}
+
+.my-card:hover .my-card-img {
+    box-shadow: 0 0 0px 0.2rem rgba(129, 141, 155, 0.25);
+    border-color: #9ba8b6;
+    padding: 0px;
+}
+
+.my-box-card-img {
+    position: relative;
+}
+
+.img-hide {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+}
+
+.my-box-card-img:hover .img-hide {
+    animation: fade-in .5s;
+    opacity: 1;
+}
+
+.my-box-card-img:hover .img-show {
+    animation: fade-out 1s;
+    opacity: 0;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.my-card-title {
+    color: black;
+}
+
+.my-card-title:hover {
+    color: #d12c4f;
+    text-decoration: none;
+}
+
+.danh_gia {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.hide {
+    display: none !important;
+}
+
+a.my_nav {
+    color: #dc3545 !important;
+    border: 2px solid #dc3545;
+    padding: 2px;
+    margin: 5px 10px;
+}
+
+.dot {
+    position: relative;
+}
+
+.dot::after {
+    position: absolute;
+    content: "";
+    height: 5px;
+    width: 5px;
+    transform: rotate(45deg);
+    background: #9a9da0;
+    right: -10px;
+    top: 18px;
+}
+
+#btn-search {
+    position: absolute !important;
+    top: 6px;
+    right: 9px;
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 20px #4F4F4F, 2px 2px 4px #4F4F4F, 2px 2px 8px #4F4F4F;
+}
+
+section {
+    width: 100%;
+    display: inline-block;
+    background: #333;
+    height: 50vh;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+.footer-distributed {
+    background: #e9e4f0;
+    box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+    width: 100%;
+    text-align: left;
+    padding: 55px 50px;
+}
+
+.footer-distributed .footer-left,
+.footer-distributed .footer-center,
+.footer-distributed .footer-right {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* Footer left */
+
+/* The company logo */
+
+.footer-distributed h3 {
+    color: #1b0e0e;
+    font: normal 36px 'Open Sans', cursive;
+    margin: 0;
+}
+
+.footer-distributed h3 span {
+    color: lightseagreen;
+}
+
+/* Footer links */
+
+.footer-distributed .footer-links {
+    color: #180707;
+    margin: 20px 0 12px;
+    padding: 0;
+}
+
+.footer-distributed .footer-links a {
+    display: inline-block;
+    line-height: 1.8;
+    font-weight: 400;
+    text-decoration: none;
+    color: inherit;
+}
+
+.footer-distributed .footer-company-name {
+    color: #222;
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0;
+}
+
+/* Footer Center */
+
+
+.footer-distributed .footer-center i {
+    background-color: #d12c4f;
+    color: #ffffff;
+    font-size: 25px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 42px;
+    margin: 10px 15px;
+    vertical-align: middle;
+}
+
+.footer-distributed .footer-center i.fa-envelope {
+    font-size: 17px;
+    line-height: 38px;
+}
+
+.footer-distributed .footer-center p {
+    display: inline-block;
+    color: #141313;
+    font-weight: 400;
+    vertical-align: middle;
+    margin: 0;
+
+}
+
+.footer-distributed .footer-center p span {
+    display: block;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 2;
+}
+
+.footer-distributed .footer-center p a {
+    color: lightseagreen;
+    text-decoration: none;
+    ;
+}
+
+.footer-distributed .footer-links a:before {
+    content: "|";
+    font-weight: 300;
+    font-size: 20px;
+    left: 0;
+    color: #fff;
+    display: inline-block;
+    padding-right: 5px;
+}
+
+.footer-distributed .footer-links .link-1:before {
+    content: none;
+}
+
+/* Footer Right */
+
+.footer-distributed .footer-company-about {
+    line-height: 20px;
+    color: #141313;
+    font-size: 13px;
+    font-weight: normal;
+    margin: 0;
+
+}
+
+.footer-distributed .footer-company-about span {
+    display: block;
+    color: #141313;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.footer-distributed .footer-icons {
+    margin-top: 25px;
+}
+
+.footer-distributed .footer-icons a {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    background-color: #33383b;
+    border-radius: 2px;
+
+    font-size: 20px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 35px;
+
+    margin-right: 3px;
+    margin-bottom: 5px;
+}
+
+/* If you don't want the footer to be responsive, remove these media queries */
+
+@media (max-width: 880px) {
+
+    .footer-distributed {
+        font: bold 14px sans-serif;
+    }
+
+    .footer-distributed .footer-left,
+    .footer-distributed .footer-center,
+    .footer-distributed .footer-right {
+        display: block;
+        width: 100%;
+        margin-bottom: 40px;
+    }
+
+    .footer-distributed .footer-center i {
+        margin-left: 0;
+    }
+
+}
+
+#fa-icon {
+    background-color: #4267B2;
+}
+
+#tw-icon {
+    background-color: #1DA1F2;
+}
+
+#in-icon {
+    background: #f09433;
+    background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background: -webkit-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f09433', endColorstr='#bc1888', GradientType=1);
+}
+
+#pi-icon {
+    background-color: #bd081c;
+}
+
+@media (max-width: 411px) {
+    .footer-distributed .footer-center p {
+        display: revert;
+    }
+
+    .footer-distributed .footer-left,
+    .footer-distributed .footer-center,
+    .footer-distributed .footer-right {
+        text-align: center;
+    }
+}
+
+#themsp {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: #2f2f2f9f;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+#themsp #a {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 80%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+
+
+@media (max-height:768px) {
+    #content {
+        height: 70vh;
+        overflow: scroll;
+    }
+}
+
+@media (max-width: 768px) {
+    #themsp #a {
+        width: 80%;
+    }
+
+    #content {
+        height: 70vh;
+        overflow: scroll;
+    }
+}
