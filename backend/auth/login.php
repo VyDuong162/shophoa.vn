@@ -76,7 +76,7 @@ if (session_id() === '') {
                         </div>
                         <hr>
                         <div class="text-center small">
-                            <a href="">Trang chủ</a> | <a href="">About</a> | <a href="">Liên hệ</a>
+                            <a href="/shophoa.vn/frontend/index.php">Trang chủ</a> | <a href="/shophoa.vn/frontend/pages/gioithieu.php">Giới thiệu</a> | <a href="/shophoa.vn/frontend/pages/lienhe.php">Liên hệ</a>
                         </div>
                         <!-- End phần thông tin thêm -->
                     </div>
@@ -141,12 +141,16 @@ if (session_id() === '') {
         <?php endif; ?>
         <?php
         if (isset($_POST['btn_dang_nhap']) && (!isset($erorrs) || count($erorrs) == 0)) {
-            include_once(__DIR__.'/../../dbconnect.php');
-            $sqlSelect =" SELECT * FROM khachhang kh WHERE kh.kh_tendangnhap = '$ten_dang_nhap' AND kh.kh_matkhau = '$mat_khau';";
+            include_once(__DIR__ . '/../../dbconnect.php');
+            $sqlSelect = " SELECT * FROM khachhang kh WHERE kh.kh_tendangnhap = '$ten_dang_nhap' AND kh.kh_matkhau = '$mat_khau';";
             $result = mysqli_query($conn, $sqlSelect);
             if (mysqli_num_rows($result) > 0) {
                 $_SESSION['kh_tendangnhap_logged'] = $ten_dang_nhap;
-                echo '<script>location.href = "/shophoa.vn/backend/index.php";</script>';
+                $_SESSION['kh_tendangnhap_quantri'] = mysqli_fetch_array($result, MYSQLI_ASSOC)['kh_quantri'];
+                if ($_SESSION['kh_tendangnhap_quantri'])
+                    echo '<script>location.href = "/shophoa.vn/backend/dashboard.php";</script>';
+                else
+                    echo '<script>location.href = "/shophoa.vn/frontend/index.php";</script>';
             } else {
         ?>
                 <div id="aler" class="alert alert-danger alert-dismissible fade show my-alert" role="alert">
