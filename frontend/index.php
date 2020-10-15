@@ -108,7 +108,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                     <?php foreach ($dataDanhSachSanPhamMoi as $sp) : ?>
                         <div class="col py-3">
                             <div class="card my-card">
-                                <a href="chitiet.php?sp_id=<?= $sp['sp_id'] ?>">
+                                <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>">
                                     <div class="my-box-card-img">
                                         <!-- Ảnh đại diện -->
                                         <?php if (!file_exists('../assets/shared/img-product/' . $sp['sp_avt_tenfile'])) : ?>
@@ -136,7 +136,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                                     </div>
                                 </a>
                                 <div class="card-body px-0">
-                                    <a href="chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="card-title my-card-title font-weight-bold">
+                                    <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="card-title my-card-title font-weight-bold">
                                         <?= $sp['sp_ten'] ?>
                                     </a>
                                     <h5 class="my-3">
@@ -145,7 +145,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                                             <?php endif; ?>
                                             </span> <span class="text-danger"><?= $sp['sp_gia'] ?> đ</span>
                                     </h5>
-                                    <a href="chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="btn myfont text-danger btn-add btn-mua">Xem chi tiết</a> 
+                                    <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="btn myfont text-danger btn-add btn-mua">Xem chi tiết</a> 
                                 </div>
                             </div>
                         </div>
@@ -176,7 +176,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                     <?php foreach ($dataDanhSachSanPhamYeuThich as $sp) : ?>
                         <div class="col py-3">
                             <div class="card my-card">
-                                <a href="chitiet.php?sp_id=<?= $sp['sp_id'] ?>">
+                                <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>">
                                     <div class="my-box-card-img">
                                         <!-- Ảnh đại diện -->
                                         <?php if (!file_exists('../assets/shared/img-product/' . $sp['sp_avt_tenfile'])) : ?>
@@ -204,7 +204,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                                     </div>
                                 </a>
                                 <div class="card-body px-0">
-                                    <a href="chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="card-title my-card-title font-weight-bold">
+                                    <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="card-title my-card-title font-weight-bold">
                                         <?= $sp['sp_ten'] ?>
                                     </a>
                                     <h5 class="my-3">
@@ -213,7 +213,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                                             <?php endif; ?>
                                             </span> <span class="text-danger"><?= $sp['sp_gia'] ?> đ</span>
                                     </h5>
-                                    <a href="chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="btn myfont text-danger btn-add btn-mua">Xem chi tiết</a>
+                                    <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="btn myfont text-danger btn-add btn-mua">Xem chi tiết</a>
                                 </div>
                             </div>
                         </div>
@@ -245,7 +245,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                     <?php foreach ($dataDanhSachSanPhamGiamGia as $sp) : ?>
                         <div class="col py-3">
                             <div class="card my-card">
-                                <a href="chitiet.php?sp_id=<?= $sp['sp_id'] ?>">
+                                <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>">
                                     <div class="my-box-card-img">
                                         <!-- Ảnh đại diện -->
                                         <?php if (!file_exists('../assets/shared/img-product/' . $sp['sp_avt_tenfile'])) : ?>
@@ -273,7 +273,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                                     </div>
                                 </a>
                                 <div class="card-body px-0">
-                                    <a href="chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="card-title my-card-title font-weight-bold">
+                                    <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="card-title my-card-title font-weight-bold">
                                         <?= $sp['sp_ten'] ?>
                                     </a>
                                     <h5 class="my-3">
@@ -282,7 +282,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                                             <?php endif; ?>
                                             </span> <span class="text-danger"><?= $sp['sp_gia'] ?> đ</span>
                                     </h5>
-                                    <a href="chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="btn myfont text-danger btn-add btn-mua">Xem chi tiết</a>
+                                    <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="btn myfont text-danger btn-add btn-mua">Xem chi tiết</a>
                                 </div>
                             </div>
                         </div>
