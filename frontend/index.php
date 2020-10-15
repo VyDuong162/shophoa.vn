@@ -326,7 +326,7 @@ include_once(__DIR__ . '/../dbconnect.php');
             // render dữ liệu
             function render(dulieu) {
                 $.ajax({
-                    url: '/templatedoan/test-Database/laysanpham.php',
+                    url: '/shophoa.vn/frontend/api/laysanpham.php',
                     method: 'POST',
                     data: dulieu,
                     success: function(response) {
