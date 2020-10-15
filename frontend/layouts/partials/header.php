@@ -92,15 +92,25 @@
                     <a href="/shophoa.vn/frontend/pages/lienhe.php" class="nav-link mx-2 dot">Liên hệ</a>
                 </li>
                 <?php if (isset($_SESSION['kh_tendangnhap_logged'])) : ?>
-                <?php if ($_SESSION['kh_tendangnhap_quantri']) : ?>
+                    <?php if ($_SESSION['kh_tendangnhap_quantri']) : ?>
+                        <li class="nav-item">
+                            <a href="/shophoa.vn/backend/dashboard.php" class="nav-link mx-2 dot">Quản trị</a>
+                        </li>
+                    <?php endif; ?>
+                    <li class="nav-item dropdown mx-2">
+                        <a class="nav-link" href="#" id="chude3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Xin chào <span class="text-danger"><?= $_SESSION['kh_tendangnhap_name'] ?></span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="chude2" id="subchude2">
+                            <a class="dropdown-item" href="">Tài khoản</a>
+                            <a class="dropdown-item" href="/shophoa.vn/backend/auth/logout.php">Đăng xuất</a>
+                        </div>
+                    </li>
+                <?php else : ?>
                     <li class="nav-item">
-                        <a href="/shophoa.vn/backend/dashboard.php" class="nav-link mx-2 dot">Quản trị</a>
+                        <a href="/shophoa.vn/backend/auth/login.php" class="nav-link mx-2">Đăng nhập</a>
                     </li>
                 <?php endif; ?>
-                <?php endif; ?>
-                <li class="nav-item">
-                    <a href="/shophoa.vn/backend/auth/login.php" class="nav-link mx-2">Đăng nhập</a>
-                </li>
             </ul>
 
         </div>
