@@ -312,6 +312,7 @@ else
 
     <?php include_once(__DIR__ . '/../layouts/scripts.php'); ?>
     <script src="/shophoa.vn/assets/vendor/fancybox/jquery.fancybox.min.js"></script>
+    <script src="/shophoa.vn/assets/vendor/sweetalert/sweetalert2.js"></script>
     <script>
         $(document).ready(function() {
             $('#anh_nho a').fancybox();
@@ -337,10 +338,40 @@ else
                     dataType: 'json',
                     data: dulieugui,
                     success: function(data){
-                        console.log(data);
+                        const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        timerProgressBar: false,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Đã thêm vào giỏ hàng'
+                    })
                     },
                     error: function(jqXHR, textStatus, errorThrown){
-                        console.log(textStatus, errorThrown);
+                        const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        timerProgressBar: false,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Không thể xử lý'
+                    })
                     }
                 });
             });
@@ -349,3 +380,4 @@ else
 </body>
 
 </html>
+    

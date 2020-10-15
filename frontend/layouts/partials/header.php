@@ -10,7 +10,16 @@
                 <a href="/shophoa.vn/frontend/thanhtoan/card.php" class="nav-link p-0">
                     <div id="giohang" class="text-white bg-danger btn">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                        <span>0</span>
+                        <?php
+                        $giohangdata = [];
+                        if (isset($_SESSION['giohangdata'])) {
+                            $giohangdata = $_SESSION['giohangdata'];
+                        } else {
+                            $giohangdata = [];
+                        }
+                        echo '<span>'.count($giohangdata).'</span>'
+                        ?>
+                        
                     </div>
                 </a>
             </div>
@@ -40,46 +49,63 @@
                     <a class="nav-link" href="#" id="chude1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Màu hoa
                     </a>
+                    <?php
+                        $sqlMauHoa = "SELECT mh_id, mh_ten FROM mauhoa;";
+                        $resultMauHoa = mysqli_query($conn, $sqlMauHoa);
+                        $dataMauHoa = [];
+                        while ($row = mysqli_fetch_array($resultMauHoa, MYSQLI_ASSOC)) {
+                            $dataMauHoa[] = array(
+                                'mh_id' => $row['mh_id'],
+                                'mh_ten' => $row['mh_ten'],
+                            );
+                        }
+                    ?>
                     <div class="dropdown-menu" aria-labelledby="chude1" id="subchude1">
-                        <a class="dropdown-item" href="phanloai.php?type=mauhoa&amp;id=1">Màu Đỏ</a>
-                        <a class="dropdown-item" href="phanloai.php?type=mauhoa&amp;id=2">Màu Cam</a>
-                        <a class="dropdown-item" href="phanloai.php?type=mauhoa&amp;id=3">Màu Vàng</a>
-                        <a class="dropdown-item" href="phanloai.php?type=mauhoa&amp;id=4">Màu Xanh Lá</a>
-                        <a class="dropdown-item" href="phanloai.php?type=mauhoa&amp;id=5">Màu Xanh Dương</a>
-                        <a class="dropdown-item" href="phanloai.php?type=mauhoa&amp;id=6">Màu Hồng</a>
-                        <a class="dropdown-item" href="phanloai.php?type=mauhoa&amp;id=7">Màu Tím</a>
-                        <a class="dropdown-item" href="phanloai.php?type=mauhoa&amp;id=8">Màu Đen</a>
-                        <a class="dropdown-item" href="phanloai.php?type=mauhoa&amp;id=9">Màu Trắng</a>
+                        <?php foreach ($dataMauHoa as $mh): ?>
+                            <a class="dropdown-item" href="/shophoa.vn/frontend/pages/phanloai.php?type=mauhoa&id=<?=$mh['mh_id']?>"><?=$mh['mh_ten']?></a>
+                        <?php endforeach; ?>
                     </div>
                 </li>
                 <li class="nav-item dropdown mx-2 dot">
                     <a class="nav-link" href="#" id="chude2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Loại hoa
                     </a>
+                    <?php
+                        $sqlLoaiHoa = "SELECT lh_id, lh_ten FROM loaihoa;";
+                        $resultLoaiHoa = mysqli_query($conn, $sqlLoaiHoa);
+                        $dataLoaiHoa = [];
+                        while ($row = mysqli_fetch_array($resultLoaiHoa, MYSQLI_ASSOC)) {
+                            $dataLoaiHoa[] = array(
+                                'lh_id' => $row['lh_id'],
+                                'lh_ten' => $row['lh_ten'],
+                            );
+                        }
+                    ?>
                     <div class="dropdown-menu" aria-labelledby="chude2" id="subchude2">
-                        <a class="dropdown-item" href="phanloai.php?type=loaihoa&amp;id=1">Hoa Hồng</a>
-                        <a class="dropdown-item" href="phanloai.php?type=loaihoa&amp;id=2">Hoa Hướng Dương</a>
-                        <a class="dropdown-item" href="phanloai.php?type=loaihoa&amp;id=3">Hoa Cẩm Chướng</a>
-                        <a class="dropdown-item" href="phanloai.php?type=loaihoa&amp;id=4">Hoa Cẩm Tú Cầu</a>
-                        <a class="dropdown-item" href="phanloai.php?type=loaihoa&amp;id=5">Hoa Baby</a>
-                        <a class="dropdown-item" href="phanloai.php?type=loaihoa&amp;id=6">Hoa Cúc</a>
-                        <a class="dropdown-item" href="phanloai.php?type=loaihoa&amp;id=7">Hoa Cát Tường</a>
-                        <a class="dropdown-item" href="phanloai.php?type=loaihoa&amp;id=8">Hoa Đồng Tiền</a>
-                        <a class="dropdown-item" href="phanloai.php?type=loaihoa&amp;id=9">Hoa Lan</a>
+                        <?php foreach ($dataLoaiHoa as $lh): ?>
+                            <a class="dropdown-item" href="/shophoa.vn/frontend/pages/phanloai.php?type=loaihoa&id=<?=$lh['lh_id']?>"><?=$lh['lh_ten']?></a>
+                        <?php endforeach; ?>
                     </div>
                 </li>
                 <li class="nav-item dropdown mx-2 dot">
                     <a class="nav-link" href="#" id="chude3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Chủ đề
                     </a>
+                    <?php
+                        $sqlChuDe = "SELECT cd_id, cd_ten FROM chude;";
+                        $resultChuDe = mysqli_query($conn, $sqlChuDe);
+                        $dataChuDe = [];
+                        while ($row = mysqli_fetch_array($resultChuDe, MYSQLI_ASSOC)) {
+                            $dataChuDe[] = array(
+                                'cd_id' => $row['cd_id'],
+                                'cd_ten' => $row['cd_ten'],
+                            );
+                        }
+                    ?>
                     <div class="dropdown-menu" aria-labelledby="chude2" id="subchude2">
-                        <a class="dropdown-item" href="phanloai.php?type=chude&amp;id=1">Sinh Nhật</a>
-                        <a class="dropdown-item" href="phanloai.php?type=chude&amp;id=2">Lãng Mạn</a>
-                        <a class="dropdown-item" href="phanloai.php?type=chude&amp;id=3">Hoa Cưới</a>
-                        <a class="dropdown-item" href="phanloai.php?type=chude&amp;id=4">Hoa Chúc Mừng</a>
-                        <a class="dropdown-item" href="phanloai.php?type=chude&amp;id=5">Hoa Xin Lỗi</a>
-                        <a class="dropdown-item" href="phanloai.php?type=chude&amp;id=6">Chúc Sức Khỏe</a>
-                        <a class="dropdown-item" href="phanloai.php?type=chude&amp;id=7">Hoa Khai Trương</a>
+                        <?php foreach ($dataChuDe as $cd): ?>
+                            <a class="dropdown-item" href="/shophoa.vn/frontend/pages/phanloai.php?type=chude&id=<?=$cd['cd_id']?>"><?=$cd['cd_ten']?></a>
+                        <?php endforeach; ?>
                     </div>
                 </li>
                 <li class="nav-item">

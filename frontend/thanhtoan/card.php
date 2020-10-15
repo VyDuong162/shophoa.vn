@@ -61,8 +61,12 @@ include_once(__DIR__ . '/../../dbconnect.php');
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $stt = 1; ?>
+                                <?php 
+                                    $stt = 1; 
+                                    $tongtien = 0;
+                                ?>
                                 <?php foreach ($giohangdata as $sanpham) : ?>
+                                    <?php $tongtien += $sanpham['thanhtien'];?>
                                     <tr>
                                         <td class="align-middle text-center">
                                             <?= $stt++ ?>
@@ -90,7 +94,7 @@ include_once(__DIR__ . '/../../dbconnect.php');
                             <tfoot>
                                 <tr>
                                     <td colspan="5" class="text-right font-weight-bold">Tổng tiền</td>
-                                    <td class="text-right"></td>
+                                    <td class="text-right"><?=number_format($tongtien, 0, ".", ",")?> VNĐ</td>
                                 </tr>
                             </tfoot>
                         </table>
