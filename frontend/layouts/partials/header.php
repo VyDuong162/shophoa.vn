@@ -6,11 +6,11 @@
                     <img src="/shophoa.vn/assets/shared/img/ShopHoa.png" class="img-fluid">
                 </a>
             </div>
-            <div class="col-lg-2 col-md-6 text-center mt-2 order-lg-last text-md-right">
-                <a href="" class="nav-link">
+            <div class="col-lg-2 col-md-6 text-center mt-2 order-lg-last">
+                <a href="" class="nav-link p-0">
                     <div id="giohang" class="text-white bg-danger btn">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                        <span>10</span>
+                        <span>0</span>
                     </div>
                 </a>
             </div>
@@ -83,16 +83,23 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a href="/shophoa.vn/backend/auth/login.php" class="nav-link mx-2 dot">Đăng nhập</a>
-                </li>
-                <li class="nav-item">
                     <a href="/shophoa.vn/frontend/pages/dangky.php" class="nav-link mx-2 dot">Đăng ký</a>
                 </li>
                 <li class="nav-item">
                     <a href="/shophoa.vn/frontend/pages/gioithieu.php" class="nav-link mx-2 dot">Giới thiệu</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/shophoa.vn/frontend/pages/lienhe.php" class="nav-link mx-2">Liên hệ</a>
+                    <a href="/shophoa.vn/frontend/pages/lienhe.php" class="nav-link mx-2 dot">Liên hệ</a>
+                </li>
+                <?php if (isset($_SESSION['kh_tendangnhap_logged'])) : ?>
+                <?php if ($_SESSION['kh_tendangnhap_quantri']) : ?>
+                    <li class="nav-item">
+                        <a href="/shophoa.vn/backend/dashboard.php" class="nav-link mx-2 dot">Quản trị</a>
+                    </li>
+                <?php endif; ?>
+                <?php endif; ?>
+                <li class="nav-item">
+                    <a href="/shophoa.vn/backend/auth/login.php" class="nav-link mx-2">Đăng nhập</a>
                 </li>
             </ul>
 
