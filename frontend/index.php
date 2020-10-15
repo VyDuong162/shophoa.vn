@@ -145,7 +145,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                                             <?php endif; ?>
                                             </span> <span class="text-danger"><?= $sp['sp_gia'] ?> đ</span>
                                     </h5>
-                                    <button class="btn myfont text-danger btn-add btn-mua" data-sp_id="<?= $sp['sp_id'] ?>">Thêm vào giỏ hàng</button>
+                                    <a href="chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="btn myfont text-danger btn-add btn-mua">Xem chi tiết</a> 
                                 </div>
                             </div>
                         </div>
@@ -213,7 +213,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                                             <?php endif; ?>
                                             </span> <span class="text-danger"><?= $sp['sp_gia'] ?> đ</span>
                                     </h5>
-                                    <button class="btn myfont text-danger btn-add btn-mua" data-sp_id="<?= $sp['sp_id'] ?>">Thêm vào giỏ hàng</button>
+                                    <a href="chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="btn myfont text-danger btn-add btn-mua">Xem chi tiết</a>
                                 </div>
                             </div>
                         </div>
@@ -232,6 +232,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                         'sp_id' => $row['sp_id'],
                         'sp_ten' => $row['sp_ten'],
                         'sp_gia' => number_format($row['sp_gia'], 0, ".", ","),
+                        'sp_gia_nf' => $row['sp_gia'],
                         'sp_giacu' => number_format($row['sp_giacu'], 0, ".", ","),
                         'sp_avt_tenfile' => $row['sp_avt_tenfile'],
                         'hsp_tenfile' => $row['hsp_tenfile'],
@@ -281,7 +282,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                                             <?php endif; ?>
                                             </span> <span class="text-danger"><?= $sp['sp_gia'] ?> đ</span>
                                     </h5>
-                                    <button class="btn myfont text-danger btn-add btn-mua" data-sp_id="<?= $sp['sp_id'] ?>">Thêm vào giỏ hàng</button>
+                                    <a href="chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="btn myfont text-danger btn-add btn-mua">Xem chi tiết</a>
                                 </div>
                             </div>
                         </div>
@@ -292,126 +293,10 @@ include_once(__DIR__ . '/../dbconnect.php');
         </div>
     </div>
     <!-- End phần sản phẩm -->
-    <!-- Chức năng thêm sản phẩm tại trang -->
-    <div id="themsp" style="display: none">
-        <div class="shadow-lg p-3" id="a">
-            <div class="row">
-                <div class="col-md-12">
-                    <button type="button" class="close" aria-label="Close" id="btn-themsp">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="col-md-12" id="content">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End chức năng thêm sản phẩm tại trang -->
     <!-- End phần nội dung trang web -->
     <?php include_once(__DIR__ . '/layouts/partials/footer.php'); ?>
 
     <?php include_once(__DIR__ . '/layouts/scripts.php'); ?>
-    <script>
-        $(document).ready(function() {
-            // Hiện chức năng thêm sản phẩm tại trang
-            $('.btn-mua').click(function(e) {
-                e.preventDefault();
-                $('#themsp').show();
-            });
-            // Ẩn chức năng thêm sản phẩm tại trang
-            $('#themsp .close').click(function(e) {
-                e.preventDefault();
-                $('#themsp').hide();
-            });
-            // render dữ liệu
-            function render(dulieu) {
-                $.ajax({
-                    url: '/shophoa.vn/frontend/api/laysanpham.php',
-                    method: 'POST',
-                    data: dulieu,
-                    success: function(response) {
-                        var data = JSON.parse(response);
-                        var gia = '';
-                        if (data.sp_giacu != '0') {
-                            gia = `
-                            <h4><span class="text-secondary"><s>${data.sp_giacu}</s></span> <span class="text-danger">${data.sp_gia} đ</span></h4>
-                            `
-                        } else {
-                            gia = `
-                            <h4><span class="text-danger">${data.sp_gia} đ</span></h4>
-                            `
-                        }
-                        var sao = '';
-                        for (var i = 1; i <= data.sao; i++)
-                            sao += '<i class="fa fa-star" aria-hidden="true"></i>';
-                        for (var i = 1; i <= Math.ceil(data.sao) - Math.floor(data.sao); i++)
-                            sao += '<i class="fa fa-star-half-o" aria-hidden="true"></i>';
-                        for (var i = 1; i <= 5 - Math.ceil(data.sao); i++)
-                            sao += '<i class="fa fa-star-o" aria-hidden="true"></i>';
-                        var htmlString = `
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-12 text-center">
-                                            <img src="/shophoa.vn/assets/shared/img-product/${data.sp_avt_tenfile}" alt="" class="img-fluid my-1 img-thumbnail">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h3 class="myfont">${data.sp_ten}</h3>
-                                            <p>
-                                                <small class="text-secondary">Mã sản phẩm : ${data.sp_id}</small> <br>
-                                                <small class="text-secondary">Trạng thái : Còn hàng</small> <br>
-                                            </p>
-                                            ${gia}
-                                            <hr>
-                                        </div>
-                                        <div class="col-md-12">
-                                        <p>${data.sp_mota_ngan}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <h3 class="myfont">Tùy chọn</h3>
-                                    <form action="" method="post" name="frm_muahang" id="frm_muahang">
-                                        <input type="hidden" name="ma" id="ma" value="ma">
-                                        <div class="form-group">
-                                            <label for="num" class="col-form-label">Số lượng : </label>
-                                            <input type="number" name="num" id="num" min=0 class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <button class="btn myfont text-danger btn-add" id="btn-them">Thêm vào giỏ hàng</button>
-                                        </div>
-                                        <h5 class="text-danger">
-                                            ${sao}
-                                        </h5>
-                                        <div class="form-group">
-                                            <b>${data.sobl} đánh giá</b>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>`
-                        $('#content').html(htmlString);
-                    },
-                    error: function() {
-                        var htmlString = `
-                            <div class="alert alert-danger text-center" role="alert">
-                                Đã xảy ra lỗi.
-                            </div>`
-                        $('#content').html(htmlString);
-                    }
-                });
-            }
-            $('.btn-mua').click(function(e) {
-                e.preventDefault();
-                render({
-                    sp_id: $(this).data('sp_id')
-                });
-            });
-        });
-    </script>
 </body>
 
 </html>

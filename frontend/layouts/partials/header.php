@@ -7,7 +7,7 @@
                 </a>
             </div>
             <div class="col-lg-2 col-md-6 text-center mt-2 order-lg-last">
-                <a href="" class="nav-link p-0">
+                <a href="/shophoa.vn/frontend/thanhtoan/card.php" class="nav-link p-0">
                     <div id="giohang" class="text-white bg-danger btn">
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                         <span>0</span>
