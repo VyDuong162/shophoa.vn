@@ -42,18 +42,28 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                 </div>
 
                 <!-- Block content -->
-
-
-                <!-- Nút thêm mới, bấm vào sẽ hiển thị form nhập thông tin Thêm mới -->
-
-                <form name="frmsanpham" id="frmsanpham" method="post" action="">
-                    <div class="form-group">
-                        <label for="sp_ten">Tên hình thức thanh toán</label>
-                        <input type="text" class="form-control" id="sp_hinhthucthanhtoan" name="sp_hinhthucthanhtoan" placeholder="Hình thức thanh toán" value="">
-                    </div>
-                    <button class="btn btn-primary" name="btnSave">Lưu dữ liệu</button>
-                    <a href="index.php" class="btn btn-info" name="btnBack" id="btnBack">Quay về</a>
-                </form>
+                <form name="frmhinhsanpham" id="frmhinhanpham" method="post" action="" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="sp_ma">Sản phẩm</label>
+                                <select class="form-control" id="sp_ma" name="sp_ma">
+                                <?php foreach ($dataSanPham as $sanpham) : ?>
+                                    <option value="<?= $sanpham['sp_ma'] ?>"><?= $sanpham['sp_tomtat'] ?></option>
+                                <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="hsp_tentaptin">Tập tin ảnh</label>
+                                <!-- Tạo khung div hiển thị ảnh cho người dùng Xem trước khi upload file lên Server -->
+                                <div class="preview-img-container">
+                                <img src="/Pushh/assects/shared/img/default.png" id="preview-img" width="200px" />
+                                </div>
+                                <!-- Input cho phép người dùng chọn FILE -->
+                                <input type="file" class="form-control" id="hsp_tentaptin" name="hsp_tentaptin">
+                            </div>
+                            <button class="btn btn-primary" name="btnSave">Lưu</button>
+                            <a href="index.php" class="btn btn-outline-secondary" name="btnBack" id="btnBack">Quay về</a>
+                        </form>
+                        
                 <!-- End block content -->
             </main>
         </div>

@@ -39,7 +39,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 
             <main role="main" class="col-md-10 ml-sm-auto px-4 mb-2">
                 <div class="text-justify pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="text-justify">Danh sách hình thức thanh toán</h1>
+                    <h1 class="text-justify">Danh sách hình ảnh sản phẩm</h1>
                 </div>
 
                 <!-- Block content -->
@@ -52,87 +52,17 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                 <table id="tbl" class="table table-striped table-hover  table-responsive-sm ">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Mã hoa</th>
-                            <th>Tên hoa</th>
-                            <th>Hình thức thanh toán</th>
+                            <th>Mã hình sản phẩm</th>
+                            <th>Hình ảnh</th>
+                            <th>Sản phẩm</th>
                             <th>Thực thi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
-                            <td>Tiền mặt</td>
-                            <td>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                </a>
-                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
-                            <td>Tiền mặt</td>
-                            <td>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                </a>
-                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
-                            <td>Tiền mặt</td>
-                            <td>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                </a>
-                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
-                            <td>Tiền mặt</td>
-                            <td>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                </a>
-                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
-                            <td>Tiền mặt</td>
-                            <td>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                </a>
-                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
-                            <td>Tiền mặt</td>
+                            <td>001</td>
+                            <td>Hình ảnh</td>
+                            <td>Sản phẩm</td>
                             <td>
                                 <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

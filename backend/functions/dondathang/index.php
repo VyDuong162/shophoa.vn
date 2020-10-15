@@ -15,7 +15,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 
     <!-- Nhúng file Quản lý các Liên kết CSS dùng chung cho toàn bộ trang web -->
     <?php
-    include_once(__DIR__ . '/../../layouts/styles.php');
+        include_once(__DIR__ . '/../../layouts/styles.php');
     ?>
     <!-- DataTable CSS -->
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css">
@@ -24,7 +24,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 
 </head>
 
-<body>
+<body >
     <!-- header -->
     <?php include_once(__DIR__ . '/../../layouts/partials/header.php'); ?>
 
@@ -39,7 +39,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 
             <main role="main" class="col-md-10 ml-sm-auto px-4 mb-2">
                 <div class="text-justify pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="text-justify">Danh sách hình thức thanh toán</h1>
+                    <h1 class="text-justify">Danh sách sản phẩm</h1>
                 </div>
 
                 <!-- Block content -->
@@ -47,102 +47,43 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 
                 <!-- Nút thêm mới, bấm vào sẽ hiển thị form nhập thông tin Thêm mới -->
                 <a href="create.php" class="btn btn-primary ">
-                    Thêm mới hình thức thanh toán
+                    Thêm mới sản phẩm
                 </a>
                 <table id="tbl" class="table table-striped table-hover  table-responsive-sm ">
                     <thead class="thead-dark">
                         <tr>
-                            <th>Mã hoa</th>
-                            <th>Tên hoa</th>
+                            <th>Mã đơn đặt hàng</th>
+                            <th>Tên khách hàng</th>
+                            <th>Ngày lập</th>
+                            <th>Ngày giao</th>
+                            <th>Nơi giao</th>
                             <th>Hình thức thanh toán</th>
+                            <th>Tổng thành tiền</th>
+                            <th>Trạng thái thanh toán</th>
                             <th>Thực thi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
+                            <td>Đỗ Nguyễn Duy Linh</td>
+                            <td>15/10/2020</td>
+                            <td>20/10/2020</td>
+                            <td>Cần Thơ</td>
                             <td>Tiền mặt</td>
+                            <td>7.000.000</td>
+                            <td></td>
                             <td>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
 
                                 </a>
-                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
                                 </a>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
-                            <td>Tiền mặt</td>
-                            <td>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                </a>
-                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
-                            <td>Tiền mặt</td>
-                            <td>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                </a>
-                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
-                            <td>Tiền mặt</td>
-                            <td>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                </a>
-                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
-                            <td>Tiền mặt</td>
-                            <td>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                </a>
-                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
-                            <td>Tiền mặt</td>
-                            <td>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                </a>
-                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa">
-                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
+                       
                     </tbody>
                 </table>
                 <!-- End block content -->
@@ -255,7 +196,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             var dh_ma = $(this).data('dh_ma');
                             var url = "delete.php?dh_ma=" + dh_ma;
                             // Điều hướng qua trang xóa với REQUEST GET, có tham số dh_ma=...
-                            // location.href = url;
+                           // location.href = url;
                         } else { // Nếu không đồng ý xóa
                             swal("Cẩn thận hơn nhé!");
                         }
