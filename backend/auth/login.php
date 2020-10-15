@@ -151,8 +151,10 @@ if (session_id() === '') {
             $sqlSelect = " SELECT * FROM khachhang kh WHERE kh.kh_tendangnhap = '$ten_dang_nhap' AND kh.kh_matkhau = '$mat_khau';";
             $result = mysqli_query($conn, $sqlSelect);
             if (mysqli_num_rows($result) > 0) {
+                $data = mysqli_fetch_array($result, MYSQLI_ASSOC);
                 $_SESSION['kh_tendangnhap_logged'] = $ten_dang_nhap;
-                $_SESSION['kh_tendangnhap_quantri'] = mysqli_fetch_array($result, MYSQLI_ASSOC)['kh_quantri'];
+                $_SESSION['kh_tendangnhap_name'] = $data['kh_hoten'];
+                $_SESSION['kh_tendangnhap_quantri'] = $data['kh_quantri'];
                 if ($_SESSION['kh_tendangnhap_quantri'])
                     echo '<script>location.href = "/shophoa.vn/backend/dashboard.php";</script>';
                 else
