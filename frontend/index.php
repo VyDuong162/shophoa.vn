@@ -53,14 +53,14 @@ include_once(__DIR__ . '/../dbconnect.php');
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="/templatedoan/anh-do-an/km3.jpg" class="d-block w-100" alt="">
+                            <img src="/shophoa.vn/assets/shared/img-km/km3.jpg" class="d-block w-100" alt="">
                             <div class="carousel-caption d-none d-md-block">
                                 <h1 class="text-shadow">Chào mừng đến với SHOPHOA</h1>
                             </div>
                         </div>
                         <?php foreach ($dataKhuyenMai as $km) : ?>
                             <div class="carousel-item">
-                                <img src="/templatedoan/anh-do-an/<?= $km['km_anh'] ?>" class="d-block w-100" alt="<?= $km['km_ten'] ?>">
+                                <img src="/shophoa.vn/assets/shared/img-km/<?= $km['km_anh'] ?>" class="d-block w-100" alt="<?= $km['km_ten'] ?>">
                                 <div class="carousel-caption d-none d-md-block">
                                     <a class="text-white" href="sukien.php?km_id=<?= $km['km_id'] ?>">
                                         <h1 class="text-shadow"><?= $km['km_ten'] ?></h1>
@@ -120,7 +120,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                                         <?php if (!file_exists('../assets/shared/img-product/' . $sp['hsp_tenfile']) || empty($sp['hsp_tenfile'])) : ?>
                                             <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
                                         <?php else : ?>
-                                            <img src="/templatedoan/anh-do-an/<?= $sp['hsp_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
+                                            <img src="/shophoa.vn/assets/shared/img-product/<?= $sp['hsp_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
                                         <?php endif; ?>
                                         <div class="text-danger danh_gia">
                                             <?php for ($i = 1; $i <= floor($sp['sao']); $i++) : ?>
@@ -188,7 +188,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                                         <?php if (!file_exists('../assets/shared/img-product/' . $sp['hsp_tenfile']) || empty($sp['hsp_tenfile'])) : ?>
                                             <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
                                         <?php else : ?>
-                                            <img src="/templatedoan/anh-do-an/<?= $sp['hsp_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
+                                            <img src="/shophoa.vn/assets/shared/img-product/<?= $sp['hsp_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
                                         <?php endif; ?>
                                         <div class="text-danger danh_gia">
                                             <?php for ($i = 1; $i <= floor($sp['sao']); $i++) : ?>
@@ -256,7 +256,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                                         <?php if (!file_exists('../assets/shared/img-product/' . $sp['hsp_tenfile']) || empty($sp['hsp_tenfile'])) : ?>
                                             <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
                                         <?php else : ?>
-                                            <img src="/templatedoan/anh-do-an/<?= $sp['hsp_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
+                                            <img src="/shophoa.vn/assets/shared/img-product/<?= $sp['hsp_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
                                         <?php endif; ?>
                                         <div class="text-danger danh_gia">
                                             <?php for ($i = 1; $i <= floor($sp['sao']); $i++) : ?>
@@ -353,7 +353,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-md-12 text-center">
-                                            <img src="/templatedoan/anh-do-an/${data.sp_avt_tenfile}" alt="" class="img-fluid my-1 img-thumbnail">
+                                            <img src="/shophoa.vn/assets/shared/img-product/${data.sp_avt_tenfile}" alt="" class="img-fluid my-1 img-thumbnail">
                                         </div>
                                     </div>
                                 </div>

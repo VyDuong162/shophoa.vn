@@ -1,5 +1,5 @@
 <?php
-include_once(__DIR__ . '/dbconnect.php');
+include_once(__DIR__ . '/../../dbconnect.php');
 $sp_id = $_POST['sp_id'];
 $sql = <<<EOT
     SELECT sp.sp_id, sp.sp_ten, sp.sp_gia, sp.sp_giacu, sp.sp_mota_ngan, sp.sp_avt_tenfile, hsp.hsp_tenfile AS hsp_tenfile,AVG(bl.bl_sao) AS sao, (
