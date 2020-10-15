@@ -55,35 +55,46 @@ include_once(__DIR__ . '/../../dbconnect.php');
                                     <th class="text-center">
                                         Thành tiền
                                     </th>
+                                    <th class="text-center">
+                                        Actions
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="align-middle text-center">
-                                        1
-                                    </td>
-                                    <td class="align-middle" style="width: 100px;">
-                                        <a href="chitiet.php"><img src="/templateDoAn/imgs/BoHoaCrystalPearlonweb_compact.jpg" height="100px" width="100px" alt="hoa"></a>
-                                    </td>
-                                    <td class="align-middle">
-                                        <a href="chitiet.php" class="text-dark myfont">Bó hoa Crystal Pear</a><br>
-                                        <p>Mô tả sản phẩm</p>
-                                    </td>
-                                    <td class="align-middle text-right">
-                                        130,000 VNĐ
-                                    </td>
-                                    <td class="align-middle">
-                                        <input type="number" name="" id="" value="20" class="form-control">
-                                    </td>
-                                    <td class="align-middle text-right">
-                                        2,600,000 VNĐ
-                                    </td>
-                                </tr>
+                                <?php 
+                                    $stt = 1; 
+                                    $tongtien = 0;
+                                ?>
+                                <?php foreach ($giohangdata as $sanpham) : ?>
+                                    <?php $tongtien += $sanpham['thanhtien'];?>
+                                    <tr>
+                                        <td class="align-middle text-center">
+                                            <?= $stt++ ?>
+                                        </td>
+                                        <td class="align-middle" style="width: 100px;">
+                                            <a href="chitiet.php"><img src="/shophoa.vn/assets/shared/img-product/<?= $sanpham['sp_avt_tenfile'] ?>" height="100px" width="100px" alt="<?= $sanpham['sp_ten'] ?>"></a>
+                                        </td>
+                                        <td class="align-middle">
+                                            <a href="chitiet.php" class="text-dark myfont"><?= $sanpham['sp_ten'] ?></a>
+                                        </td>
+                                        <td class="align-middle text-right">
+                                            <?= number_format($sanpham['sp_gia'], 0, ".", ",") ?> VNĐ
+                                        </td>
+                                        <td class="align-middle">
+                                            <input type="number" name="" id="" value="<?= $sanpham['soluong'] ?>" class="form-control">
+                                        </td>
+                                        <td class="align-middle text-right">
+                                        <?= number_format($sanpham['thanhtien'], 0, ".", ",") ?> VNĐ
+                                        </td>
+                                        <td class="align-middle text-canter">
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <td colspan="5" class="text-right font-weight-bold">Tổng tiền</td>
-                                    <td class="text-right"></td>
+                                    <td class="text-right"><?=number_format($tongtien, 0, ".", ",")?> VNĐ</td>
                                 </tr>
                             </tfoot>
                         </table>

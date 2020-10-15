@@ -58,7 +58,7 @@ else
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Hoa | </title>
+    <title>Shop Hoa | <?=$dataSanPham['sp_ten']?></title>
     <?php include_once(__DIR__ . '/../layouts/styles.php'); ?>
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/fancybox/jquery.fancybox.min.css">
 </head>
@@ -121,13 +121,16 @@ else
                 <hr>
                 <h3 class="myfont">Tùy chọn</h3>
                 <form action="" method="post" name="frm_muahang" id="frm_muahang">
-                    <input type="hidden" name="ma" id="ma" value="ma">
+                    <input type="hidden" name="sp_id" id="sp_id" value="<?= $dataSanPham['sp_id'] ?>">
+                    <input type="hidden" name="sp_ten" id="sp_ten" value="<?= $dataSanPham['sp_ten'] ?>">
+                    <input type="hidden" name="sp_gia" id="sp_gia" value="<?= $dataSanPham['sp_gia'] ?>">
+                    <input type="hidden" name="sp_avt_tenfile" id="sp_avt_tenfile" value="<?= $dataSanPham['sp_avt_tenfile'] ?>">
                     <div class="form-group row">
                         <label for="num" class="col-form-label col-lg-4 col-md-5">Số lượng : </label>
-                        <input type="number" name="num" id="num" min=1 value=1 class="col-lg-8 col-md-7 form-control">
+                        <input type="number" name="soluong" id="soluong" min=1 value=1 class="col-lg-8 col-md-7 form-control">
                     </div>
                     <div class="form-group">
-                        <button class="btn myfont text-danger btn-add">Thêm vào giỏ hàng</button>
+                        <button class="btn myfont text-danger btn-add" name="btn_mua" id="btn_mua">Thêm vào giỏ hàng</button>
                     </div>
                     <h5 class="text-danger">
                         <?php for ($i = 1; $i <= floor($trungBinhDanhGia); $i++) : ?>
@@ -309,6 +312,7 @@ else
 
     <?php include_once(__DIR__ . '/../layouts/scripts.php'); ?>
     <script src="/shophoa.vn/assets/vendor/fancybox/jquery.fancybox.min.js"></script>
+    <script src="/shophoa.vn/assets/vendor/sweetalert/sweetalert2.js"></script>
     <script>
         $(document).ready(function() {
             $('#anh_nho a').fancybox();
@@ -318,8 +322,62 @@ else
                 var a1 = $(this).data('anhnho');
                 t.innerHTML = '<a data-fancybox="gallery" href="' + a1 + '" data-caption="<?= $dataSanPham['sp_ten'] ?>"><img src="' + a1 + '" alt="" class="img-fluid img-background my-1"></a>'
             });
+
+            $('#btn_mua').click(function(event) {
+                event.preventDefault();
+                var dulieugui = {
+                    sp_id: $('#sp_id').val(),
+                    sp_ten: $('#sp_ten').val(),
+                    sp_gia: $('#sp_gia').val(),
+                    sp_avt_tenfile: $('#sp_avt_tenfile').val(),
+                    soluong: $('#soluong').val(),
+                }
+                $.ajax({
+                    url: '/shophoa.vn/frontend/api/giohang_themsanpham.php',
+                    method: 'post',
+                    dataType: 'json',
+                    data: dulieugui,
+                    success: function(data){
+                        const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        timerProgressBar: false,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Đã thêm vào giỏ hàng'
+                    })
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        timerProgressBar: false,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Không thể xử lý'
+                    })
+                    }
+                });
+            });
         });
     </script>
 </body>
 
 </html>
+    
