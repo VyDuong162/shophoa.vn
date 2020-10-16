@@ -189,16 +189,16 @@ if (!isset($_SESSION['page_count'][$sp_id])) {
                                                 <?php endfor; ?>
                                             </small>
                                         </h6>
-                                        <small><?= $bl['kh_bl_ngay'] ?></small>
+                                        <small><?= date("d/m/Y H:i:s",strtotime($bl['kh_bl_ngay'])) ?></small>
                                         <p><?= $bl['kh_bl_noidung'] ?></p>
                                         <hr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                                 <?php if (isset($_SESSION['kh_tendangnhap_logged'])) : ?>
-                                    <form action="" method="post" name="frmDanhGia" id="frmDanhGia" class="mt-2">
+                                    <form action="/shophoa.vn/frontend/pages/addnhanxet.php" method="post" name="frmDanhGia" id="frmDanhGia" class="mt-2">
                                         <textarea class="form-control" name="kh_bl_noidung" id="kh_bl_noidung" placeholder="Nhập đánh giá"></textarea>
                                         <div class="form-group">
-                                        <p class="mt-5">Đánh giá:</p>
+                                            <p class="mt-5">Đánh giá:</p>
                                             <div class="custom-control custom-radio custom-control-inline">
                                                 <input type="radio" id="bl_sao1" name="bl_sao" class="custom-control-input" value="1">
                                                 <label class="custom-control-label" for="bl_sao1">1 sao</label>
@@ -216,12 +216,13 @@ if (!isset($_SESSION['page_count'][$sp_id])) {
                                                 <label class="custom-control-label" for="bl_sao4">4 sao</label>
                                             </div>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="bl_sao5" name="bl_sao" class="custom-control-input" value="5">
+                                                <input type="radio" id="bl_sao5" name="bl_sao" class="custom-control-input" value="5" checked>
                                                 <label class="custom-control-label" for="bl_sao5">5 sao</label>
                                             </div>
                                         </div>
-                                        <input type="hidden" name="sanpham_sp_id" id="sanpham_sp_id" value="<?=$sp_id?>">
-                                        <input type="hidden" name="khachhang_kh_id" id="khachhang_kh_id" value="<?=$_SESSION['kh_tendangnhap_id']?>">
+                                        <input type="hidden" name="sanpham_sp_id" id="sanpham_sp_id" value="<?= $sp_id ?>">
+                                        <input type="hidden" name="khachhang_kh_id" id="khachhang_kh_id" value="<?= $_SESSION['kh_tendangnhap_id'] ?>">
+                                        <button class="btn btn-outline-danger">Đánh giá</button>
                                     </form>
                                 <?php endif; ?>
                             </div>
