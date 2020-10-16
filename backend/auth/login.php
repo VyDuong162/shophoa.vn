@@ -155,6 +155,7 @@ if (session_id() === '') {
                 $_SESSION['kh_tendangnhap_logged'] = $ten_dang_nhap;
                 $_SESSION['kh_tendangnhap_name'] = $data['kh_hoten'];
                 $_SESSION['kh_tendangnhap_quantri'] = $data['kh_quantri'];
+                $_SESSION['kh_tendangnhap_id'] = $data['kh_id'];
                 if ($_SESSION['kh_tendangnhap_quantri'])
                     echo '<script>location.href = "/shophoa.vn/backend/dashboard.php";</script>';
                 else

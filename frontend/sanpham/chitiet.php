@@ -51,6 +51,11 @@ if ($soluong != 0)
     $trungBinhDanhGia = $tong / $soluong;
 else
     $trungBinhDanhGia = 0;
+if (!isset($_SESSION['page_count'][$sp_id])) {
+    $_SESSION['page_count'][$sp_id] = 1;
+    $sqlYeuThich = "UPDATE sanpham SET sp_yeuthich = sp_yeuthich + 1 WHERE sp_id = {$sp_id};";
+    mysqli_query($conn, $sqlYeuThich);
+}
 ?>
 <!DOCTYPE html>
 <html lang="vn">
@@ -58,7 +63,7 @@ else
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Hoa | <?=$dataSanPham['sp_ten']?></title>
+    <title>Shop Hoa | <?= $dataSanPham['sp_ten'] ?></title>
     <?php include_once(__DIR__ . '/../layouts/styles.php'); ?>
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/fancybox/jquery.fancybox.min.css">
 </head>
@@ -189,6 +194,36 @@ else
                                         <hr>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
+                                <?php if (isset($_SESSION['kh_tendangnhap_logged'])) : ?>
+                                    <form action="" method="post" name="frmDanhGia" id="frmDanhGia" class="mt-2">
+                                        <textarea class="form-control" name="kh_bl_noidung" id="kh_bl_noidung" placeholder="Nhập đánh giá"></textarea>
+                                        <div class="form-group">
+                                        <p class="mt-5">Đánh giá:</p>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="bl_sao1" name="bl_sao" class="custom-control-input" value="1">
+                                                <label class="custom-control-label" for="bl_sao1">1 sao</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="bl_sao2" name="bl_sao" class="custom-control-input" value="2">
+                                                <label class="custom-control-label" for="bl_sao2">2 sao</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="bl_sao3" name="bl_sao" class="custom-control-input" value="3">
+                                                <label class="custom-control-label" for="bl_sao3">3 sao</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="bl_sao4" name="bl_sao" class="custom-control-input" value="4">
+                                                <label class="custom-control-label" for="bl_sao4">4 sao</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="bl_sao5" name="bl_sao" class="custom-control-input" value="5">
+                                                <label class="custom-control-label" for="bl_sao5">5 sao</label>
+                                            </div>
+                                        </div>
+                                        <input type="hidden" name="sanpham_sp_id" id="sanpham_sp_id" value="<?=$sp_id?>">
+                                        <input type="hidden" name="khachhang_kh_id" id="khachhang_kh_id" value="<?=$_SESSION['kh_tendangnhap_id']?>">
+                                    </form>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -197,37 +232,70 @@ else
         </div>
         <div class="row mt-5">
             <div class="col-md-12">
-            <?php
-            
-            ?>
+                <?php
+                $sqlSPLienQuan = "SELECT sp.sp_id, sp.sp_ten, sp.sp_gia, sp.sp_giacu, sp.sp_avt_tenfile, hsp.hsp_tenfile AS hsp_tenfile, AVG(bl.bl_sao) AS sao FROM sanpham AS sp LEFT JOIN hinhsanpham AS hsp ON hsp.sanpham_sp_id = sp.sp_id LEFT JOIN binhluan AS bl ON sp.sp_id = bl.sanpham_sp_id JOIN sanpham_has_loaihoa AS lh ON sp.sp_id = lh.sanpham_sp_id WHERE lh.loaihoa_lh_id in ( SELECT a.lh_id FROM loaihoa AS a, sanpham_has_loaihoa AS b WHERE b.sanpham_sp_id = {$sp_id} AND a.lh_id = b.loaihoa_lh_id ) AND sp.sp_id != {$sp_id} GROUP BY sp.sp_id ORDER BY sp.sp_yeuthich DESC LIMIT 0, 4;";
+                $resultSPLienQuan = mysqli_query($conn, $sqlSPLienQuan);
+                $dataSPLienQuan = [];
+                while ($row = mysqli_fetch_array($resultSPLienQuan, MYSQLI_ASSOC)) {
+                    $dataSPLienQuan[] = array(
+                        'sp_id' => $row['sp_id'],
+                        'sp_ten' => $row['sp_ten'],
+                        'sp_gia' => number_format($row['sp_gia'], 0, ".", ","),
+                        'sp_gia_nf' => $row['sp_gia'],
+                        'sp_giacu' => number_format($row['sp_giacu'], 0, ".", ","),
+                        'sp_avt_tenfile' => $row['sp_avt_tenfile'],
+                        'hsp_tenfile' => $row['hsp_tenfile'],
+                        'sao' => $row['sao'] > 0 ? $row['sao'] : 0,
+                    );
+                }
+                ?>
                 <h3 class="text-danger myfont">Sản phẩm liên quan</h3>
                 <div class="row row-cols-md-4 row-cols-2">
-                    <div class="col py-3">
-                        <div class="card my-card">
-                            <a href="chitiet.php">
-                                <div class="my-box-card-img">
-                                    <img src="/templatedoan/imgs/BoHoaCrystalPearlonweb_1024x1024@2x.jpg" alt="" class="card-img-top my-card-img img-show">
-                                    <img src="/templatedoan/imgs/BoHoaCrystalPearl_d764aec2-22bb-4758-a90f-a5ade95d798c_1024x1024@2x.jpg" alt="" class="card-img-top my-card-img img-hide">
-                                    <div class="text-danger danh_gia">
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                        <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                    <?php foreach ($dataSPLienQuan as $sp) : ?>
+                        <div class="col py-3">
+                            <div class="card my-card">
+                                <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>">
+                                    <div class="my-box-card-img">
+                                        <!-- Ảnh đại diện -->
+                                        <?php if (!file_exists('../../assets/shared/img-product/' . $sp['sp_avt_tenfile'])) : ?>
+                                            <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
+                                        <?php else : ?>
+                                            <img src="/shophoa.vn/assets/shared/img-product/<?= $sp['sp_avt_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
+                                        <?php endif; ?>
+                                        <!-- Ảnh thứ 2 -->
+                                        <?php if (!file_exists('../../assets/shared/img-product/' . $sp['hsp_tenfile']) || empty($sp['hsp_tenfile'])) : ?>
+                                            <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
+                                        <?php else : ?>
+                                            <img src="/shophoa.vn/assets/shared/img-product/<?= $sp['hsp_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
+                                        <?php endif; ?>
+                                        <div class="text-danger danh_gia">
+                                            <?php for ($i = 1; $i <= floor($sp['sao']); $i++) : ?>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            <?php endfor; ?>
+                                            <?php for ($i = 1; $i <= ceil($sp['sao']) - floor($sp['sao']); $i++) : ?>
+                                                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                            <?php endfor; ?>
+                                            <?php for ($i = 1; $i <= 5 - ceil($sp['sao']); $i++) : ?>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <?php endfor; ?>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                            <div class="card-body px-0">
-                                <a href="chitiet.php" class="card-title my-card-title font-weight-bold">
-                                    Bó hoa Crystal Pearl
                                 </a>
-                                <h5 class="my-3">
-                                    <span class="text-secondary"><s>150,000 VNĐ</s></span> <span class="text-danger">130,000 VNĐ</span>
-                                </h5>
-                                <button class="btn myfont text-danger btn-add">Thêm vào giỏ hàng</button>
+                                <div class="card-body px-0">
+                                    <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="card-title my-card-title font-weight-bold">
+                                        <?= $sp['sp_ten'] ?>
+                                    </a>
+                                    <h5 class="my-3">
+                                        <?php if ($sp['sp_giacu'] != "0") : ?>
+                                            <span class="text-secondary"><s><?= $sp['sp_giacu'] ?></s>
+                                            <?php endif; ?>
+                                            </span> <span class="text-danger"><?= $sp['sp_gia'] ?> đ</span>
+                                    </h5>
+                                    <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="btn myfont text-danger btn-add btn-mua">Xem chi tiết</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
@@ -262,41 +330,41 @@ else
                     method: 'post',
                     dataType: 'json',
                     data: dulieugui,
-                    success: function(data){
+                    success: function(data) {
                         const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 1500,
-                        timerProgressBar: false,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            timerProgressBar: false,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
 
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'Đã thêm vào giỏ hàng'
-                    })
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Đã thêm vào giỏ hàng'
+                        })
                     },
-                    error: function(jqXHR, textStatus, errorThrown){
+                    error: function(jqXHR, textStatus, errorThrown) {
                         const Toast = Swal.mixin({
-                        toast: true,
-                        position: 'top-end',
-                        showConfirmButton: false,
-                        timer: 1500,
-                        timerProgressBar: false,
-                        didOpen: (toast) => {
-                            toast.addEventListener('mouseenter', Swal.stopTimer)
-                            toast.addEventListener('mouseleave', Swal.resumeTimer)
-                        }
-                    })
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            timerProgressBar: false,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
 
-                    Toast.fire({
-                        icon: 'error',
-                        title: 'Không thể xử lý'
-                    })
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Không thể xử lý'
+                        })
                     }
                 });
             });
@@ -305,4 +373,3 @@ else
 </body>
 
 </html>
-    
