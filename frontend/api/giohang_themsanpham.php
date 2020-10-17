@@ -26,7 +26,7 @@ if (isset($_SESSION['giohangdata'])) {
         'sp_ten' => $sp_ten,
         'soluong' => $soluong,
         'sp_gia' => $sp_gia,
-        'thanhtien' => ($soluong * $gia),
+        'thanhtien' => ($soluong * $sp_gia),
         'sp_avt_tenfile' => $sp_avt_tenfile
     );
 
