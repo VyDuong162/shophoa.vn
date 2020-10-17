@@ -4,7 +4,6 @@ if (session_id() === '') {
 }
 include_once(__DIR__ . '/../../../dbconnect.php');
 ?>
-
 <!DOCTYPE html>
 <html>
 
@@ -143,7 +142,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             // Điều hướng qua trang xóa với REQUEST GET, có tham số dh_ma=...
                             location.href = url;
                         } else { // Nếu không đồng ý xóa
-                            swal("Cẩn thận hơn nhé!");
+                            swal("Hủy xóa thành công!");
                         }
                     });
 

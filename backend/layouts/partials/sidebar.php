@@ -3,7 +3,7 @@
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse ">
     <div class="sidebar-sticky pt-3 position-static">
         <div class="my-2 text-center" id="avatar" style="padding-top:  1rem;">
-            <img src="/templateDoAn/imgs/avatarboy1.jpg" alt="" height="100px">
+            <img src="/shophoa.vn/assets/shared/img/avatar-default.jpg" height="100px">
             <h6 class="m-0 mt-md-3">Trần Văn Hòa</h6>
         </div>
         <ul class="nav flex-column text-md-left text-center">
