@@ -208,9 +208,9 @@ include_once(__DIR__ . '/../../dbconnect.php');
                 <nav aria-label="Page navigation example" class="mx-auto">
                     <ul class="pagination justify-content-center">
                         <?php if ($page <= 1) : ?>
-                            <li class="page-item disabled"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page - 1 ?>#dau">Previous</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page - 1 ?>#dau">Trước</a></li>
                         <?php else : ?>
-                            <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page - 1 ?>#dau">Previous</a></li>
+                            <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page - 1 ?>#dau">Trước</a></li>
                         <?php endif; ?>
                         <?php
                         $num_page = ceil($dataCount / 8);
@@ -282,9 +282,9 @@ include_once(__DIR__ . '/../../dbconnect.php');
                         }
                         ?>
                         <?php if ($page >= $num_page) : ?>
-                            <li class="page-item disabled"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page + 1 ?>#dau">Next</a></li>
+                            <li class="page-item disabled"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page + 1 ?>#dau">Sau</a></li>
                         <?php else : ?>
-                            <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page + 1 ?>#dau">Next</a></li>
+                            <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page + 1 ?>#dau">Sau</a></li>
                         <?php endif; ?>
                     </ul>
                 </nav>
