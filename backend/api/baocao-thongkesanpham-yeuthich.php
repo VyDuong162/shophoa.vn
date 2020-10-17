@@ -14,7 +14,6 @@ EOT;
             'TenSanPham' =>$row['sp_ten'],
             'SoLuong' =>$row['sp_yeuthich']
         );
-        
     }
     echo json_encode($dataSanPhamYeuThich);
 ?>

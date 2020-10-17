@@ -99,10 +99,6 @@
                             <button class="btn btn-warning text-white btn-sm form-control" id="refreshBaoCaoBinhLuan">Refresh dữ liệu</button>
                         </div>  
                         <div class="row ml-1 mr-1">
-                           
-
-                           
-                           
                              <!-- Biểu đồ thống kê loại hoa sản phẩm -->
                              <!-- Bar Chart -->
                             <div class="col-sm-6 col-lg-6 mt-3"  >

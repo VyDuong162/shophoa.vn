@@ -38,5 +38,6 @@
     <?php include_once(__DIR__ . '/../../layouts/partials/footer.php');?>
     <?php include_once(__DIR__.'/../../layouts/scripts.php');?>
     <script src="/shophoa.vn/assets/vendor/Chart.js/Chart.min.js"></script>
+    
 </body>
 </html>
