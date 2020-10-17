@@ -15,7 +15,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 
     <!-- Nhúng file Quản lý các Liên kết CSS dùng chung cho toàn bộ trang web -->
     <?php
-        include_once(__DIR__ . '/../../layouts/styles.php');
+    include_once(__DIR__ . '/../../layouts/styles.php');
     ?>
     <!-- DataTable CSS -->
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css">
@@ -24,7 +24,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 
 </head>
 
-<body >
+<body>
     <!-- header -->
     <?php include_once(__DIR__ . '/../../layouts/partials/header.php'); ?>
 
@@ -37,12 +37,51 @@ include_once(__DIR__ . '/../../../dbconnect.php');
             <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php'); ?>
             <!-- end sidebar -->
 
+
+            <!-- Block content -->
+
             <main role="main" class="col-md-10 ml-sm-auto px-4 mb-2">
                 <div class="text-justify pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="text-justify">Danh sách sản phẩm</h1>
                 </div>
-
-                <!-- Block content -->
+                <?php
+                $sql = <<<EOT
+                     SELECT sp.*
+                     ,lh_ten
+                     ,cd.cd_ten
+                     ,km.km_ten, km.km_noidung, km.km_tungay, km.km_denngay
+                     FROM `sanpham` sp
+                     JOIN `sanpham_has_loaihoa` sphl on sp.sp_id = sphl.sanpham_sp_id
+                     JOIN `loaihoa` lh on sphl.loaihoa_lh_id = lh.lh_id
+                     JOIN `sanpham_has_chude` sphcd ON sp.sp_id = sphcd.sanpham_sp_id
+                     JOIN `chude` cd ON cd.cd_id = sphcd.chude_cd_id
+                     LEFT JOIN `khuyenmai` km ON sp.km=km.km_id
+                     ORDER BY sp.sp_id DESC
+EOT;
+                $data = [];
+                $result = mysqli_query($conn, $sql);
+                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                    $km_tomtat = '';
+                    $km_ten = $row['km_ten'];
+                    if (!empty($km_ten)) {
+                        $km_tomtat = sprintf(
+                            "Khuyến mãi: %s, Nội dung: %s, Từ ngày %s đến %s",
+                            $row['km_ten'],
+                            $row['km_noidung'],
+                            date('d/m/y', strtotime($row['km_tungay'])),
+                            date('d/m/y', strtotime($row['km_tungay']))
+                        );
+                    }
+                    $data[] = array(
+                        'sp_id' => $row['sp_id'],
+                        'sp_ten' => $row['sp_ten'],
+                        'lh_ten' => $row['lh_ten'],
+                        'cd_ten' => $row['cd_ten'],
+                        'sp_gia' => number_format($row['sp_gia'], 2, ".", ",") . ' vnđ',
+                        'km_tomtat' => $km_tomtat,
+                    );
+                }
+                ?>
 
 
 
@@ -56,122 +95,30 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             <th>Mã hoa</th>
                             <th>Tên hoa</th>
                             <th>Loại hoa</th>
+                            <th>Chủ đề</th>
                             <th>Giá hoa</th>
-                            <th>Nhà sản xuất</th>
                             <th>Khuyến mãi</th>
-                            <th>Ngày cập nhật</th>
                             <th>Thực thi</th>
-                        </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
-                            <td>Hoa hồng</td>
-                            <td>50.000</td>
-                            <td>Vườn hoa Đà Lạt</td>
-                            <td>1</td>
-                            <td>29-10-2020</td>
-                            <td>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                </a>
-                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+                        <?php foreach ($data as $sanpham) : ?>
+                            <tr>
+                                <td><?= $sanpham['sp_id'] ?></td>
+                                <td><?= $sanpham['sp_ten'] ?></td>
+                                <td><?= $sanpham['lh_ten'] ?></td>
+                                <td><?= $sanpham['cd_ten'] ?></td>
+                                <td><?= $sanpham['sp_gia'] ?></td>
+                                <td><?= $sanpham['km_tomtat'] ?></td>
+                                <td>
+                                    <a href="edit.php?sp_id=<?= $sanpham['sp_id'];?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </a>
+                                    <button class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa" data-sp_id="<?= $sanpham['sp_id'] ?>">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
-                            <td>Hoa hồng</td>
-                            <td>50.000</td>
-                            <td>Vườn hoa Đà Lạt</td>
-                            <td>1</td>
-                            <td>29-10-2020</td>
-                            <td>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                </a>
-                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
-                            <td>Hoa hồng</td>
-                            <td>50.000</td>
-                            <td>Vườn hoa Đà Lạt</td>
-                            <td>1</td>
-                            <td>29-10-2020</td>
-                            <td>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                </a>
-                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
-                            <td>Hoa hồng</td>
-                            <td>50.000</td>
-                            <td>Vườn hoa Đà Lạt</td>
-                            <td>1</td>
-                            <td>29-10-2020</td>
-                            <td>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                </a>
-                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
-                            <td>Hoa hồng</td>
-                            <td>50.000</td>
-                            <td>Vườn hoa Đà Lạt</td>
-                            <td>1</td>
-                            <td>29-10-2020</td>
-                            <td>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                </a>
-                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Mã 001</td>
-                            <td>Hoa hồng trắng </td>
-                            <td>Hoa hồng</td>
-                            <td>50.000</td>
-                            <td>Vườn hoa Đà Lạt</td>
-                            <td>1</td>
-                            <td>29-10-2020</td>
-                            <td>
-                                <a href="#" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-                                </a>
-                                <a href="#" class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-                            </td>
-                        </tr>
+                                    </button>
+                                </td>
+                            </tr>
+                        <?php endforeach ?>
                     </tbody>
                 </table>
                 <!-- End block content -->
@@ -212,7 +159,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
             // 1. Đăng ký sự kiện click cho các phần tử (element) đang áp dụng class .btnDelete
             $('.btnDelete').click(function() {
                 // Click hanlder
-                // 2. Sử dụng thư viện SweetAlert để hiện cảnh báo khi bấm nút xóa
+                // Hiện cảnh báo khi bấm nút xóa
                 swal({
                         title: "Bạn có chắc chắn muốn xóa?",
                         text: "Một khi đã xóa, không thể phục hồi....",
@@ -221,17 +168,18 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         dangerMode: true,
                     })
                     .then((willDelete) => {
+                        debugger;
                         if (willDelete) { // Nếu đồng ý xóa
 
-                            // 3. Lấy giá trị của thuộc tính (custom attribute HTML) 'dh_ma'
-                            // var dh_ma = $(this).attr('data-dh_ma');
-                            var dh_ma = $(this).data('dh_ma');
-                            var url = "delete.php?dh_ma=" + dh_ma;
+                            // 2. Lấy giá trị của thuộc tính (custom attribute HTML) 'sp_ma'
+                            // var sp_ma = $(this).attr('data-sp_ma');
+                            var sp_id = $(this).data('sp_id');
+                            var url = "delete.php?sp_id=" + sp_id;
 
-                            // Điều hướng qua trang xóa với REQUEST GET, có tham số dh_ma=...
+                            // Điều hướng qua trang xóa với REQUEST GET, có tham số sp_ma=...
                             location.href = url;
-                        } else { // Nếu không đồng ý xóa
-                            swal("Cẩn thận hơn nhé!");
+                        } else {
+                            swal("Cẩn thận hơn !!!");
                         }
                     });
 
@@ -267,29 +215,29 @@ include_once(__DIR__ . '/../../../dbconnect.php');
             $(function() {
                 $('[data-toggle="tooltip"]').tooltip()
             });
-            $('.btnDelete').click(function() {
-                // Click hanlder
-                // 2. Sử dụng thư viện SweetAlert để hiện cảnh báo khi bấm nút xóa
-                swal({
-                        title: "Bạn có chắc chắn muốn xóa?",
-                        text: "Một khi đã xóa, không thể phục hồi....",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) { // Nếu đồng ý xóa
-                            // 3. Lấy giá trị của thuộc tính (custom attribute HTML) 'dh_ma'
-                            // var dh_ma = $(this).attr('data-dh_ma');
-                            var dh_ma = $(this).data('dh_ma');
-                            var url = "delete.php?dh_ma=" + dh_ma;
-                            // Điều hướng qua trang xóa với REQUEST GET, có tham số dh_ma=...
-                           // location.href = url;
-                        } else { // Nếu không đồng ý xóa
-                            swal("Cẩn thận hơn nhé!");
-                        }
-                    });
-            });
+            /*   $('.btnDelete').click(function() {
+                  // Click hanlder
+                  // 2. Sử dụng thư viện SweetAlert để hiện cảnh báo khi bấm nút xóa
+                  swal({
+                          title: "Bạn có chắc chắn muốn xóa?",
+                          text: "Một khi đã xóa, không thể phục hồi....",
+                          icon: "warning",
+                          buttons: true,
+                          dangerMode: true,
+                      })
+                      .then((willDelete) => {
+                          if (willDelete) { // Nếu đồng ý xóa
+                              // 3. Lấy giá trị của thuộc tính (custom attribute HTML) 'dh_ma'
+                              // var dh_ma = $(this).attr('data-dh_ma');
+                              var dh_ma = $(this).data('dh_ma');
+                              var url = "delete.php?dh_ma=" + dh_ma;
+                              // Điều hướng qua trang xóa với REQUEST GET, có tham số dh_ma=...
+                              // location.href = url;
+                          } else { // Nếu không đồng ý xóa
+                              swal("Cẩn thận hơn nhé!");
+                          }
+                      });
+              }); */
         });
     </script>
 
