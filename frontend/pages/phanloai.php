@@ -97,15 +97,15 @@ include_once(__DIR__ . '/../../dbconnect.php');
             if ($type == 'mauhoa') {
                 $sqlCount = "SELECT COUNT(*) as c FROM sanpham_has_mauhoa WHERE mauhoa_mh_id ={$id}";
                 $sql = "SELECT sp.sp_id, sp.sp_ten, sp.sp_gia, sp.sp_giacu, sp.sp_avt_tenfile, hsp.hsp_tenfile AS hsp_tenfile, AVG(bl.bl_sao) AS sao FROM sanpham AS sp LEFT JOIN hinhsanpham AS hsp ON hsp.sanpham_sp_id = sp.sp_id LEFT JOIN binhluan AS bl ON sp.sp_id = bl.sanpham_sp_id JOIN sanpham_has_mauhoa AS spmh ON sp.sp_id = spmh.sanpham_sp_id AND spmh.mauhoa_mh_id = {$id} GROUP BY sp.sp_id LIMIT {$offset}, 8;";
-                $sqlType = "SELECT mh_ten as ten, mh_mota as mota FROM mauhoa WHERE mh_id={$id};";
+                $sqlType = "SELECT mh_ten as ten FROM mauhoa WHERE mh_id={$id};";
             } else if ($type == 'loaihoa') {
                 $sqlCount = "SELECT COUNT(*) as c FROM sanpham_has_loaihoa WHERE loaihoa_lh_id ={$id}";
                 $sql = "SELECT sp.sp_id, sp.sp_ten, sp.sp_gia, sp.sp_giacu, sp.sp_avt_tenfile, hsp.hsp_tenfile AS hsp_tenfile, AVG(bl.bl_sao) AS sao FROM sanpham AS sp LEFT JOIN hinhsanpham AS hsp ON hsp.sanpham_sp_id = sp.sp_id LEFT JOIN binhluan AS bl ON sp.sp_id = bl.sanpham_sp_id JOIN sanpham_has_loaihoa AS splh ON sp.sp_id = splh.sanpham_sp_id AND splh.loaihoa_lh_id = {$id} GROUP BY sp.sp_id LIMIT {$offset}, 8;";
-                $sqlType = "SELECT lh_ten as ten, lh_mota as mota FROM loaihoa WHERE lh_id={$id};";
+                $sqlType = "SELECT lh_ten as ten FROM loaihoa WHERE lh_id={$id};";
             } else if ($type == 'chude') {
                 $sqlCount = "SELECT COUNT(*) as c FROM sanpham_has_chude WHERE chude_cd_id ={$id}";
                 $sql = "SELECT sp.sp_id, sp.sp_ten, sp.sp_gia, sp.sp_giacu, sp.sp_avt_tenfile, hsp.hsp_tenfile AS hsp_tenfile, AVG(bl.bl_sao) AS sao FROM sanpham AS sp LEFT JOIN hinhsanpham AS hsp ON hsp.sanpham_sp_id = sp.sp_id LEFT JOIN binhluan AS bl ON sp.sp_id = bl.sanpham_sp_id JOIN sanpham_has_chude AS spcd ON sp.sp_id = spcd.sanpham_sp_id AND spcd.chude_cd_id = {$id} GROUP BY sp.sp_id LIMIT {$offset}, 8;";
-                $sqlType = "SELECT cd_ten as ten, cd_mota as mota FROM chude WHERE cd_id={$id};";
+                $sqlType = "SELECT cd_ten as ten FROM chude WHERE cd_id={$id};";
             } else if ($type == 'moi') {
                 $sqlCount = "SELECT COUNT(*) as c FROM sanpham;";
                 $sql = "SELECT sp.sp_id, sp.sp_ten, sp.sp_gia, sp.sp_giacu, sp.sp_avt_tenfile, hsp.hsp_tenfile AS hsp_tenfile, AVG(bl.bl_sao) AS sao FROM sanpham AS sp LEFT JOIN hinhsanpham AS hsp ON hsp.sanpham_sp_id = sp.sp_id LEFT JOIN binhluan AS bl ON sp.sp_id = bl.sanpham_sp_id GROUP BY sp.sp_id ORDER BY sp.sp_ngaycapnhat DESC LIMIT {$offset}, 8;";
@@ -113,7 +113,7 @@ include_once(__DIR__ . '/../../dbconnect.php');
                 $sqlCount = "SELECT COUNT(*) as c FROM sanpham;";
                 $sql = "SELECT sp.sp_id, sp.sp_ten, sp.sp_gia, sp.sp_giacu, sp.sp_avt_tenfile, hsp.hsp_tenfile AS hsp_tenfile, AVG(bl.bl_sao) AS sao FROM sanpham AS sp LEFT JOIN hinhsanpham AS hsp ON hsp.sanpham_sp_id = sp.sp_id LEFT JOIN binhluan AS bl ON sp.sp_id = bl.sanpham_sp_id GROUP BY sp.sp_id ORDER BY sp.sp_yeuthich DESC LIMIT {$offset}, 8;";
             } else if ($type == 'giamgia') {
-                $sqlCount = "SELECT COUNT(*) as c FROM sanpham;";
+                $sqlCount = "SELECT COUNT(*) as c FROM sanpham WHERE sp_giacu > 0;";
                 $sql = "SELECT sp.sp_id, sp.sp_ten, sp.sp_gia, sp.sp_giacu, sp.sp_avt_tenfile, hsp.hsp_tenfile AS hsp_tenfile, AVG(bl.bl_sao) AS sao FROM sanpham AS sp LEFT JOIN hinhsanpham AS hsp ON hsp.sanpham_sp_id = sp.sp_id LEFT JOIN binhluan AS bl ON sp.sp_id = bl.sanpham_sp_id WHERE sp.sp_giacu > 0 GROUP BY sp.sp_id ORDER BY (sp.sp_giacu - sp.sp_gia) DESC LIMIT {$offset}, 8;";
             } else {
                 $sqlCount = "SELECT COUNT(*) as c FROM sanpham;";
@@ -136,10 +136,7 @@ include_once(__DIR__ . '/../../dbconnect.php');
             if ($sqlType != '') {
                 $resultType = mysqli_query($conn, $sqlType);
                 while ($row = mysqli_fetch_array($resultType, MYSQLI_ASSOC)) {
-                    $dataType = array(
-                        'ten' => $row['ten'],
-                        'mota' => $row['mota'],
-                    );
+                    $dataType = $row['ten'];
                 }
             } else {
                 if ($type == 'moi')
@@ -157,154 +154,142 @@ include_once(__DIR__ . '/../../dbconnect.php');
                 $dataCount = $row['c'];
             }
             ?>
-            <div class="col-md-3 order-last order-sm-first">
-                <h3 class="myfont text-danger mt-3 text-center">Bán chạy</h3>
-            </div>
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <a name="dau"></a>
-                <div class="row">
-                    <div class="col-md-12">
-                        <?php if (isset($dataType['ten'])) : ?>
-                            <h3 class="myfont text-danger mt-3">Giới thiệu</h3>
-                            <p><?=$dataType['mota']?></p>
-                        <?php endif; ?>
-                    </div>
-                    <div class="col-md-12">
-                        <h3 class="myfont text-danger mt-3 text-center"><?= isset($dataType['ten'])?$dataType['ten']:$dataType ?></h3>
-                        <div class="row row-cols-lg-3 row-cols-sm-3 row-cols-1">
-                            <?php foreach ($dataDanhSachSanPham as $sp) : ?>
-                                <div class="col py-3">
-                                    <div class="card my-card">
-                                        <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>">
-                                            <div class="my-box-card-img">
-                                                <!-- Ảnh đại diện -->
-                                                <?php if (!file_exists('../../assets/shared/img-product/' . $sp['sp_avt_tenfile'])) : ?>
-                                                    <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
-                                                <?php else : ?>
-                                                    <img src="/shophoa.vn/assets/shared/img-product/<?= $sp['sp_avt_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
-                                                <?php endif; ?>
-                                                <!-- Ảnh thứ 2 -->
-                                                <?php if (!file_exists('../../assets/shared/img-product/' . $sp['hsp_tenfile']) || empty($sp['hsp_tenfile'])) : ?>
-                                                    <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
-                                                <?php else : ?>
-                                                    <img src="/shophoa.vn/assets/shared/img-product/<?= $sp['hsp_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
-                                                <?php endif; ?>
-                                                <div class="text-danger danh_gia">
-                                                    <?php for ($i = 1; $i <= floor($sp['sao']); $i++) : ?>
-                                                        <i class="fa fa-star" aria-hidden="true"></i>
-                                                    <?php endfor; ?>
-                                                    <?php for ($i = 1; $i <= ceil($sp['sao']) - floor($sp['sao']); $i++) : ?>
-                                                        <i class="fa fa-star-half-o" aria-hidden="true"></i>
-                                                    <?php endfor; ?>
-                                                    <?php for ($i = 1; $i <= 5 - ceil($sp['sao']); $i++) : ?>
-                                                        <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                    <?php endfor; ?>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <div class="card-body px-0">
-                                            <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="card-title my-card-title font-weight-bold">
-                                                <?= $sp['sp_ten'] ?>
-                                            </a>
-                                            <h5 class="my-3">
-                                                <?php if ($sp['sp_giacu'] != "0") : ?>
-                                                    <span class="text-secondary"><s><?= $sp['sp_giacu'] ?></s>
-                                                    <?php endif; ?>
-                                                    </span> <span class="text-danger"><?= $sp['sp_gia'] ?> đ</span>
-                                            </h5>
-                                            <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="btn myfont text-danger btn-add btn-mua">Xem chi tiết</a>
+                <h3 class="myfont text-danger mt-3 text-center"><?= isset($dataType['ten']) ? $dataType['ten'] : $dataType ?></h3>
+                <div class="row row-cols-lg-4 row-cols-sm-3 row-cols-1">
+                    <?php foreach ($dataDanhSachSanPham as $sp) : ?>
+                        <div class="col py-3">
+                            <div class="card my-card">
+                                <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>">
+                                    <div class="my-box-card-img">
+                                        <!-- Ảnh đại diện -->
+                                        <?php if (!file_exists('../../assets/shared/img-product/' . $sp['sp_avt_tenfile'])) : ?>
+                                            <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
+                                        <?php else : ?>
+                                            <img src="/shophoa.vn/assets/shared/img-product/<?= $sp['sp_avt_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
+                                        <?php endif; ?>
+                                        <!-- Ảnh thứ 2 -->
+                                        <?php if (!file_exists('../../assets/shared/img-product/' . $sp['hsp_tenfile']) || empty($sp['hsp_tenfile'])) : ?>
+                                            <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
+                                        <?php else : ?>
+                                            <img src="/shophoa.vn/assets/shared/img-product/<?= $sp['hsp_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
+                                        <?php endif; ?>
+                                        <div class="text-danger danh_gia">
+                                            <?php for ($i = 1; $i <= floor($sp['sao']); $i++) : ?>
+                                                <i class="fa fa-star" aria-hidden="true"></i>
+                                            <?php endfor; ?>
+                                            <?php for ($i = 1; $i <= ceil($sp['sao']) - floor($sp['sao']); $i++) : ?>
+                                                <i class="fa fa-star-half-o" aria-hidden="true"></i>
+                                            <?php endfor; ?>
+                                            <?php for ($i = 1; $i <= 5 - ceil($sp['sao']); $i++) : ?>
+                                                <i class="fa fa-star-o" aria-hidden="true"></i>
+                                            <?php endfor; ?>
                                         </div>
                                     </div>
+                                </a>
+                                <div class="card-body px-0">
+                                    <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="card-title my-card-title font-weight-bold">
+                                        <?= $sp['sp_ten'] ?>
+                                    </a>
+                                    <h5 class="my-3">
+                                        <?php if ($sp['sp_giacu'] != "0") : ?>
+                                            <span class="text-secondary"><s><?= $sp['sp_giacu'] ?></s>
+                                            <?php endif; ?>
+                                            </span> <span class="text-danger"><?= $sp['sp_gia'] ?> đ</span>
+                                    </h5>
+                                    <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>" class="btn myfont text-danger btn-add btn-mua">Xem chi tiết</a>
                                 </div>
-                            <?php endforeach; ?>
+                            </div>
                         </div>
-                        <!-- Phân trang  -->
-                        <nav aria-label="Page navigation example" class="mx-auto">
-                            <ul class="pagination justify-content-center">
-                                <?php if ($page <= 1) : ?>
-                                    <li class="page-item disabled"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page - 1 ?>#dau">Previous</a></li>
-                                <?php else : ?>
-                                    <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page - 1 ?>#dau">Previous</a></li>
-                                <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+                <!-- Phân trang  -->
+                <nav aria-label="Page navigation example" class="mx-auto">
+                    <ul class="pagination justify-content-center">
+                        <?php if ($page <= 1) : ?>
+                            <li class="page-item disabled"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page - 1 ?>#dau">Previous</a></li>
+                        <?php else : ?>
+                            <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page - 1 ?>#dau">Previous</a></li>
+                        <?php endif; ?>
+                        <?php
+                        $num_page = ceil($dataCount / 8);
+                        if ($num_page <= 4) {
+                            for ($i = 1; $i <= $num_page; $i++) {
+                                if ($i == $page) {
+                        ?>
+                                    <li class="page-item active"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $i ?>#dau"><?= $i ?><span class="sr-only">(current)</span></a></li>
                                 <?php
-                                $num_page = ceil($dataCount / 8);
-                                if ($num_page <= 4) {
-                                    for ($i = 1; $i <= $num_page; $i++) {
-                                        if ($i == $page) {
-                                ?>
-                                            <li class="page-item active"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $i ?>#dau"><?= $i ?><span class="sr-only">(current)</span></a></li>
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $i ?>#dau"><?= $i ?></a></li>
-                                            <?php
-                                        }
-                                    }
                                 } else {
-                                    if ($page < 3) {
-                                        $n = 3 > $num_page ? $num_page : 3;
-                                        for ($i = 1; $i <= $n; $i++) {
-                                            if ($i == $page) {
-                                            ?>
-                                                <li class="page-item active"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $i ?>#dau"><?= $i ?><span class="sr-only">(current)</span></a></li>
-                                            <?php
-                                            } else {
-                                            ?>
-                                                <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $i ?>#dau"><?= $i ?></a></li>
-                                        <?php
-                                            }
-                                        }
-                                        ?>
-                                        <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page + 3 ?>#dau">...</a></li>
+                                ?>
+                                    <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $i ?>#dau"><?= $i ?></a></li>
                                     <?php
-                                    } else if ($num_page - $page + 1 <= 2) {
+                                }
+                            }
+                        } else {
+                            if ($page < 3) {
+                                $n = 3 > $num_page ? $num_page : 3;
+                                for ($i = 1; $i <= $n; $i++) {
+                                    if ($i == $page) {
                                     ?>
-                                        <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $num_page - 3 ?>#dau">...</a></li>
-                                        <?php
-                                        $start = $num_page - 2 > 0 ? $num_page - 2 : 1;
-                                        for ($i = $start; $i <= $num_page; $i++) {
-                                            if ($i == $page) {
-                                        ?>
-                                                <li class="page-item active"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $i ?>#dau"><?= $i ?><span class="sr-only">(current)</span></a></li>
-                                            <?php
-                                            } else {
-                                            ?>
-                                                <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $i ?>#dau"><?= $i ?></a></li>
-                                        <?php
-                                            }
-                                        }
+                                        <li class="page-item active"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $i ?>#dau"><?= $i ?><span class="sr-only">(current)</span></a></li>
+                                    <?php
                                     } else {
-                                        ?>
-                                        <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page - 2 ?>#dau">...</a></li>
-                                        <?php
-                                        $n = $page + 1 > $num_page ? $num_page : $page + 1;
-                                        for ($i = $page - 1; $i <= $n; $i++) {
-                                            if ($i == $page) {
-                                        ?>
-                                                <li class="page-item active"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $i ?>#dau"><?= $i ?><span class="sr-only">(current)</span></a></li>
-                                            <?php
-                                            } else {
-                                            ?>
-                                                <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $i ?>#dau"><?= $i ?></a></li>
-                                        <?php
-                                            }
-                                        }
-                                        ?>
-                                        <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page + 2 ?>#dau">...</a></li>
+                                    ?>
+                                        <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $i ?>#dau"><?= $i ?></a></li>
                                 <?php
                                     }
                                 }
                                 ?>
-                                <?php if ($page >= $num_page) : ?>
-                                    <li class="page-item disabled"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page + 1 ?>#dau">Next</a></li>
-                                <?php else : ?>
-                                    <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page + 1 ?>#dau">Next</a></li>
-                                <?php endif; ?>
-                            </ul>
-                        </nav>
-                        <!-- End phân trang  -->
-                    </div>
-                </div>
+                                <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page + 3 ?>#dau">...</a></li>
+                            <?php
+                            } else if ($num_page - $page + 1 <= 2) {
+                            ?>
+                                <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $num_page - 3 ?>#dau">...</a></li>
+                                <?php
+                                $start = $num_page - 2 > 0 ? $num_page - 2 : 1;
+                                for ($i = $start; $i <= $num_page; $i++) {
+                                    if ($i == $page) {
+                                ?>
+                                        <li class="page-item active"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $i ?>#dau"><?= $i ?><span class="sr-only">(current)</span></a></li>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $i ?>#dau"><?= $i ?></a></li>
+                                <?php
+                                    }
+                                }
+                            } else {
+                                ?>
+                                <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page - 2 ?>#dau">...</a></li>
+                                <?php
+                                $n = $page + 1 > $num_page ? $num_page : $page + 1;
+                                for ($i = $page - 1; $i <= $n; $i++) {
+                                    if ($i == $page) {
+                                ?>
+                                        <li class="page-item active"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $i ?>#dau"><?= $i ?><span class="sr-only">(current)</span></a></li>
+                                    <?php
+                                    } else {
+                                    ?>
+                                        <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $i ?>#dau"><?= $i ?></a></li>
+                                <?php
+                                    }
+                                }
+                                ?>
+                                <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page + 2 ?>#dau">...</a></li>
+                        <?php
+                            }
+                        }
+                        ?>
+                        <?php if ($page >= $num_page) : ?>
+                            <li class="page-item disabled"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page + 1 ?>#dau">Next</a></li>
+                        <?php else : ?>
+                            <li class="page-item"><a class="page-link" href="phanloai.php?type=<?= $type ?>&id=<?= $id ?>&page=<?= $page + 1 ?>#dau">Next</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </nav>
+                <!-- End phân trang  -->
+
             </div>
         </div>
     </div>

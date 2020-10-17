@@ -115,7 +115,7 @@
                     <a href="/shophoa.vn/frontend/pages/gioithieu.php" class="nav-link mx-2 dot">Giới thiệu</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/shophoa.vn/frontend/pages/lienhe.php" class="nav-link mx-2 dot">Liên hệ</a>
+                    <a href="/shophoa.vn/frontend/pages/contact.php" class="nav-link mx-2 dot">Liên hệ</a>
                 </li>
                 <?php if (isset($_SESSION['kh_tendangnhap_logged'])) : ?>
                     <?php if ($_SESSION['kh_tendangnhap_quantri']) : ?>

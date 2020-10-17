@@ -72,10 +72,10 @@ include_once(__DIR__ . '/../../dbconnect.php');
                                             <?= $stt++ ?>
                                         </td>
                                         <td class="align-middle" style="width: 100px;">
-                                            <a href="chitiet.php"><img src="/shophoa.vn/assets/shared/img-product/<?= $sanpham['sp_avt_tenfile'] ?>" height="100px" width="100px" alt="<?= $sanpham['sp_ten'] ?>"></a>
+                                            <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sanpham['sp_id'] ?>"><img src="/shophoa.vn/assets/shared/img-product/<?= $sanpham['sp_avt_tenfile'] ?>" height="100px" width="100px" alt="<?= $sanpham['sp_ten'] ?>"></a>
                                         </td>
                                         <td class="align-middle">
-                                            <a href="chitiet.php" class="text-dark myfont"><?= $sanpham['sp_ten'] ?></a>
+                                            <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sanpham['sp_id'] ?>" class="text-dark myfont"><?= $sanpham['sp_ten'] ?></a>
                                         </td>
                                         <td class="align-middle text-right">
                                             <?= number_format($sanpham['sp_gia'], 0, ".", ",") ?> VNĐ
@@ -95,6 +95,7 @@ include_once(__DIR__ . '/../../dbconnect.php');
                                 <tr>
                                     <td colspan="5" class="text-right font-weight-bold">Tổng tiền</td>
                                     <td class="text-right"><?=number_format($tongtien, 0, ".", ",")?> VNĐ</td>
+                                    <td></td>
                                 </tr>
                             </tfoot>
                         </table>

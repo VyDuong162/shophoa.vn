@@ -224,7 +224,9 @@ if (session_id() === '') {
             $('#frm_dang_ky').validate({
                 rules: {
                     ten: {
-                        required: true
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
                     },
                     ngaysinh: {
                         required: true,
@@ -234,15 +236,22 @@ if (session_id() === '') {
                     },
                     dienthoai: {
                         required: true,
+                        min:0,
+                        minlength: 10,
+                        maxlength: 10,
                     },
                     diachi: {
                         required: true,
                     },
                     tendangnhap: {
                         required: true,
+                        minlength: 3,
+                        maxlength: 50,
                     },
                     matkhau: {
                         required: true,
+                        minlength: 3,
+                        maxlength: 50,
                     },
                     nhaplaimatkhau: {
                         required: true,
@@ -250,7 +259,35 @@ if (session_id() === '') {
                     },
                 },
                 messages: {
+                    ten: {
+                        required: "Bạn phải nhập họ tên",
+                        minlength: "Bạn phải nhập họ tên tối thiểu 3 ký tự",
+                        maxlength: "Bạn chỉ được nhập họ tên tối đa 50 ký tự",
+                    },
+                    ngaysinh: {
+                        required: "Bạn phải nhập ngày sinh",
+                    },
+                    dienthoai: {
+                        required: "Bạn phải nhập số điện thoại",
+                        min:"Bạn phải nhập đúng định dạng số điện thoại",
+                        minlength: "Số điện thoại phải có ít nhất 10 chữ số",
+                        maxlength: "Số điện thoại chỉ có tối đa 10 chữ số",
+                    },
+                    diachi: {
+                        required: "Bạn phải nhập địa chỉ",
+                    },
+                    tendangnhap: {
+                        required: "Bạn phải nhập tên đăng nhập",
+                        minlength: "Tên đăng nhập phải có tối thiểu 3 ký tự",
+                        maxlength: "Tên đăng nhập chỉ chứ tối đa 50 ký tự",
+                    },
+                    matkhau: {
+                        required: "Bạn phải tạo 1 mật khẩu",
+                        minlength: "Mật khẩu của bạn quá ngắn tối thiểu phải có 3 ký tự",
+                        maxlength: "Mật khẩu của bạn quá dài tối đa chỉ chứa 50 ký tự",
+                    },
                     nhaplaimatkhau: {
+                        required: "Bạn phải nhập vào đây",
                         equalTo: 'Mật khẩu không khớp'
                     },
                 },
