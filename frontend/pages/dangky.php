@@ -1,7 +1,7 @@
 <?php
 if (session_id() === '') {
     session_start();
-    include_once(__DIR__.'/../../dbconnect.php');
+    include_once(__DIR__ . '/../../dbconnect.php');
 }
 ?>
 <!DOCTYPE html>
@@ -66,6 +66,12 @@ if (session_id() === '') {
                                         </div>
                                     </div>
                                 </fieldset>
+                            </div>
+                        </div>
+                        <div class="form-group row d-flex align-items-end">
+                            <input type="file" name="kh_avt_tenfile" id="kh_avt_tenfile" class="form-control hoa-form-control col-sm-10">
+                            <div class="preview-img-container col-sm-2">
+                                <img src="/shophoa.vn/assets/shared/img/avatar-default.jpg" id="preview-img" class=" img-fluid" />
                             </div>
                         </div>
                     </fieldset>
@@ -139,6 +145,22 @@ if (session_id() === '') {
                             'value' => $ten,
                             'mes' => 'Họ và tên không được bỏ trống',
                         );
+                    } else {
+                        if (strlen($ten) < 3) {
+                            $errors['ten'][] = array(
+                                'rule' => 'minlength',
+                                'rule_value' => 3,
+                                'value' => $ten,
+                                'mes' => 'Bạn phải nhập họ tên tối thiểu 3 ký tự'
+                            );
+                        } else if (strlen($ten) > 50) {
+                            $errors['ten'][] = array(
+                                'rule' => 'maxlength',
+                                'rule_value' => 50,
+                                'value' => $ten,
+                                'mes' => 'Bạn chỉ được nhập họ tên tối đa 50 ký tự'
+                            );
+                        }
                     }
                     if (empty($ngaysinh)) {
                         $errors['ngaysinh'][] = array(
@@ -155,6 +177,29 @@ if (session_id() === '') {
                             'value' => $dienthoai,
                             'mes' => 'Số điện thoại không được bỏ trống',
                         );
+                    } else {
+                        if (!is_numeric($dienthoai)) {
+                            $errors['dienthoai'][] = array(
+                                'rule' => 'number',
+                                'rule_value' => true,
+                                'value' => $dienthoai,
+                                'mes' => 'Bạn phải nhập đúng định dạng số điện thoại',
+                            );
+                        } else if (strlen($dienthoai) < 10) {
+                            $errors['dienthoai'][] = array(
+                                'rule' => 'minlength',
+                                'rule_value' => 3,
+                                'value' => $dienthoai,
+                                'mes' => 'Số điện thoại phải có ít nhất 10 chữ số',
+                            );
+                        } else if (strlen($dienthoai) > 10) {
+                            $errors['dienthoai'][] = array(
+                                'rule' => 'maxlength',
+                                'rule_value' => 3,
+                                'value' => $dienthoai,
+                                'mes' => 'Số điện thoại chỉ có tối đa 10 chữ số',
+                            );
+                        }
                     }
                     if (empty($diachi)) {
                         $errors['diachi'][] = array(
@@ -171,6 +216,22 @@ if (session_id() === '') {
                             'value' => $tendangnhap,
                             'mes' => 'Tên đăng nhập không được bỏ trống',
                         );
+                    } else {
+                        if (strlen($tendangnhap) < 3) {
+                            $errors['tendangnhap'][] = array(
+                                'rule' => 'minlength',
+                                'rule_value' => 3,
+                                'value' => $tendangnhap,
+                                'mes' => 'Tên đăng nhập phải có tối thiểu 3 ký tựg',
+                            );
+                        } else if (strlen($tendangnhap) > 50) {
+                            $errors['tendangnhap'][] = array(
+                                'rule' => 'maxlength',
+                                'rule_value' => 50,
+                                'value' => $tendangnhap,
+                                'mes' => 'Tên đăng nhập chỉ chứ tối đa 50 ký tự',
+                            );
+                        }
                     }
                     if (empty($matkhau)) {
                         $errors['matkhau'][] = array(
@@ -179,6 +240,22 @@ if (session_id() === '') {
                             'value' => $matkhau,
                             'mes' => 'Mật khẩu không được bỏ trống',
                         );
+                    } else {
+                        if (strlen($matkhau) < 3) {
+                            $errors['matkhau'][] = array(
+                                'rule' => 'minlength',
+                                'rule_value' => 3,
+                                'value' => $matkhau,
+                                'mes' => 'Mật khẩu phải có tối thiểu 3 ký tự',
+                            );
+                        } else if (strlen($matkhau) > 50) {
+                            $errors['matkhau'][] = array(
+                                'rule' => 'maxlength',
+                                'rule_value' => 50,
+                                'value' => $matkhau,
+                                'mes' => 'Mật khẩu chỉ chứ tối đa 50 ký tự',
+                            );
+                        }
                     }
                     if (empty($nhaplaimatkhau)) {
                         $errors['nhaplaimatkhau'][] = array(
@@ -236,7 +313,7 @@ if (session_id() === '') {
                     },
                     dienthoai: {
                         required: true,
-                        min:0,
+                        min: 0,
                         minlength: 10,
                         maxlength: 10,
                     },
@@ -269,7 +346,7 @@ if (session_id() === '') {
                     },
                     dienthoai: {
                         required: "Bạn phải nhập số điện thoại",
-                        min:"Bạn phải nhập đúng định dạng số điện thoại",
+                        min: "Bạn phải nhập đúng định dạng số điện thoại",
                         minlength: "Số điện thoại phải có ít nhất 10 chữ số",
                         maxlength: "Số điện thoại chỉ có tối đa 10 chữ số",
                     },
@@ -333,6 +410,16 @@ if (session_id() === '') {
                 }
             });
         });
+        const reader = new FileReader();
+        const fileInput = document.getElementById("kh_avt_tenfile");
+        const img = document.getElementById("preview-img");
+        reader.onload = e => {
+            img.src = e.target.result;
+        }
+        fileInput.addEventListener('change', e => {
+            const f = e.target.files[0];
+            reader.readAsDataURL(f);
+        })
     </script>
 </body>
 
