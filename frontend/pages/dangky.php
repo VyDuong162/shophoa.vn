@@ -34,7 +34,7 @@ if (session_id() === '') {
         <div class="row">
             <div class="col-md-12 shadow-lg my-md-5 my-sm-1 px-0" style="border-radius: 5px;">
                 <h1 class="myfont text-center py-5" style="border-radius: 5px 5px 0 0;">Đăng ký tài khoản</h1>
-                <form action="" method="post" id="frm_dang_ky" name="frm_dang_ky" class="px-5">
+                <form action="" method="post" id="frm_dang_ky" name="frm_dang_ky" enctype="multipart/form-data" class="px-5">
                     <fieldset class="mt-md-5 mt-sm-0">
                         <legend class="myfont mb-0">Phần thông tin cơ bản</legend>
                         <hr class="mt-0">
@@ -132,7 +132,7 @@ if (session_id() === '') {
                     $ten = htmlentities($_POST['ten']);
                     $ngaysinh = $_POST['ngaysinh'];
                     $gioitinh = $_POST['gioitinh'];
-                    $email = empty($_POST['email']) ? 'NULL' : $_POST['email'];
+                    $email = empty($_POST['email']) ? '' : $_POST['email'];
                     $dienthoai = htmlentities($_POST['dienthoai']);
                     $diachi = htmlentities($_POST['diachi']);
                     $tendangnhap = htmlentities($_POST['tendangnhap']);
@@ -274,6 +274,19 @@ if (session_id() === '') {
                             );
                         }
                     }
+                    if (isset($_FILES['kh_avt_tenfile'])) {
+                        $upload_dir = __DIR__ . "/../../assets/uploads/";
+                        $subdir = 'avatar/';
+                        if ($_FILES['kh_avt_tenfile']['error'] > 0) {
+                            $kh_avt_tenfile = '';
+                        } else {
+                            $kh_avt_tenfile = $_FILES['kh_avt_tenfile']['name'];
+                            $tentaptin = date('YmdHis') . '_' . $kh_avt_tenfile;
+                            move_uploaded_file($_FILES['kh_avt_tenfile']['tmp_name'], $upload_dir . $subdir . $tentaptin);
+                        }
+                    } else {
+                        $kh_avt_tenfile = '';
+                    }
                 }
                 ?>
                 <h1 class="py-5 m-0" style="border-radius: 0 0 5px 5px;"></h1>
@@ -290,6 +303,12 @@ if (session_id() === '') {
                     </button>
                 </div>
             <?php endif; ?>
+            <?php
+            if (isset($_POST['btn_dangky']) && !(isset($errors) && count($errors) > 0)){
+                $sqlDangky = "INSERT INTO khachhang (kh_hoten, kh_tendangnhap, kh_matkhau, kh_gioitinh, kh_ngaysinh, kh_sodienthoai, kh_email, kh_diachi, kh_avt_tenfile, kh_trangthai, kh_quantri) VALUES (N'$ten', '$tendangnhap', '$matkhau', $gioitinh, '$ngaysinh', '$dienthoai', '$email', '$diachi', '$kh_avt_tenfile', 1, 0)";
+                mysqli_query($conn, $sqlDangky);
+            }
+            ?>
         </div>
     </div>
     <?php include_once(__DIR__ . '/../layouts/partials/footer.php'); ?>
