@@ -14,7 +14,7 @@
             <div class="col-md-3 position-static">
                 <?php include_once(__DIR__ . '/layouts/partials/sidebar.php');?>
             </div>
-          <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <div class="row" style="padding-right: inherit;padding-left: inherit;">
                     <div class="col-6">
                         <h1 class="h3 text-gray-800 mt-3 mb-3" >Dashboard</h1>

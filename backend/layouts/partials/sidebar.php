@@ -1,19 +1,17 @@
-
-  
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse ">
     <div class="sidebar-sticky pt-3 position-static">
         <div class="my-2 text-center" id="avatar" style="padding-top:  1rem;">
-            <img src="/shophoa.vn/assets/shared/img/avatar-default.jpg" height="100px">
+            <img src="/shophoa.vn/assets/shared/img/avatar-default.jpg" alt="" height="100px">
             <h6 class="m-0 mt-md-3">Trần Văn Hòa</h6>
         </div>
         <ul class="nav flex-column text-md-left text-center">
             <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <a class="nav-link active" href="/templateDoAn/template-dashbroad/indexcopy.php">
                     <i class="fa fa-tachometer" aria-hidden="true"></i>
                     Dashboard
                 </a>
             </li>
-            <hr style="border: 0.5px solid red; width: 80%;">
+            <hr class="ml-3" style="border: 0.5px solid red; width: 80%;">
             <li class="nav-item">
                 <a class="nav-link" href="#khachhang" data-toggle="collapse" aria-expanded="false" >
                     <i class="fa fa-users" aria-hidden="true"></i>
@@ -21,13 +19,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/shophoa.vn/backend/functions/dondathang/index.php">
+                <a class="nav-link" href="#dondathang"  >
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     Đơn đặt hàng
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/shophoa.vn/backend/functions/sanpham/index.php"  >
+                <a class="nav-link " href="/templateDoAn/functions/sanpham/index.php"  >
                 <i class="fa fa-cubes" aria-hidden="true"></i>
                     Sản phẩm
                 </a>
@@ -39,7 +37,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/shophoa.vn/backend/functions/hinhsanpham/index.php"  >
+                <a class="nav-link " href="#hinhsanpham"  >
                 <i class="fa fa-picture-o" aria-hidden="true"></i>
                     Hình sản phẩm
                 </a>
@@ -57,7 +55,7 @@
                 </a>
             </li> 
             <li class="nav-item">
-                <a class="nav-link " href="/shophoa.vn/backend/functions/hinhthucthanhtoan/index.php"  >
+                <a class="nav-link " href="#hinhthucthanhtoan"  >
                 <i class="fa fa-credit-card" aria-hidden="true"></i>
                     Hình thức thanh toán
                 </a>
@@ -68,7 +66,7 @@
                     Khuyến mãi
                 </a>
             </li>
-            <hr style="border: 0.5px solid red; width: 80%;">
+            <hr class="ml-3" style="border: 0.5px solid red; width: 80%;">
             <li class="nav-item">
                 <a class="nav-link collapsed dropdown-toggle" href="#baocaoapi" data-toggle="collapse" aria-expanded="false">
                     <i class="fa fa-book" aria-hidden="true"></i>
