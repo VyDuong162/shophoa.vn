@@ -18,7 +18,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
     ?>
     <!-- DataTable CSS -->
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css">
-    <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/Buttons-1.6.3/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/Buttons/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 </head>

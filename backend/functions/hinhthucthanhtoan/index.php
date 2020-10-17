@@ -19,7 +19,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
     ?>
     <!-- DataTable CSS -->
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css">
-    <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/Buttons-1.6.3/css/buttons.bootstrap4.min.css">
+    <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/Buttons/css/buttons.bootstrap4.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 </head>
@@ -164,7 +164,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
     <script src="/shophoa.vn/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/DataTables/datatables.min.js"></script>
-    <script src="/shophoa.vn/assets/vendor/DataTables/Buttons-1.6.3/js/buttons.bootstrap4.min.js"></script>
+    <script src="/shophoa.vn/assets/vendor/DataTables/Buttons/js/buttons.bootstrap4.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/DataTables/pdfmake-0.1.36/pdfmake.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/DataTables/pdfmake-0.1.36/vfs_fonts.js"></script>
     <script src="/shophoa.vn/assets/vendor/sweetalert/sweetalert.min.js"></script>

@@ -12,6 +12,11 @@ if (session_id() === '') {
     <title>Shop Hoa | Đăng nhập</title>
     <link rel="stylesheet" href="style.css">
     <?php include_once(__DIR__ . '/../layouts/styles.php'); ?>
+    <style>
+        *{
+            font-size: 1rem;
+        }
+    </style>
 </head>
 
 <body>

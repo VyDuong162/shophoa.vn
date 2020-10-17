@@ -95,7 +95,7 @@ if (!isset($_SESSION['page_count'][$sp_id])) {
                             </a>
                         </div>
                         <div class="col-md-3 order-md-first" id="anh_nho">
-                            <div class="row row-cols-md-1 row-cols-sm-3">
+                            <div class="row row-cols-md-1 row-cols-sm-4 row-cols-3">
                                 <?php foreach ($dataHinhSanPham as $anh) : ?>
                                     <div class="col anh" data-anhnho="/shophoa.vn/assets/shared/img-product/<?= $anh['hsp_tenfile'] ?>">
                                         <img src="/shophoa.vn/assets/shared/img-product/<?= $anh['hsp_tenfile'] ?>" alt="<?= $dataSanPham['sp_ten'] ?>" class="img-fluid my-1">
