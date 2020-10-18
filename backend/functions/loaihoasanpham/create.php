@@ -38,11 +38,16 @@
                             <div class="col-md-12 text-center">
                                 <h1 id="frmtitle"class="h3 mb-0 text-gray-800 mb-3 shadow">Thêm mới loại hoa</h1>
                             </div>
-                        
                             <div class="col-md-12">
                                 <div class="form-group">
                                 <label for="lh_ten">Tên loại hoa</label>
                                 <input type="text" class="form-control" id="lh_ten" name="lh_ten" placeholder="Tên loại hoa" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                <label for="lh_mota">Mô tả loại hoa</label>
+                                <input type="text" class="form-control" id="lh_mota" name="lh_mota" placeholder="Mô tả loại hoa" value="<?=$dataLoaiHoa['lh_ten']?>">
                                 </div>
                             </div>
                             <div class="col-md-12 text-center mb-5">
@@ -54,8 +59,9 @@
                 <?php
                     if(isset($_POST['btnsave'])){
                         $lh_ten =$_POST['lh_ten'];
+                        $lh_mota =$_POST['lh_mota'];
                         // Câu lệnh INSERT
-                        $sql = "INSERT INTO `loaihoa` (lh_ten) VALUES ('$lh_ten');";
+                        $sql = "INSERT INTO `loaihoa` (lh_ten,lh_mota) VALUES ('$lh_ten','$lh_mota');";
                         // print_r($sql); die;
                         // Thực thi INSERT
                         //var_dump($sql);die;

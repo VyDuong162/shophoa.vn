@@ -3,7 +3,7 @@
     $id=$_GET['idxoa'];
     
     $sql =<<<EOT
-    DELETE FROM hinhthucthanhtoan WHERE httt_id=$id
+    DELETE FROM loaihoa WHERE lh_id=$id
 EOT;
     mysqli_query($conn, $sql);
     mysqli_close($conn);
