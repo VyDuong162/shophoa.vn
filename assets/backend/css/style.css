@@ -618,5 +618,15 @@ a.navbar-brand {
         width: 390px!important;
     }
   }
-  
+ /*css-khuyen mai*/
+.row a button#btndanhsach{
+    text-align: right!important;
+}
+table .odd{
+    background:#ddd9d9;
+}
+form #frmtitle{
+    background: rgb(199, 202, 199); 
+    width: initial;
+}
 /*-css - bootrap - */
