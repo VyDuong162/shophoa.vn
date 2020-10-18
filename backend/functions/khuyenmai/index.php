@@ -87,6 +87,30 @@
                 dom: 'Blfrtip',
                 buttons: [
                     'copy', 'excel', 'pdf'
+                ],              
+            });
+            $('.btnDelete').click(function() {
+                swal({
+                        title: "Bạn có chắn chắn xóa không?",
+                        text: "Không thể phục hồi dữ liệu khi xóa!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            var km_id = $(this).data('idxoa');
+                            var url = 'delete.php?idxoa=' + km_id;
+                            location.href = url;
+                        } else {
+                            swal("Hủy xóa thành công!");
+                        }
+                    });
+            });
+            var table = $('#tblDanhSach').DataTable({
+                dom: "<'row'<'col-md-12 text-center'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-sm-12'tr>><'row'<'col-md-6'i><'col-md-6'p>>",
+                buttons: [
+                    'copy', 'excel', 'pdf'
                 ],
                 language: {
                     "sProcessing": "Đang xử lý...",
@@ -110,26 +134,6 @@
                         "pdf": "Xuất ra file PDF",
                     }
                 }
-
-
-            });
-            $('.btnDelete').click(function() {
-                swal({
-                        title: "Bạn có chắn chắn xóa không?",
-                        text: "Không thể phục hồi dữ liệu khi xóa!",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            var km_id = $(this).data('idxoa');
-                            var url = 'delete.php?idxoa=' + km_id;
-                            location.href = url;
-                        } else {
-                            swal("Hủy xóa thành công!");
-                        }
-                    });
             });
         });
     </script>
