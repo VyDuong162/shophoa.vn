@@ -16,6 +16,7 @@
                             $giohangdata = $_SESSION['giohangdata'];
                         } else {
                             $giohangdata = [];
+                            
                         }
                         echo '<span>'.count($giohangdata).'</span>'
                         ?>
