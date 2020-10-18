@@ -45,7 +45,7 @@
                     <form name="frmthemmoi" id="frmthemmoi" action="" method="post" enctype="multipart/form-data">
                         <div class="row mb-10">
                             <div class="col-md-12 text-center">
-                                <h1 class="h3 mb-0 text-gray-800 mb-3">Thêm khuyến mãi</h1>
+                                <h1 id="frmtitle"class="h3 mb-0 text-gray-800 mb-3 shadow">Thêm khuyến mãi</h1>
                             </div>
                         
                             <div class="col-md-12">

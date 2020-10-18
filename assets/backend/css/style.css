@@ -625,4 +625,8 @@ a.navbar-brand {
 table .odd{
     background:#ddd9d9;
 }
+form #frmtitle{
+    background: rgb(199, 202, 199); 
+    width: initial;
+}
 /*-css - bootrap - */
