@@ -618,5 +618,11 @@ a.navbar-brand {
         width: 390px!important;
     }
   }
-  
+ /*css-khuyen mai*/
+.row a button#btndanhsach{
+    display: block!important;
+}
+table .odd{
+    background:#ddd9d9;
+}
 /*-css - bootrap - */

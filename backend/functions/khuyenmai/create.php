@@ -6,7 +6,10 @@
     <title>Thêm khuyến mãi</title>
     <?php include_once(__DIR__.'/../../layouts/styles.php');?>
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css"/> 
-    <link rel="stylesheet" href="\shophoa.vn\assets\vendor\DataTables\DataTables\css\dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css" type="text/css">
+    <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/DataTables/css/dataTables.bootstrap4.min.css" type="text/css">
+    <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/Buttons/css/buttons.bootstrap4.min.css" type="text/css">
+    
 </head>
 <body>
     <?php include_once(__DIR__ . '/../../layouts/partials/header.php');?> 
@@ -16,7 +19,6 @@
                 <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php');?>
             </div>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                <h1 class="h3 mb-0 text-gray-800 mt-3 mb-3">Thêm khuyến mãi</h1>
                 <?php
                     include_once(__DIR__.'/../../../dbconnect.php');
                     $sql="SELECT km_id,km_ten,km_noidung,km_tungay,km_denngay,km_anh FROM khuyenmai";
@@ -33,73 +35,135 @@
                         );
                     }
                 ?>
-                 <a href="create.php"><button type="button" class="btn btn-primary">Thêm mới</button></a> <br><br>
-                <table id="tblDanhSach" class="table mx-auto table-bordered ">
-                    <thead class="thead-dark">
-                        <tr class="text-center">
-                            <th>Mã khuyến mãi</th>
-                            <th>Tên khuyến mãi</th>
-                            <th>Nội dung</th>
-                            <th>Ngày bắt đầu</th>
-                            <th>Ngày kết thúc</th>
-                            <th>Ảnh khuyến mãi</th>
-                            <th>Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($dataKhuyenMai as $km) : ?>
-                            <tr>
-                                <td><?= $km['km_id']; ?></td>
-                                <td><?= $km['km_ten']; ?></td>
-                                <td><?= $km['km_noidung']; ?></td>
-                                <td><?= $km['km_tungay']; ?></td>
-                                <td><?= $km['km_denngay']; ?></td>
-                                <td><?= $km['km_anh']; ?></td>
-                                <td><a href="edit.php?idupdate=<?php echo $km['km_id']; ?>" class=" btn btn-success"> SỬA</a>
-                                    <button class="btn btn-danger btnDelete" data-idxoa=<?php echo $km['km_id']; ?>>XÓA</button>
-                                </td>   
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+               
+                <div class="container-fluid"> 
+                    <div class="row ">
+                        <div class="col-md-12 text-right mt-5">
+                             <a href="/index.php"><button type="button" id="btndanhsach" class="btn btn-primary">Danh sách</button></a> <br><br>
+                        </div>
+                    </div>
+                    <form name="frmthemmoi" id="frmthemmoi" action="" method="post" enctype="multipart/form-data">
+                        <div class="row mb-10">
+                            <div class="col-md-12 text-center">
+                                <h1 class="h3 mb-0 text-gray-800 mb-3">Thêm khuyến mãi</h1>
+                            </div>
+                        
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                <label for="km_ten">Tên khuyến mãi</label>
+                                <input type="text" class="form-control" id="km_ten" name="km_ten" placeholder="Tên khuyến mãi" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="km_tungay">Ngày bắt đầu</label>
+                                    <input type="date" class="form-control" id="km_tungay" name="km_tungay" placeholder="Ngày bắt đầu" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="km_denngay">Ngày kết thúc</label>
+                                    <input type="date" class="form-control" id="km_denngay" name="km_denngay" placeholder="Ngày kết thúc" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="km_anh">Ảnh khuyến mãi</label>
+                                    <div class="preview-img-container">
+                                        <img src="/shophoa.vn/assets/shared/img/default.png" id="preview-img" width="200px" />
+                                    </div>
+                                    <input type="file" class="form-control" id="km_anh" name="km_anh" placeholder="Ảnh khuyến mãi" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="km_noidung">Nội dung khuyến mãi</label>
+                                    <textarea type="text" name="km_noidung" id="km_noidung" cols="30" rows="10"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-center mb-5">
+                                <button class="btn btn-success" name="btnsave" id="btnsave" type="submit">Lưu dữ liệu</button>
+                            </div>
+                        </div>
+                    </form>
+                </div> 
+                
+                <?php
+                    if(isset($_POST['btnsave'])){
+                        $km_ten =$_POST['km_ten'];
+                        $km_tungay =$_POST['km_tungay'];
+                        $km_denngay =$_POST['km_denngay'];
+                        $km_noidung =$_POST['km_noidung']; 
+                        
+                        if(isset($_FILES['km_anh'])){
+                            $upload_dir = __DIR__."/../../../assets/uploads/";
+                            $subdir = 'products/';
+                            // Đối với mỗi file, sẽ có các thuộc tính như sau:
+                            // $_FILES['hsp_tentaptin']['name']     : Tên của file chúng ta upload
+                            // $_FILES['hsp_tentaptin']['type']     : Kiểu file mà chúng ta upload (hình ảnh, word, excel, pdf, txt, ...)
+                            // $_FILES['hsp_tentaptin']['tmp_name'] : Đường dẫn đến file tạm trên web server
+                            // $_FILES['hsp_tentaptin']['error']    : Trạng thái của file chúng ta upload, 0 => không có lỗi
+                            // $_FILES['hsp_tentaptin']['size']     : Kích thước của file chúng ta upload
+                            // 3.1. Chuyển file từ thư mục tạm vào thư mục Uploads
+                            // Nếu file upload bị lỗi, tức là thuộc tính error > 0
+                            //Lấy phần mở rộng của file (jpg, png, ...)
+                            if ($_FILES['km_anh']['error'] > 0) {
+                                echo 'File Upload Bị Lỗi'; die;
+                                }
+                                elseif($_FILES['km_anh']['size']>800000){
+                                    echo 'Kích thước File Upload không cho phép'; die;
+                                }
+                                    elseif(!($_FILES['km_anh']['type']='jpg'||$_FILES['km_anh']['type']='png'||$_FILES['km_anh']['type']='jpge')){
+                                        echo 'Chỉ cho phép File Upload là JPG hoặc PNG và JPEG'; die;
+                                    }
+                                        else{
+                                            $km_anh = $_FILES['km_anh']['name'];
+                                            $tentaptin = date('YmdHis') . '_' . $km_anh; //20200530154922_hoahong.jpg
+
+                                            move_uploaded_file($_FILES['km_anh']['tmp_name'], $upload_dir . $subdir . $tentaptin);
+                            
+                                        }
+                            
+                            // 3.2. Lưu thông tin file upload vào database
+                            // Câu lệnh INSERT
+                            $sql = "INSERT INTO `khuyenmai` (km_ten,km_tungay,km_denngay,km_noidung,km_anh) VALUES ('$km_ten','$km_tungay','$km_denngay','$km_noidung','$tentaptin');";
+                            // print_r($sql); die;
+                            // Thực thi INSERT
+                            //var_dump($sql);die;
+                            mysqli_query($conn, $sql);
+                            //Đóng kết nối
+                            mysqli_close($conn);  
+                            echo '<script>location.href = "index.php";</script>';  
+                        }   
+                    } 
+                ?>
             </main>
         </div>
     </div>
     <?php include_once(__DIR__ . '/../../layouts/partials/footer.php');?>
     <?php include_once(__DIR__.'/../../layouts/scripts.php');?>
     <script src="/shophoa.vn/assets/vendor/DataTables/datatables.min.js"></script>
-    <script src="/shophoa.vn/assets/vendor/DataTables/Buttons-1.6.3/js/buttons.bootstrap4.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/DataTables/pdfmake-0.1.36/pdfmake.min.js"></script>
+    <script src="/shophoa.vn/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/sweetalert/sweetalert.min.js"></script>
+    <script src="/shophoa.vn/assets/vendor/DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/shophoa.vn/assets/vendor/ckeditor/ckeditor.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#tblDanhSach').DataTable({
-                dom: 'Blfrtip',
-                buttons: [
-                    'copy', 'excel', 'pdf'
-                ]
-            });
-            $('.btnDelete').click(function() {
-                swal({
-                        title: "Bạn có chắn chắn xóa không?",
-                        text: "Không thể phục hồi dữ liệu khi xóa!",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            var sp_ma = $(this).data('idxoa');
-                            var url = 'delete.php?idxoa=' + km_id;
-                            location.href = url;
-                        } else {
-                            swal("Hủy xóa thành công!");
-                        }
-                    });
-            });
-
-
-        });
+        CKEDITOR.replace('km_noidung');
     </script>
+    <script>
+    // Hiển thị ảnh preview (xem trước) khi người dùng chọn Ảnh
+    const reader = new FileReader();
+    const fileInput = document.getElementById("km_anh");
+    const img = document.getElementById("preview-img");
+    reader.onload = e => {
+      img.src = e.target.result;
+    }
+    fileInput.addEventListener('change', e => {
+      const f = e.target.files[0];
+      reader.readAsDataURL(f);
+    })
+  </script>                        
+   
 </body>
 </html>
