@@ -17,13 +17,14 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
                     include_once(__DIR__.'/../../../dbconnect.php');
-                    $sql="SELECT lh_id,lh_ten FROM loaihoa";
+                    $id=$_GET['idupdate'];
+                    $sql="SELECT mh_id,mh_ten FROM mauhoa WHERE mh_id=$id";
                     $result=mysqli_query($conn,$sql);
-                    $dataLoaiHoa = [];
+                    $dataMauHoa = [];
                     while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                        $dataLoaiHoa[] = array(
-                            'lh_id' => $row['lh_id'],
-                            'lh_ten' => $row['lh_ten']
+                        $dataMauHoa= array(
+                            'mh_id' => $row['mh_id'],
+                            'mh_ten' => $row['mh_ten']
                         );
                     }
                 ?>
@@ -36,18 +37,13 @@
                     <form name="frmthemmoi" id="frmthemmoi" action="" method="post" enctype="multipart/form-data">
                         <div class="row mb-10">
                             <div class="col-md-12 text-center">
-                                <h1 id="frmtitle"class="h2 mb-0 text-gray-800 mb-3 shadow">Thêm mới loại hoa</h1>
+                                <h1 id="frmtitle"class="h2 mb-0 text-gray-800 mb-3 shadow">Sửa đổi màu hoa</h1>
                             </div>
-                            <div class="col-md-12">
+                        
+                            <div class="col-md-12 mb-3">
                                 <div class="form-group">
-                                <label for="lh_ten">Tên loại hoa</label>
-                                <input type="text" class="form-control" id="lh_ten" name="lh_ten" placeholder="Tên loại hoa" value="">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                <label for="lh_mota">Mô tả loại hoa</label>
-                                <textarea id="lh_mota"class="form-control" name="lh_mota" cols="30" rows="10" placeholder="Mô tả loại hoa" value="<?=$dataLoaiHoa['lh_ten']?>"></textarea>
+                                <label for="mh_ten">Tên màu hoa</label>
+                                <input type="text" class="form-control" id="mh_ten" name="mh_ten" placeholder="Tên màu hoa" value="<?=$dataMauHoa['mh_ten']?>">
                                 </div>
                             </div>
                             <div class="col-md-12 text-center mb-5">
@@ -58,12 +54,10 @@
                 </div> 
                 <?php
                     if(isset($_POST['btnsave'])){
-                        $lh_ten =$_POST['lh_ten'];
-                        $lh_mota =$_POST['lh_mota'];
-                        // Câu lệnh INSERT
-                        $sql = "INSERT INTO `loaihoa` (lh_ten,lh_mota) VALUES ('$lh_ten','$lh_mota');";
+                        $mh_ten =$_POST['mh_ten'];
+                        // Câu lệnh UPDATE
+                        $sql = "UPDATE `mauhoa` SET mh_ten = '$mh_ten' WHERE mh_id='$id' ;";
                         // print_r($sql); die;
-                        // Thực thi INSERT
                         //var_dump($sql);die;
                         mysqli_query($conn, $sql);
                         //Đóng kết nối

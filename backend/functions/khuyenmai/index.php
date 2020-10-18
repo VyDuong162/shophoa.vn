@@ -67,7 +67,7 @@
                                             <td><?= $km['km_tungay']; ?></td>
                                             <td><?= $km['km_denngay']; ?></td>
                                             <td><img src="/shophoa.vn/assets/uploads/products/<?= $km['km_anh'] ?>" class="img-fluid" width="100px" /></td>
-                                            <td>
+                                            <td class="text-center">
                                                 <a href="edit.php?idupdate=<?php echo $km['km_id']; ?>" class="btn btn-success">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a>

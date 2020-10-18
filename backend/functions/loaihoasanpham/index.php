@@ -20,13 +20,14 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
                     include_once(__DIR__.'/../../../dbconnect.php');
-                    $sql="SELECT lh_id,lh_ten FROM loaihoa";
+                    $sql="SELECT lh_id,lh_ten,lh_mota FROM loaihoa";
                     $result=mysqli_query($conn,$sql);
                     $dataLoaiHoa = [];
                     while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
                         $dataLoaiHoa[] = array(
                             'lh_id' => $row['lh_id'],
-                            'lh_ten' => $row['lh_ten']
+                            'lh_ten' => $row['lh_ten'],
+                            'lh_mota' => $row['lh_mota']
                         );
                     }
                 ?>
@@ -46,6 +47,7 @@
                                     <tr class="text-center">
                                         <th>Mã loại hoa</th>
                                         <th>tên loại hoa</th>
+                                        <th>Mô tả loại hoa</th>
                                         <th>Hành động</th>
                                     </tr>
                                 </thead>
@@ -54,7 +56,8 @@
                                         <tr>
                                             <td><?= $lh['lh_id']; ?></td>
                                             <td><?= $lh['lh_ten']; ?></td>
-                                            <td>
+                                            <td><?= $lh['lh_mota'];?></td>
+                                            <td class="text-center">
                                                 <a href="edit.php?idupdate=<?php echo $lh['lh_id']; ?>" class="btn btn-success">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>

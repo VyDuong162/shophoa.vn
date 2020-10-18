@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hình thức thanh toán</title>
+    <title>Màu hoa sản phẩm</title>
     <?php include_once(__DIR__.'/../../layouts/styles.php');?>
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css"/> 
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css" type="text/css">
@@ -20,13 +20,13 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
                     include_once(__DIR__.'/../../../dbconnect.php');
-                    $sql="SELECT httt_id,httt_ten FROM hinhthucthanhtoan";
+                    $sql="SELECT mh_id,mh_ten FROM mauhoa";
                     $result=mysqli_query($conn,$sql);
-                    $dataHinhThucThanhToan = [];
+                    $dataMauHoa = [];
                     while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                        $dataHinhThucThanhToan[] = array(
-                            'httt_id' => $row['httt_id'],
-                            'httt_ten' => $row['httt_ten']
+                        $dataMauHoa[] = array(
+                            'mh_id' => $row['mh_id'],
+                            'mh_ten' => $row['mh_ten']
                         );
                     }
                 ?>
@@ -37,28 +37,30 @@
                 </div>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                            <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách hình thức thanh toán</h1>
+                            <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách màu hoa</h1>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="tblDanhSach" class="table mx-auto table-bordered ">
                                 <thead class="thead-dark">
                                     <tr class="text-center">
-                                        <th>Mã hình thức thanh toán</th>
-                                        <th>tên hình thức thanh toán</th>
+                                        <th>Mã màu hoa</th>
+                                        <th>Tên màu hoa</th>
+                                        
                                         <th>Hành động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($dataHinhThucThanhToan as $httt) : ?>
+                                    <?php foreach ($dataMauHoa as $lh) : ?>
                                         <tr>
-                                            <td><?= $httt['httt_id']; ?></td>
-                                            <td><?= $httt['httt_ten']; ?></td>
+                                            <td><?= $lh['mh_id']; ?></td>
+                                            <td><?= $lh['mh_ten']; ?></td>
+                                           
                                             <td class="text-center">
-                                                <a href="edit.php?idupdate=<?php echo $httt['httt_id']; ?>" class="btn btn-success">
+                                                <a href="edit.php?idupdate=<?php echo $lh['mh_id']; ?>" class="btn btn-success">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $httt['httt_id']; ?>>
+                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $lh['mh_id']; ?>>
                                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                                             </a>
                                             </td>   
@@ -119,8 +121,8 @@
                     })
                     .then((willDelete) => {
                         if (willDelete) {
-                            var httt_id = $(this).data('idxoa');
-                            var url = 'delete.php?idxoa=' + httt_id;
+                            var mh_id = $(this).data('idxoa');
+                            var url = 'delete.php?idxoa=' + mh_id;
                             location.href = url;
                         } else {
                             swal("Hủy xóa thành công!");
@@ -131,8 +133,8 @@
     </script>
     <script>
         $(document).ready(function(e){
-            <?php foreach ($dataHinhThucThanhToan as $htttid) : ?>
-                if (<?= $htttid['httt_id']?>%2!=0) {
+            <?php foreach ($dataMauHoa as $mhid) : ?>
+                if (<?= $mhid['mh_id']?>%2!=0) {
                     $('table tr:odd').addClass('odd');
                 }
             <?php endforeach;?>

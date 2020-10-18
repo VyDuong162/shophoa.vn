@@ -30,14 +30,14 @@
                 ?>
                 <div class="container-fluid"> 
                     <div class="row ">
-                        <div class="col-md-12 text-right mt-5">
+                        <div class="col-md-12 text-right mt-3">
                              <a href="index.php"><button type="button" id="btndanhsach" class="btn btn-primary">Danh sách</button></a> <br><br>
                         </div>
                     </div>
                     <form name="frmthemmoi" id="frmthemmoi" action="" method="post" enctype="multipart/form-data">
                         <div class="row mb-10">
                             <div class="col-md-12 text-center">
-                                <h1 id="frmtitle"class="h3 mb-0 text-gray-800 mb-3 shadow">Sửa đổi loại hoa</h1>
+                                <h1 id="frmtitle"class="h2 mb-0 text-gray-800 mb-3 shadow">Sửa đổi loại hoa</h1>
                             </div>
                         
                             <div class="col-md-12">
