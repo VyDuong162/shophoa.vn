@@ -111,16 +111,16 @@ include_once(__DIR__ . '/../dbconnect.php');
                                 <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>">
                                     <div class="my-box-card-img">
                                         <!-- Ảnh đại diện -->
-                                        <?php if (!file_exists('../assets/shared/img-product/' . $sp['sp_avt_tenfile'])) : ?>
+                                        <?php if (!file_exists('../assets/uploads/img-product/' . $sp['sp_avt_tenfile'])) : ?>
                                             <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
                                         <?php else : ?>
-                                            <img src="/shophoa.vn/assets/shared/img-product/<?= $sp['sp_avt_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
+                                            <img src="/shophoa.vn/assets/uploads/img-product/<?= $sp['sp_avt_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
                                         <?php endif; ?>
                                         <!-- Ảnh thứ 2 -->
-                                        <?php if (!file_exists('../assets/shared/img-product/' . $sp['hsp_tenfile']) || empty($sp['hsp_tenfile'])) : ?>
+                                        <?php if (!file_exists('../assets/uploads/img-product/' . $sp['hsp_tenfile']) || empty($sp['hsp_tenfile'])) : ?>
                                             <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
                                         <?php else : ?>
-                                            <img src="/shophoa.vn/assets/shared/img-product/<?= $sp['hsp_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
+                                            <img src="/shophoa.vn/assets/uploads/img-product/<?= $sp['hsp_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
                                         <?php endif; ?>
                                         <div class="text-danger danh_gia">
                                             <?php for ($i = 1; $i <= floor($sp['sao']); $i++) : ?>
@@ -179,16 +179,16 @@ include_once(__DIR__ . '/../dbconnect.php');
                                 <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>">
                                     <div class="my-box-card-img">
                                         <!-- Ảnh đại diện -->
-                                        <?php if (!file_exists('../assets/shared/img-product/' . $sp['sp_avt_tenfile'])) : ?>
+                                        <?php if (!file_exists('../assets/uploads/img-product/' . $sp['sp_avt_tenfile'])) : ?>
                                             <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
                                         <?php else : ?>
-                                            <img src="/shophoa.vn/assets/shared/img-product/<?= $sp['sp_avt_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
+                                            <img src="/shophoa.vn/assets/uploads/img-product/<?= $sp['sp_avt_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
                                         <?php endif; ?>
                                         <!-- Ảnh thứ 2 -->
-                                        <?php if (!file_exists('../assets/shared/img-product/' . $sp['hsp_tenfile']) || empty($sp['hsp_tenfile'])) : ?>
+                                        <?php if (!file_exists('../assets/uploads/img-product/' . $sp['hsp_tenfile']) || empty($sp['hsp_tenfile'])) : ?>
                                             <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
                                         <?php else : ?>
-                                            <img src="/shophoa.vn/assets/shared/img-product/<?= $sp['hsp_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
+                                            <img src="/shophoa.vn/assets/uploads/img-product/<?= $sp['hsp_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
                                         <?php endif; ?>
                                         <div class="text-danger danh_gia">
                                             <?php for ($i = 1; $i <= floor($sp['sao']); $i++) : ?>
@@ -248,16 +248,16 @@ include_once(__DIR__ . '/../dbconnect.php');
                                 <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>">
                                     <div class="my-box-card-img">
                                         <!-- Ảnh đại diện -->
-                                        <?php if (!file_exists('../assets/shared/img-product/' . $sp['sp_avt_tenfile'])) : ?>
+                                        <?php if (!file_exists('../assets/uploads/img-product/' . $sp['sp_avt_tenfile'])) : ?>
                                             <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
                                         <?php else : ?>
-                                            <img src="/shophoa.vn/assets/shared/img-product/<?= $sp['sp_avt_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
+                                            <img src="/shophoa.vn/assets/uploads/img-product/<?= $sp['sp_avt_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
                                         <?php endif; ?>
                                         <!-- Ảnh thứ 2 -->
-                                        <?php if (!file_exists('../assets/shared/img-product/' . $sp['hsp_tenfile']) || empty($sp['hsp_tenfile'])) : ?>
+                                        <?php if (!file_exists('../assets/uploads/img-product/' . $sp['hsp_tenfile']) || empty($sp['hsp_tenfile'])) : ?>
                                             <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
                                         <?php else : ?>
-                                            <img src="/shophoa.vn/assets/shared/img-product/<?= $sp['hsp_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
+                                            <img src="/shophoa.vn/assets/uploads/img-product/<?= $sp['hsp_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
                                         <?php endif; ?>
                                         <div class="text-danger danh_gia">
                                             <?php for ($i = 1; $i <= floor($sp['sao']); $i++) : ?>

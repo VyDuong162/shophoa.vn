@@ -73,10 +73,10 @@ include_once(__DIR__ . '/../../dbconnect.php');
                                         </td>
                                         <td class="align-middle" style="width: 100px;">
                                             <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sanpham['sp_id'] ?>">
-                                                <?php if (!file_exists('../../assets/shared/img-product/' . $sanpham['sp_avt_tenfile']) || empty($sanpham['sp_avt_tenfile'])) : ?>
+                                                <?php if (!file_exists('../../assets/uploads/img-product/' . $sanpham['sp_avt_tenfile']) || empty($sanpham['sp_avt_tenfile'])) : ?>
                                                     <img src="/shophoa.vn/assets/shared/img/default.png" height="100px" width="100px" alt="<?= $sanpham['sp_ten'] ?>">
                                                 <?php else : ?>
-                                                    <img src="/shophoa.vn/assets/shared/img-product/<?= $sanpham['sp_avt_tenfile'] ?>" height="100px" width="100px" alt="<?= $sanpham['sp_ten'] ?>">
+                                                    <img src="/shophoa.vn/assets/uploads/img-product/<?= $sanpham['sp_avt_tenfile'] ?>" height="100px" width="100px" alt="<?= $sanpham['sp_ten'] ?>">
                                                 <?php endif; ?>
                                             </a>
                                         </td>
