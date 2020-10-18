@@ -17,13 +17,13 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
                     include_once(__DIR__.'/../../../dbconnect.php');
-                    $sql="SELECT httt_id,httt_ten FROM hinhthucthanhtoan";
+                    $sql="SELECT lh_id,lh_ten FROM loaihoa";
                     $result=mysqli_query($conn,$sql);
-                    $dataHinhThucThanhToan = [];
+                    $dataLoaiHoa = [];
                     while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                        $dataHinhThucThanhToan[] = array(
-                            'httt_id' => $row['httt_id'],
-                            'httt_ten' => $row['httt_ten']
+                        $dataLoaiHoa[] = array(
+                            'lh_id' => $row['lh_id'],
+                            'lh_ten' => $row['lh_ten']
                         );
                     }
                 ?>
@@ -36,13 +36,13 @@
                     <form name="frmthemmoi" id="frmthemmoi" action="" method="post" enctype="multipart/form-data">
                         <div class="row mb-10">
                             <div class="col-md-12 text-center">
-                                <h1 id="frmtitle"class="h3 mb-0 text-gray-800 mb-3 shadow">Thêm mới hình thức thanh toán</h1>
+                                <h1 id="frmtitle"class="h3 mb-0 text-gray-800 mb-3 shadow">Thêm mới loại hoa</h1>
                             </div>
                         
                             <div class="col-md-12">
                                 <div class="form-group">
-                                <label for="httt_ten">Tên hình thức thanh toán</label>
-                                <input type="text" class="form-control" id="httt_ten" name="httt_ten" placeholder="Tên hình thức thanh toán" value="">
+                                <label for="lh_ten">Tên loại hoa</label>
+                                <input type="text" class="form-control" id="lh_ten" name="lh_ten" placeholder="Tên loại hoa" value="">
                                 </div>
                             </div>
                             <div class="col-md-12 text-center mb-5">
@@ -54,9 +54,9 @@
                 
                 <?php
                     if(isset($_POST['btnsave'])){
-                        $httt_ten =$_POST['httt_ten'];
+                        $lh_ten =$_POST['lh_ten'];
                         // Câu lệnh INSERT
-                        $sql = "INSERT INTO `hinhthucthanhtoan` (httt_ten) VALUES ('$httt_ten');";
+                        $sql = "INSERT INTO `loaihoa` (lh_ten) VALUES ('$lh_ten');";
                         // print_r($sql); die;
                         // Thực thi INSERT
                         //var_dump($sql);die;

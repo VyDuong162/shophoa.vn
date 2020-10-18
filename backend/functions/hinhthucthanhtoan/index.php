@@ -31,13 +31,13 @@
                     }
                 ?>
                 <div class="row ">
-                        <div class="col-md-12 text-right mt-5">
+                        <div class="col-md-12 text-right mt-3">
                         <a href="create.php"><button type="button" class="btn btn-primary">Thêm mới</button></a> <br><br>
                         </div>
                 </div>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                            <h1 class="h3 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách hình thức thanh toán</h1>
+                            <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách hình thức thanh toán</h1>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

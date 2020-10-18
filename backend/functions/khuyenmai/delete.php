@@ -3,7 +3,7 @@
     $id = $_GET['idxoa'];
     $sqlSelect = "SELECT * FROM `khuyenmai` WHERE km_id=$id;";
     $resultSelect = mysqli_query($conn, $sqlSelect);
-    $hinhsanphamRow = mysqli_fetch_array($resultSelect, MYSQLI_ASSOC); // 1 record
+    $dataKhuyenMai = mysqli_fetch_array($resultSelect, MYSQLI_ASSOC); // 1 record
     $upload_dir = __DIR__ . "/../../../assets/uploads/";
     $subdir = 'products/';
     $old_file = $upload_dir . $subdir . $dataKhuyenMai['km_anh'];

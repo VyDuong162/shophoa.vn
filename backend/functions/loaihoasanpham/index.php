@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm khuyến mãi</title>
+    <title>Loại hoa sản phẩm</title>
     <?php include_once(__DIR__.'/../../layouts/styles.php');?>
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css"/> 
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css" type="text/css">
@@ -18,20 +18,15 @@
                 <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php');?>
             </div>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                
                 <?php
                     include_once(__DIR__.'/../../../dbconnect.php');
-                    $sql="SELECT km_id,km_ten,km_noidung,km_tungay,km_denngay,km_anh FROM khuyenmai";
+                    $sql="SELECT lh_id,lh_ten FROM loaihoa";
                     $result=mysqli_query($conn,$sql);
-                    $dataKhuyenMai = [];
+                    $dataLoaiHoa = [];
                     while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                        $dataKhuyenMai[] = array(
-                            'km_id' => $row['km_id'],
-                            'km_ten' => $row['km_ten'],
-                            'km_noidung' => $row['km_noidung'],
-                            'km_tungay' => $row['km_tungay'],
-                            'km_denngay' => $row['km_denngay'],
-                            'km_anh' => $row['km_anh']
+                        $dataLoaiHoa[] = array(
+                            'lh_id' => $row['lh_id'],
+                            'lh_ten' => $row['lh_ten']
                         );
                     }
                 ?>
@@ -40,42 +35,33 @@
                         <a href="create.php"><button type="button" class="btn btn-primary">Thêm mới</button></a> <br><br>
                         </div>
                 </div>
-                
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                            <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách khuyến mãi</h1>
+                            <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách loại hoa</h1>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="tblDanhSach" class="table mx-auto table-bordered ">
                                 <thead class="thead-dark">
                                     <tr class="text-center">
-                                        <th>Mã khuyến mãi</th>
-                                        <th>Tên khuyến mãi</th>
-                                        <th>Nội dung</th>
-                                        <th>Ngày bắt đầu</th>
-                                        <th>Ngày kết thúc</th>
-                                        <th>Ảnh khuyến mãi</th>
+                                        <th>Mã loại hoa</th>
+                                        <th>tên loại hoa</th>
                                         <th>Hành động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($dataKhuyenMai as $km) : ?>
+                                    <?php foreach ($dataLoaiHoa as $lh) : ?>
                                         <tr>
-                                            <td><?= $km['km_id']; ?></td>
-                                            <td><?= $km['km_ten']; ?></td>
-                                            <td><?= $km['km_noidung']; ?></td>
-                                            <td><?= $km['km_tungay']; ?></td>
-                                            <td><?= $km['km_denngay']; ?></td>
-                                            <td><img src="/shophoa.vn/assets/uploads/products/<?= $km['km_anh'] ?>" class="img-fluid" width="100px" /></td>
+                                            <td><?= $lh['lh_id']; ?></td>
+                                            <td><?= $lh['lh_ten']; ?></td>
                                             <td>
-                                                <a href="edit.php?idupdate=<?php echo $km['km_id']; ?>" class="btn btn-success">
+                                                <a href="edit.php?idupdate=<?php echo $lh['lh_id']; ?>" class="btn btn-success">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            </a>
-                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $km['km_id']; ?>>
+                                                </a>
+                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $lh['lh_id']; ?>>
                                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                                             </a>
-                                        </td>   
+                                            </td>   
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -133,8 +119,8 @@
                     })
                     .then((willDelete) => {
                         if (willDelete) {
-                            var km_id = $(this).data('idxoa');
-                            var url = 'delete.php?idxoa=' + km_id;
+                            var lh_id = $(this).data('idxoa');
+                            var url = 'delete.php?idxoa=' + lh_id;
                             location.href = url;
                         } else {
                             swal("Hủy xóa thành công!");
@@ -146,8 +132,8 @@
     </script>
     <script>
         $(document).ready(function(e){
-            <?php foreach ($dataKhuyenMai as $kmid) : ?>
-                if (<?= $kmid['km_id']?>%2!=0) {
+            <?php foreach ($dataLoaiHoa as $lhid) : ?>
+                if (<?= $lhid['lh_id']?>%2!=0) {
                     $('table tr:odd').addClass('odd');
                 }
             <?php endforeach;?>

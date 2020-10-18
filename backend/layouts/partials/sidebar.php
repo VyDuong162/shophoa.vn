@@ -49,7 +49,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="#loaihoa"  >
+                <a class="nav-link " href="/shophoa.vn/backend/functions/loaihoasanpham/index.php"  >
                 <i class="fa fa-themeisle" aria-hidden="true"></i>
                     Loại hoa sản phẩm
                 </a>
