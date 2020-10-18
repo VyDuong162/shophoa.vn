@@ -8,8 +8,8 @@
                             <h3>Shop<span>Hoa</span></h3>
                             <p class="footer-links">
                                 <a href="#" class="link-1">Trang chủ</a>
-                                <a href="#">About</a>
-                                <a href="#">Contact</a>
+                                <a href="#">Về chúng tôi</a>
+                                <a href="#">Liên hệ</a>
                             </p>
                             <p class="footer-company-name">ShopHoa © 2020</p>
                         </div>

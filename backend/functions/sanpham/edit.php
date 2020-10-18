@@ -85,35 +85,51 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         'km_tomtat' => $km_tomtat,
                     );
                 }
+
+                // Chuẩn bị câu truy vấn $sqlSelect, lấy dữ liệu ban đầu của record cần update
+                // Lấy giá trị khóa chính được truyền theo dạng QueryString Parameter key1=value1&key2=value2...
+                $sp_id = $_GET['sp_id'];
+                $sqlSelect = "SELECT * FROM `sanpham` WHERE sp_id=$sp_id;";
+
+                // Thực thi câu truy vấn SQL để lấy về dữ liệu ban đầu của record cần update
+                $resultSelect = mysqli_query($conn, $sqlSelect);
+                $sanphamRow = mysqli_fetch_array($resultSelect, MYSQLI_ASSOC); // 1 record
+                /* --- End Truy vấn dữ liệu Sản phẩm theo khóa chính --- */
                 ?>
+            
                 <div class="col-md-12">
                     <div class="text-justify pt-3 pb-2 mb-3 border-bottom">
                         <h1 class="text-justify">Thêm sản phẩm</h1>
                     </div>
-                    <form name="frmsanpham" id="frmsanpham" method="post" action="">
+                    <form name="frmsanpham" id="frmsanpham" method="post" action="edit.php?sp_id=<?= $sanphamRow['sp_id'] ?>">
+                        <div class="form-group">
+                            <label for="sp_id">Mã Sản phẩm</label>
+                            <input type="text" class="form-control" id="sp_id" name="sp_id" placeholder="Mã Sản phẩm" readonly value="<?= $sanphamRow['sp_id'] ?>">
+                            <small id="sp_maHelp" class="form-text text-muted">Mã Sản phẩm không được hiệu chỉnh.</small>
+                        </div>
                         <div class="form-group">
                             <label for="sp_ten">Tên hoa</label>
-                            <input type="text" class="form-control" id="sp_ten" name="sp_ten" placeholder="Tên hoa" value="">
+                            <input type="text" class="form-control" id="sp_ten" name="sp_ten" placeholder="Tên hoa" value="<?= $sanphamRow['sp_ten'] ?>">
                         </div>
                         <div class="form-group">
                             <label for="sp_gia">Giá hoa</label>
-                            <input type="text" class="form-control" id="sp_gia" name="sp_gia" placeholder="Giá Sản phẩm" value="">
+                            <input type="text" class="form-control" id="sp_gia" name="sp_gia" placeholder="Giá Sản phẩm" value="<?= $sanphamRow['sp_gia'] ?>">
                         </div>
                         <div class="form-group">
                             <label for="sp_giacu">Giá cũ</label>
-                            <input type="text" class="form-control" id="sp_giacu" name="sp_giacu" placeholder="Giá cũ Sản phẩm" value="">
+                            <input type="text" class="form-control" id="sp_giacu" name="sp_giacu" placeholder="Giá cũ Sản phẩm" value="<?= $sanphamRow['sp_giacu'] ?>">
                         </div>
                         <div class="form-group">
                             <label for="sp_mota_ngan">Mô tả ngắn</label>
-                            <input type="text" class="form-control" id="sp_mota_ngan" name="sp_mota_ngan" placeholder="Mô tả ngắn Sản phẩm" value="">
+                            <input type="text" class="form-control" id="sp_mota_ngan" name="sp_mota_ngan" placeholder="Mô tả ngắn Sản phẩm" value="<?= $sanphamRow['sp_mota_ngan'] ?>">
                         </div>
                         <div class="form-group">
                             <label for="sp_mota_chitiet">Mô tả chi tiết</label>
-                            <input type="text" class="form-control" id="sp_mota_chitiet" name="sp_mota_chitiet" placeholder="Mô tả chi tiết Sản phẩm" value="">
+                            <input type="text" class="form-control" id="sp_mota_chitiet" name="sp_mota_chitiet" placeholder="Mô tả chi tiết Sản phẩm" value="<?= $sanphamRow['sp_mota_chitiet'] ?>">
                         </div>
                         <div class="form-group">
                             <label for="sp_ngaycapnhat">Ngày cập nhật</label>
-                            <input type="text" class="form-control" id="sp_ngaycapnhat" name="sp_ngaycapnhat" placeholder="Ngày cập nhật Sản phẩm" value="">
+                            <input type="text" class="form-control" id="sp_ngaycapnhat" name="sp_ngaycapnhat" placeholder="Ngày cập nhật Sản phẩm" value="sp_ngaycapnhat">
                         </div>
                         
                         <!-- Them select cho loai san pham -->
@@ -121,7 +137,11 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             <label for="lh_id">Loại sản phẩm</label>
                             <select class="form-control" id="lh_id" name="lh_id">
                                 <?php foreach ($dataLoaiSanPham as $loaisanpham) : ?>
-                                    <option value="<?= $loaisanpham['lh_id'] ?>"><?= $loaisanpham['lh_ten'] ?></option>
+                                    <?php if ($loaisanpham['lh_id'] == $sanphamRow['lh_id']) : ?>
+                                        <option value="<?= $loaisanpham['lh_id'] ?>" selected><?= $loaisanpham['lh_ten'] ?></option>
+                                    <?php else : ?>
+                                        <option value="<?= $loaisanpham['lh_id'] ?>"><?= $loaisanpham['lh_ten'] ?></option>
+                                    <?php endif; ?>                                
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -130,7 +150,11 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             <label for="cd_id">Chủ đề</label>
                             <select class="form-control" id="cd_id" name="cd_id">
                                 <?php foreach ($dataChude as $chude) : ?>
-                                    <option value="<?= $chude['cd_id'] ?>"><?= $chude['cd_ten'] ?></option>
+                                    <?php if ($chude['cd_id'] == $sanphamRow['cd_id']) : ?>
+                                        <option value="<?= $chude['cd_id'] ?>" selected><?= $chude['cd_ten'] ?></option>
+                                    <?php else : ?>
+                                        <option value="<?= $chude['cd_id'] ?>"><?= $chude['cd_ten'] ?></option>
+                                    <?php endif; ?>             
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -141,14 +165,18 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             <select class="form-control" id="km_id" name="km_id">
                                 <option value="">Không áp dụng khuyến mãi</option>
                                 <?php foreach ($dataKhuyenMai as $khuyenmai) : ?>
-                                    <option value="<?= $khuyenmai['km_id'] ?>"><?= $khuyenmai['km_tomtat'] ?></option>
+                                    <?php if ($khuyenmai['cd_id'] == $sanphamRow['cd_id']) : ?>
+                                        <option value="<?= $khuyenmai['km_id'] ?>" selected><?= $khuyenmai['km_ten'] ?></option>
+                                    <?php else : ?>
+                                        <option value="<?= $khuyenmai['km_id'] ?>"><?= $khuyenmai['km_ten'] ?></option>
+                                    <?php endif; ?>                                         
                                 <?php endforeach; ?>
                             </select>
                         </div>
                         <button class="btn btn-primary" name="btnSave">Lưu dữ liệu</button>
                     </form>
                     <?php 
-                         if (isset($_POST['btnSave'])) {
+                        if (isset($_POST['btnSave'])) {
                             // Lấy dữ liệu người dùng hiệu chỉnh gởi từ REQUEST POST
                             $ten = $_POST['sp_ten'];
                             $gia = $_POST['sp_gia'];
@@ -159,15 +187,17 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             $lh_id = $_POST['lh_id'];
                             $cd_id = $_POST['cd_id'];
                             $km_id = (empty($_POST['km_id']) ? '' : 'NULL');
-                            // Câu lệnh INSERT
-                            $sql = "INSERT INTO `sanpham` (sp_ten, sp_gia, sp_giacu, sp_mota_ngan, sp_mota_chitiet, sp_ngaycapnhat, lh_id, cd_id, km_id) VALUES ('$ten', $gia, $giacu, '$motangan', '$motachitiet', $ngaycapnhat,$lh_id,$cd_id,$km_id);";
-                            // Thực thi INSERT
-                            var_dump($sql); die;
+                            // Câu lệnh UPDATE
+                            $sql = "UPDATE `sanpham` SET sp_ten='$ten', sp_gia=$gia, sp_giacu=$giacu, sp_mota_ngan='$motangan', sp_mota_chitiet='$motachitiet', sp_ngaycapnhat='$ngaycapnhat', lh_id=$lh_id, cd_id=$cd_id, km_id=$km_id WHERE sp_id=$sp_id;";
+
+                            // Thực thi UPDATE
                             mysqli_query($conn, $sql);
+
                             // Đóng kết nối
                             mysqli_close($conn);
-                            //echo "<script>location.href = 'index.php';</script>";
 
+                            // Sau khi cập nhật dữ liệu, tự động điều hướng về trang Danh sách
+                            echo "<script>location.href = 'index.php';</script>";
                         }
                     ?>
 

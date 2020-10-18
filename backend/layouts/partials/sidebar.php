@@ -19,13 +19,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#dondathang"  >
+                <a class="nav-link" href="/shophoa.vn/backend/functions/dondathang/index.php"  >
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     Đơn đặt hàng
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/templateDoAn/functions/sanpham/index.php"  >
+                <a class="nav-link " href="/shophoa.vn/backend/functions/sanpham/index.php"  >
                 <i class="fa fa-cubes" aria-hidden="true"></i>
                     Sản phẩm
                 </a>
@@ -37,7 +37,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="#hinhsanpham"  >
+                <a class="nav-link " href="/shophoa.vn/backend/functions/hinhsanpham/index.php"  >
                 <i class="fa fa-picture-o" aria-hidden="true"></i>
                     Hình sản phẩm
                 </a>
@@ -55,13 +55,13 @@
                 </a>
             </li> 
             <li class="nav-item">
-                <a class="nav-link " href="#hinhthucthanhtoan"  >
+                <a class="nav-link " href="/shophoa.vn/backend/functions/hinhthucthanhtoan/index.php"  >
                 <i class="fa fa-credit-card" aria-hidden="true"></i>
                     Hình thức thanh toán
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="#khuyenmai"  >
+                <a class="nav-link " href="/shophoa.vn/backend/functions/khuyenmai/index.php"  >
                     <i class="fa fa-gift" aria-hidden="true"></i>
                     Khuyến mãi
                 </a>

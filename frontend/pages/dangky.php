@@ -1,7 +1,7 @@
 <?php
 if (session_id() === '') {
     session_start();
-    include_once(__DIR__.'/../../dbconnect.php');
+    include_once(__DIR__ . '/../../dbconnect.php');
 }
 ?>
 <!DOCTYPE html>
@@ -34,7 +34,7 @@ if (session_id() === '') {
         <div class="row">
             <div class="col-md-12 shadow-lg my-md-5 my-sm-1 px-0" style="border-radius: 5px;">
                 <h1 class="myfont text-center py-5" style="border-radius: 5px 5px 0 0;">Đăng ký tài khoản</h1>
-                <form action="" method="post" id="frm_dang_ky" name="frm_dang_ky" class="px-5">
+                <form action="" method="post" id="frm_dang_ky" name="frm_dang_ky" enctype="multipart/form-data" class="px-5">
                     <fieldset class="mt-md-5 mt-sm-0">
                         <legend class="myfont mb-0">Phần thông tin cơ bản</legend>
                         <hr class="mt-0">
@@ -66,6 +66,12 @@ if (session_id() === '') {
                                         </div>
                                     </div>
                                 </fieldset>
+                            </div>
+                        </div>
+                        <div class="form-group row d-flex align-items-end">
+                            <input type="file" name="kh_avt_tenfile" id="kh_avt_tenfile" class="form-control hoa-form-control col-sm-10">
+                            <div class="preview-img-container col-sm-2">
+                                <img src="/shophoa.vn/assets/shared/img/avatar-default.jpg" id="preview-img" class=" img-fluid" />
                             </div>
                         </div>
                     </fieldset>
@@ -126,7 +132,7 @@ if (session_id() === '') {
                     $ten = htmlentities($_POST['ten']);
                     $ngaysinh = $_POST['ngaysinh'];
                     $gioitinh = $_POST['gioitinh'];
-                    $email = empty($_POST['email']) ? 'NULL' : $_POST['email'];
+                    $email = empty($_POST['email']) ? '' : $_POST['email'];
                     $dienthoai = htmlentities($_POST['dienthoai']);
                     $diachi = htmlentities($_POST['diachi']);
                     $tendangnhap = htmlentities($_POST['tendangnhap']);
@@ -139,6 +145,22 @@ if (session_id() === '') {
                             'value' => $ten,
                             'mes' => 'Họ và tên không được bỏ trống',
                         );
+                    } else {
+                        if (strlen($ten) < 3) {
+                            $errors['ten'][] = array(
+                                'rule' => 'minlength',
+                                'rule_value' => 3,
+                                'value' => $ten,
+                                'mes' => 'Bạn phải nhập họ tên tối thiểu 3 ký tự'
+                            );
+                        } else if (strlen($ten) > 50) {
+                            $errors['ten'][] = array(
+                                'rule' => 'maxlength',
+                                'rule_value' => 50,
+                                'value' => $ten,
+                                'mes' => 'Bạn chỉ được nhập họ tên tối đa 50 ký tự'
+                            );
+                        }
                     }
                     if (empty($ngaysinh)) {
                         $errors['ngaysinh'][] = array(
@@ -155,6 +177,29 @@ if (session_id() === '') {
                             'value' => $dienthoai,
                             'mes' => 'Số điện thoại không được bỏ trống',
                         );
+                    } else {
+                        if (!is_numeric($dienthoai)) {
+                            $errors['dienthoai'][] = array(
+                                'rule' => 'number',
+                                'rule_value' => true,
+                                'value' => $dienthoai,
+                                'mes' => 'Bạn phải nhập đúng định dạng số điện thoại',
+                            );
+                        } else if (strlen($dienthoai) < 10) {
+                            $errors['dienthoai'][] = array(
+                                'rule' => 'minlength',
+                                'rule_value' => 3,
+                                'value' => $dienthoai,
+                                'mes' => 'Số điện thoại phải có ít nhất 10 chữ số',
+                            );
+                        } else if (strlen($dienthoai) > 10) {
+                            $errors['dienthoai'][] = array(
+                                'rule' => 'maxlength',
+                                'rule_value' => 3,
+                                'value' => $dienthoai,
+                                'mes' => 'Số điện thoại chỉ có tối đa 10 chữ số',
+                            );
+                        }
                     }
                     if (empty($diachi)) {
                         $errors['diachi'][] = array(
@@ -171,6 +216,22 @@ if (session_id() === '') {
                             'value' => $tendangnhap,
                             'mes' => 'Tên đăng nhập không được bỏ trống',
                         );
+                    } else {
+                        if (strlen($tendangnhap) < 3) {
+                            $errors['tendangnhap'][] = array(
+                                'rule' => 'minlength',
+                                'rule_value' => 3,
+                                'value' => $tendangnhap,
+                                'mes' => 'Tên đăng nhập phải có tối thiểu 3 ký tựg',
+                            );
+                        } else if (strlen($tendangnhap) > 50) {
+                            $errors['tendangnhap'][] = array(
+                                'rule' => 'maxlength',
+                                'rule_value' => 50,
+                                'value' => $tendangnhap,
+                                'mes' => 'Tên đăng nhập chỉ chứ tối đa 50 ký tự',
+                            );
+                        }
                     }
                     if (empty($matkhau)) {
                         $errors['matkhau'][] = array(
@@ -179,6 +240,22 @@ if (session_id() === '') {
                             'value' => $matkhau,
                             'mes' => 'Mật khẩu không được bỏ trống',
                         );
+                    } else {
+                        if (strlen($matkhau) < 3) {
+                            $errors['matkhau'][] = array(
+                                'rule' => 'minlength',
+                                'rule_value' => 3,
+                                'value' => $matkhau,
+                                'mes' => 'Mật khẩu phải có tối thiểu 3 ký tự',
+                            );
+                        } else if (strlen($matkhau) > 50) {
+                            $errors['matkhau'][] = array(
+                                'rule' => 'maxlength',
+                                'rule_value' => 50,
+                                'value' => $matkhau,
+                                'mes' => 'Mật khẩu chỉ chứ tối đa 50 ký tự',
+                            );
+                        }
                     }
                     if (empty($nhaplaimatkhau)) {
                         $errors['nhaplaimatkhau'][] = array(
@@ -197,6 +274,19 @@ if (session_id() === '') {
                             );
                         }
                     }
+                    if (isset($_FILES['kh_avt_tenfile'])) {
+                        $upload_dir = __DIR__ . "/../../assets/uploads/";
+                        $subdir = 'avatar/';
+                        if ($_FILES['kh_avt_tenfile']['error'] > 0) {
+                            $kh_avt_tenfile = '';
+                        } else {
+                            $kh_avt_tenfile = $_FILES['kh_avt_tenfile']['name'];
+                            $tentaptin = date('YmdHis') . '_' . $kh_avt_tenfile;
+                            move_uploaded_file($_FILES['kh_avt_tenfile']['tmp_name'], $upload_dir . $subdir . $tentaptin);
+                        }
+                    } else {
+                        $kh_avt_tenfile = '';
+                    }
                 }
                 ?>
                 <h1 class="py-5 m-0" style="border-radius: 0 0 5px 5px;"></h1>
@@ -213,6 +303,12 @@ if (session_id() === '') {
                     </button>
                 </div>
             <?php endif; ?>
+            <?php
+            if (isset($_POST['btn_dangky']) && !(isset($errors) && count($errors) > 0)){
+                $sqlDangky = "INSERT INTO khachhang (kh_hoten, kh_tendangnhap, kh_matkhau, kh_gioitinh, kh_ngaysinh, kh_sodienthoai, kh_email, kh_diachi, kh_avt_tenfile, kh_trangthai, kh_quantri) VALUES (N'$ten', '$tendangnhap', '$matkhau', $gioitinh, '$ngaysinh', '$dienthoai', '$email', '$diachi', '$kh_avt_tenfile', 1, 0)";
+                mysqli_query($conn, $sqlDangky);
+            }
+            ?>
         </div>
     </div>
     <?php include_once(__DIR__ . '/../layouts/partials/footer.php'); ?>
@@ -236,7 +332,7 @@ if (session_id() === '') {
                     },
                     dienthoai: {
                         required: true,
-                        min:0,
+                        min: 0,
                         minlength: 10,
                         maxlength: 10,
                     },
@@ -269,7 +365,7 @@ if (session_id() === '') {
                     },
                     dienthoai: {
                         required: "Bạn phải nhập số điện thoại",
-                        min:"Bạn phải nhập đúng định dạng số điện thoại",
+                        min: "Bạn phải nhập đúng định dạng số điện thoại",
                         minlength: "Số điện thoại phải có ít nhất 10 chữ số",
                         maxlength: "Số điện thoại chỉ có tối đa 10 chữ số",
                     },
@@ -333,6 +429,16 @@ if (session_id() === '') {
                 }
             });
         });
+        const reader = new FileReader();
+        const fileInput = document.getElementById("kh_avt_tenfile");
+        const img = document.getElementById("preview-img");
+        reader.onload = e => {
+            img.src = e.target.result;
+        }
+        fileInput.addEventListener('change', e => {
+            const f = e.target.files[0];
+            reader.readAsDataURL(f);
+        })
     </script>
 </body>
 
