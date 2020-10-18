@@ -37,7 +37,7 @@ include_once(__DIR__ . '/../../dbconnect.php');
                 ?>
                 <?php if (!empty($giohangdata)) : ?>
                     <form action="" method="post">
-                        <table class="table table-striped table-hover table-responsive-sm">
+                        <table class="table table-striped table-hover table-responsive-sm" id="tbl">
                             <thead>
                                 <tr>
                                     <th class="text-center">
@@ -65,6 +65,7 @@ include_once(__DIR__ . '/../../dbconnect.php');
                                 $stt = 1;
                                 $tongtien = 0;
                                 ?>
+                                
                                 <?php foreach ($giohangdata as $sanpham) : ?>
                                     <?php $tongtien += $sanpham['thanhtien']; ?>
                                     <tr>
@@ -73,10 +74,10 @@ include_once(__DIR__ . '/../../dbconnect.php');
                                         </td>
                                         <td class="align-middle" style="width: 100px;">
                                             <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sanpham['sp_id'] ?>">
-                                                <?php if (!file_exists('../../assets/shared/img-product/' . $sanpham['sp_avt_tenfile']) || empty($sanpham['sp_avt_tenfile'])) : ?>
+                                                <?php if (!file_exists('../../assets/uploads/img-product/' . $sanpham['sp_avt_tenfile']) || empty($sanpham['sp_avt_tenfile'])) : ?>
                                                     <img src="/shophoa.vn/assets/shared/img/default.png" height="100px" width="100px" alt="<?= $sanpham['sp_ten'] ?>">
                                                 <?php else : ?>
-                                                    <img src="/shophoa.vn/assets/shared/img-product/<?= $sanpham['sp_avt_tenfile'] ?>" height="100px" width="100px" alt="<?= $sanpham['sp_ten'] ?>">
+                                                    <img src="/shophoa.vn/assets/uploads/img-product/<?= $sanpham['sp_avt_tenfile'] ?>" height="100px" width="100px" alt="<?= $sanpham['sp_ten'] ?>">
                                                 <?php endif; ?>
                                             </a>
                                         </td>
@@ -88,12 +89,14 @@ include_once(__DIR__ . '/../../dbconnect.php');
                                             <?= number_format($sanpham['sp_gia'], 0, ".", ",") ?> VNĐ
                                         </td>
                                         <td class="align-middle">
-                                            <input type="number" name="" id="" value="<?= $sanpham['soluong'] ?>" class="form-control">
+                                            <input type="number" name="soluong_<?= $sanpham['sp_id'] ?>" id="soluong_<?= $sanpham['sp_id'] ?>" value="<?= $sanpham['soluong'] ?>" class="form-control">
                                         </td>
                                         <td class="align-middle text-right">
                                             <?= number_format($sanpham['thanhtien'], 0, ".", ",") ?> VNĐ
                                         </td>
                                         <td class="align-middle text-canter">
+                                            <button class="btn btn-outline-success btn_update" id="update_<?= $sanpham['sp_id'] ?>" data-sp_id="<?= $sanpham['sp_id'] ?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                                            <button class="btn btn-outline-danger btn_delete" id="delete_<?= $sanpham['sp_id'] ?>" data-sp_id="<?= $sanpham['sp_id'] ?>"><i class="fa fa-trash" aria-hidden="true" ></i></button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -122,6 +125,91 @@ include_once(__DIR__ . '/../../dbconnect.php');
     <?php include_once(__DIR__ . '/../layouts/partials/footer.php'); ?>
 
     <?php include_once(__DIR__ . '/../layouts/scripts.php'); ?>
+    <script src="/shophoa.vn/assets/vendor/sweetalert/sweetalert2.js"></script>
+    <script>
+        $(document).ready(function() {
+            function removeSanPhamVaoGioHang(id) {
+                var dulieugoi = {
+                    sp_id: id
+                };
+                $.ajax({
+                    url: '/shophoa.vn/frontend/api/giohang-xoasanpham.php',
+                    method: "POST",
+                    dataType: 'json',
+                    data: dulieugoi,
+                    success: function(data) {
+                        location.reload();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            timerProgressBar: false,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Không thể xử lý'
+                        })
+                    }
+                });
+            };
+            $('.btn_delete').click(function(event) {
+                event.preventDefault();
+                var id = $(this).data('sp_id');
+                removeSanPhamVaoGioHang(id);
+            });
+
+            function capnhatSanPhamTrongGioHang(id, soluong) {
+                var dulieugoi = {
+                    sp_id: id,
+                    soluong: soluong
+                };
+
+                $.ajax({
+                    url: '/shophoa.vn/frontend/api/giohang-capnhatsanpham.php',
+                    method: "POST",
+                    dataType: 'json',
+                    data: dulieugoi,
+                    success: function(data) {
+                        location.reload();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 1500,
+                            timerProgressBar: false,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Không thể xử lý'
+                        })
+                    }
+                });
+            };
+            $('.btn_update').click(function(event) {
+                event.preventDefault();
+                var id = $(this).data('sp_id');
+                var soluongmoi = $('#soluong_' + id).val();
+                capnhatSanPhamTrongGioHang(id, soluongmoi);
+            });
+        });
+    </script>
 </body>
 
 </html>
