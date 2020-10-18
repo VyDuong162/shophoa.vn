@@ -1,75 +1,74 @@
-<?php
-if (session_id() === '') {
-    session_start();
-}
-include_once(__DIR__ . '/../../../dbconnect.php');
-?>
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShopHoa</title>
-
-    <!-- Nhúng file Quản lý các Liên kết CSS dùng chung cho toàn bộ trang web -->
-    <?php
-    include_once(__DIR__ . '/../../layouts/styles.php');
-    ?>
-    <!-- DataTable CSS -->
-    <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css">
-    <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/Buttons-1.6.3/css/buttons.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
+    <title>Thêm khuyến mãi</title>
+    <?php include_once(__DIR__.'/../../layouts/styles.php');?>
+    <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css"/> 
 </head>
-
 <body>
-    <!-- header -->
-    <?php include_once(__DIR__ . '/../../layouts/partials/header.php'); ?>
-
-    <!-- end header -->
-
+    <?php include_once(__DIR__ . '/../../layouts/partials/header.php');?> 
     <div class="container-fluid">
         <div class="row">
-
-            <!-- sidebar -->
-            <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php'); ?>
-            <!-- end sidebar -->
-
-            <main role="main" class="col-md-10 ml-sm-auto px-4 mb-2">
-                <div class="text-justify pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="text-justify">Danh sách hình thức thanh toán</h1>
-                </div>
-
-                <!-- Block content -->
-
-
-                <!-- Nút thêm mới, bấm vào sẽ hiển thị form nhập thông tin Thêm mới -->
-
-                <form name="frmsanpham" id="frmsanpham" method="post" action="">
-                    <div class="form-group">
-                        <label for="sp_ten">Tên hình thức thanh toán</label>
-                        <input type="text" class="form-control" id="sp_hinhthucthanhtoan" name="sp_hinhthucthanhtoan" placeholder="Hình thức thanh toán" value="">
+            <div class="col-md-3 position-static">
+                <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php');?>
+            </div>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <?php
+                    include_once(__DIR__.'/../../../dbconnect.php');
+                    $sql="SELECT httt_id,httt_ten FROM hinhthucthanhtoan";
+                    $result=mysqli_query($conn,$sql);
+                    $dataHinhThucThanhToan = [];
+                    while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                        $dataHinhThucThanhToan[] = array(
+                            'httt_id' => $row['httt_id'],
+                            'httt_ten' => $row['httt_ten']
+                        );
+                    }
+                ?>
+                <div class="container-fluid"> 
+                    <div class="row ">
+                        <div class="col-md-12 text-right mt-5">
+                             <a href="index.php"><button type="button" id="btndanhsach" class="btn btn-primary">Danh sách</button></a> <br><br>
+                        </div>
                     </div>
-                    <button class="btn btn-primary" name="btnSave">Lưu dữ liệu</button>
-                    <a href="index.php" class="btn btn-info" name="btnBack" id="btnBack">Quay về</a>
-                </form>
-                <!-- End block content -->
+                    <form name="frmthemmoi" id="frmthemmoi" action="" method="post" enctype="multipart/form-data">
+                        <div class="row mb-10">
+                            <div class="col-md-12 text-center">
+                                <h1 id="frmtitle"class="h3 mb-0 text-gray-800 mb-3 shadow">Thêm mới hình thức thanh toán</h1>
+                            </div>
+                        
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                <label for="httt_ten">Tên hình thức thanh toán</label>
+                                <input type="text" class="form-control" id="httt_ten" name="httt_ten" placeholder="Tên hình thức thanh toán" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-center mb-5">
+                                <button class="btn btn-success" name="btnsave" id="btnsave" type="submit">Lưu dữ liệu</button>
+                            </div>
+                        </div>
+                    </form>
+                </div> 
+                <?php
+                    if(isset($_POST['btnsave'])){
+                        $httt_ten =$_POST['httt_ten'];
+                        // Câu lệnh INSERT
+                        $sql = "INSERT INTO `hinhthucthanhtoan` (httt_ten) VALUES ('$httt_ten');";
+                        // print_r($sql); die;
+                        // Thực thi INSERT
+                        //var_dump($sql);die;
+                        mysqli_query($conn, $sql);
+                        //Đóng kết nối
+                        mysqli_close($conn);  
+                        echo '<script>location.href = "index.php";</script>';    
+                    } 
+                ?>
             </main>
         </div>
     </div>
-    <!--     Phần content         -->
-
-    <!-- footer -->
-    <?php include_once(__DIR__ . '/../../layouts/partials/footer.php'); ?>
-    <!-- end footer -->
-
-
-    <!-- footer -->
-    <?php include_once(__DIR__ . '/../../layouts//scripts.php'); ?>
-    <!-- end footer -->
-
-
+    <?php include_once(__DIR__ . '/../../layouts/partials/footer.php');?>
+    <?php include_once(__DIR__.'/../../layouts/scripts.php');?>
 </body>
-
 </html>

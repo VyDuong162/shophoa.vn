@@ -17,33 +17,31 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
                     include_once(__DIR__.'/../../../dbconnect.php');
-                    $id=$_GET['idupdate'];
-                    $sql="SELECT httt_id,httt_ten FROM hinhthucthanhtoan WHERE httt_id=$id";
+                    $sql="SELECT mh_id,mh_ten FROM mauhoa";
                     $result=mysqli_query($conn,$sql);
-                    $dataHinhThucThanhToan = [];
+                    $dataMauHoa = [];
                     while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                        $dataHinhThucThanhToan= array(
-                            'httt_id' => $row['httt_id'],
-                            'httt_ten' => $row['httt_ten']
+                        $dataMauHoa[] = array(
+                            'mh_id' => $row['mh_id'],
+                            'mh_ten' => $row['mh_ten']
                         );
                     }
                 ?>
                 <div class="container-fluid"> 
                     <div class="row ">
-                        <div class="col-md-12 text-right mt-5">
+                        <div class="col-md-12 text-right mt-3">
                              <a href="index.php"><button type="button" id="btndanhsach" class="btn btn-primary">Danh sách</button></a> <br><br>
                         </div>
                     </div>
                     <form name="frmthemmoi" id="frmthemmoi" action="" method="post" enctype="multipart/form-data">
                         <div class="row mb-10">
                             <div class="col-md-12 text-center">
-                                <h1 id="frmtitle"class="h3 mb-0 text-gray-800 mb-3 shadow">Sửa đổi hình thức thanh toán</h1>
+                                <h1 id="frmtitle"class="h2 mb-0 text-gray-800 mb-3 shadow">Thêm mới màu hoa</h1>
                             </div>
-                        
-                            <div class="col-md-12">
+                            <div class="col-md-12 mb-3">
                                 <div class="form-group">
-                                <label for="httt_ten">Tên hình thức thanh toán</label>
-                                <input type="text" class="form-control" id="httt_ten" name="httt_ten" placeholder="Tên hình thức thanh toán" value="<?=$dataHinhThucThanhToan['httt_ten']?>">
+                                <label for="mh_ten">Tên màu hoa</label>
+                                <input type="text" class="form-control" id="mh_ten" name="mh_ten" placeholder="Tên màu hoa" value="">
                                 </div>
                             </div>
                             <div class="col-md-12 text-center mb-5">
@@ -54,10 +52,11 @@
                 </div> 
                 <?php
                     if(isset($_POST['btnsave'])){
-                        $httt_ten =$_POST['httt_ten'];
-                        // Câu lệnh UPDATE
-                        $sql = "UPDATE `hinhthucthanhtoan` SET httt_ten = '$httt_ten' WHERE httt_id='$id' ;";
+                        $mh_ten =$_POST['mh_ten'];
+                        // Câu lệnh INSERT
+                        $sql = "INSERT INTO `mauhoa` (mh_ten) VALUES ('$mh_ten');";
                         // print_r($sql); die;
+                        // Thực thi INSERT
                         //var_dump($sql);die;
                         mysqli_query($conn, $sql);
                         //Đóng kết nối

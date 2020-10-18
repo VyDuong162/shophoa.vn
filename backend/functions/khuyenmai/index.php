@@ -18,9 +18,7 @@
                 <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php');?>
             </div>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                <div id="namepages" class="text-center">
-                <h1 class="h3 mb-0 text-gray-800 mt-3 mb-3">Danh sách khuyến mãi</h1>
-                </div>
+                
                 <?php
                     include_once(__DIR__.'/../../../dbconnect.php');
                     $sql="SELECT km_id,km_ten,km_noidung,km_tungay,km_denngay,km_anh FROM khuyenmai";
@@ -37,40 +35,53 @@
                         );
                     }
                 ?>
-                 <a href="create.php"><button type="button" class="btn btn-primary">Thêm mới</button></a> <br><br>
-                <table id="tblDanhSach" class="table mx-auto table-bordered ">
-                    <thead class="thead-dark">
-                        <tr class="text-center">
-                            <th>Mã khuyến mãi</th>
-                            <th>Tên khuyến mãi</th>
-                            <th>Nội dung</th>
-                            <th>Ngày bắt đầu</th>
-                            <th>Ngày kết thúc</th>
-                            <th>Ảnh khuyến mãi</th>
-                            <th>Hành động</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($dataKhuyenMai as $km) : ?>
-                            <tr>
-                                <td><?= $km['km_id']; ?></td>
-                                <td><?= $km['km_ten']; ?></td>
-                                <td><?= $km['km_noidung']; ?></td>
-                                <td><?= $km['km_tungay']; ?></td>
-                                <td><?= $km['km_denngay']; ?></td>
-                                <td><img src="/shophoa.vn/assets/uploads/products/<?= $km['km_anh'] ?>" class="img-fluid" width="100px" /></td>
-                                <td>
-                                    <a href="edit.php?idupdate=<?php echo $km['km_id']; ?>" class="btn btn-success">
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                </a>
-                                    <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $km['km_id']; ?>>
-                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </a>
-                            </td>   
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                <div class="row ">
+                        <div class="col-md-12 text-right mt-3">
+                        <a href="create.php"><button type="button" class="btn btn-primary">Thêm mới</button></a> <br><br>
+                        </div>
+                </div>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                            <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách khuyến mãi</h1>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="tblDanhSach" class="table mx-auto table-bordered ">
+                                <thead class="thead-dark">
+                                    <tr class="text-center">
+                                        <th>Mã khuyến mãi</th>
+                                        <th>Tên khuyến mãi</th>
+                                        <th>Nội dung</th>
+                                        <th>Ngày bắt đầu</th>
+                                        <th>Ngày kết thúc</th>
+                                        <th>Ảnh khuyến mãi</th>
+                                        <th>Hành động</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($dataKhuyenMai as $km) : ?>
+                                        <tr>
+                                            <td><?= $km['km_id']; ?></td>
+                                            <td><?= $km['km_ten']; ?></td>
+                                            <td><?= $km['km_noidung']; ?></td>
+                                            <td><?= $km['km_tungay']; ?></td>
+                                            <td><?= $km['km_denngay']; ?></td>
+                                            <td><img src="/shophoa.vn/assets/uploads/products/<?= $km['km_anh'] ?>" class="img-fluid" width="100px" /></td>
+                                            <td class="text-center">
+                                                <a href="edit.php?idupdate=<?php echo $km['km_id']; ?>" class="btn btn-success">
+                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            </a>
+                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $km['km_id']; ?>>
+                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                            </a>
+                                        </td>   
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>

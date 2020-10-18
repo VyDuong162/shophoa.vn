@@ -133,9 +133,6 @@
                                             move_uploaded_file($_FILES['km_anh']['tmp_name'], $upload_dir . $subdir . $tentaptin);
                             
                                         }
-                        
-                            // 3.2. Lưu thông tin file upload vào database
-                            // Câu lệnh INSERT
                             $sql_update= " UPDATE `khuyenmai` SET
                                 km_ten = '$km_ten',
                                 km_tungay = '$km_tungay',
