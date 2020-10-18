@@ -61,20 +61,27 @@ include_once(__DIR__ . '/../../dbconnect.php');
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php 
-                                    $stt = 1; 
-                                    $tongtien = 0;
+                                <?php
+                                $stt = 1;
+                                $tongtien = 0;
                                 ?>
                                 <?php foreach ($giohangdata as $sanpham) : ?>
-                                    <?php $tongtien += $sanpham['thanhtien'];?>
+                                    <?php $tongtien += $sanpham['thanhtien']; ?>
                                     <tr>
                                         <td class="align-middle text-center">
                                             <?= $stt++ ?>
                                         </td>
                                         <td class="align-middle" style="width: 100px;">
-                                            <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sanpham['sp_id'] ?>"><img src="/shophoa.vn/assets/shared/img-product/<?= $sanpham['sp_avt_tenfile'] ?>" height="100px" width="100px" alt="<?= $sanpham['sp_ten'] ?>"></a>
+                                            <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sanpham['sp_id'] ?>">
+                                                <?php if (!file_exists('../../assets/shared/img-product/' . $sanpham['sp_avt_tenfile']) || empty($sanpham['sp_avt_tenfile'])) : ?>
+                                                    <img src="/shophoa.vn/assets/shared/img/default.png" height="100px" width="100px" alt="<?= $sanpham['sp_ten'] ?>">
+                                                <?php else : ?>
+                                                    <img src="/shophoa.vn/assets/shared/img-product/<?= $sanpham['sp_avt_tenfile'] ?>" height="100px" width="100px" alt="<?= $sanpham['sp_ten'] ?>">
+                                                <?php endif; ?>
+                                            </a>
                                         </td>
                                         <td class="align-middle">
+
                                             <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sanpham['sp_id'] ?>" class="text-dark myfont"><?= $sanpham['sp_ten'] ?></a>
                                         </td>
                                         <td class="align-middle text-right">
@@ -84,7 +91,7 @@ include_once(__DIR__ . '/../../dbconnect.php');
                                             <input type="number" name="" id="" value="<?= $sanpham['soluong'] ?>" class="form-control">
                                         </td>
                                         <td class="align-middle text-right">
-                                        <?= number_format($sanpham['thanhtien'], 0, ".", ",") ?> VNĐ
+                                            <?= number_format($sanpham['thanhtien'], 0, ".", ",") ?> VNĐ
                                         </td>
                                         <td class="align-middle text-canter">
                                         </td>
@@ -94,7 +101,7 @@ include_once(__DIR__ . '/../../dbconnect.php');
                             <tfoot>
                                 <tr>
                                     <td colspan="5" class="text-right font-weight-bold">Tổng tiền</td>
-                                    <td class="text-right"><?=number_format($tongtien, 0, ".", ",")?> VNĐ</td>
+                                    <td class="text-right"><?= number_format($tongtien, 0, ".", ",") ?> VNĐ</td>
                                     <td></td>
                                 </tr>
                             </tfoot>
