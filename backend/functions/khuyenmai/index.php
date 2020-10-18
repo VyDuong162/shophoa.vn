@@ -80,35 +80,15 @@
     <script src="/shophoa.vn/assets/vendor/DataTables/pdfmake-0.1.36/pdfmake.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/sweetalert/sweetalert.min.js"></script>
+    <script src="/shophoa.vn/assets/vendor/popper/popper.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#tblDanhSach').DataTable({
-                dom: 'Blfrtip',
+                dom: "<'row'<'col-md-12 text-center'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-sm-12'tr>><'row'<'col-md-6'i><'col-md-6'p>>",
                 buttons: [
                     'copy', 'excel', 'pdf'
-                ],              
-            });
-            $('.btnDelete').click(function() {
-                swal({
-                        title: "Bạn có chắn chắn xóa không?",
-                        text: "Không thể phục hồi dữ liệu khi xóa!",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            var km_id = $(this).data('idxoa');
-                            var url = 'delete.php?idxoa=' + km_id;
-                            location.href = url;
-                        } else {
-                            swal("Hủy xóa thành công!");
-                        }
-                    });
-            });
-            var table = $('#tblDanhSach').DataTable({
-                dom: "<'row'<'col-md-12 text-center'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-sm-12'tr>><'row'<'col-md-6'i><'col-md-6'p>>",
+                ],
                 language: {
                     "sProcessing": "Đang xử lý...",
                     "sLengthMenu": "Xem _MENU_ mục",
@@ -132,6 +112,25 @@
                     }
                 }
             });
+            $('.btnDelete').click(function() {
+                swal({
+                        title: "Bạn có chắn chắn xóa không?",
+                        text: "Không thể phục hồi dữ liệu khi xóa!",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            var km_id = $(this).data('idxoa');
+                            var url = 'delete.php?idxoa=' + km_id;
+                            location.href = url;
+                        } else {
+                            swal("Hủy xóa thành công!");
+                        }
+                    });
+            });
+            
         });
     </script>
     <script>
