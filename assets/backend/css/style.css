@@ -620,7 +620,7 @@ a.navbar-brand {
   }
  /*css-khuyen mai*/
 .row a button#btndanhsach{
-    display: block!important;
+    text-align: right!important;
 }
 table .odd{
     background:#ddd9d9;

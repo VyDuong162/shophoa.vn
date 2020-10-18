@@ -529,13 +529,3 @@ section {
     position: absolute;
     top: -15px;
 }
-
-.page-link{
-    color: #000000!important;
-}
-.page-item.active .page-link {
-    z-index: 3;
-    color: #fff!important;
-    background-color: #dc3545!important;
-    border-color:#dc3545!important;
-}
