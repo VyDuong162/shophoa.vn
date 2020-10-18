@@ -80,7 +80,6 @@
     <script src="/shophoa.vn/assets/vendor/DataTables/pdfmake-0.1.36/pdfmake.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/sweetalert/sweetalert.min.js"></script>
-    <script src="/shophoa.vn/assets/vendor/popper/popper.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function() {
