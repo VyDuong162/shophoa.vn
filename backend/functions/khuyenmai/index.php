@@ -109,9 +109,6 @@
             });
             var table = $('#tblDanhSach').DataTable({
                 dom: "<'row'<'col-md-12 text-center'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-sm-12'tr>><'row'<'col-md-6'i><'col-md-6'p>>",
-                buttons: [
-                    'copy', 'excel', 'pdf'
-                ],
                 language: {
                     "sProcessing": "Đang xử lý...",
                     "sLengthMenu": "Xem _MENU_ mục",
