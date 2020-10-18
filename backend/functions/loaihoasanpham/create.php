@@ -51,7 +51,6 @@
                         </div>
                     </form>
                 </div> 
-                
                 <?php
                     if(isset($_POST['btnsave'])){
                         $lh_ten =$_POST['lh_ten'];

@@ -11,6 +11,7 @@
         // Hàm unlink(filepath) dùng để xóa file trong PHP
         unlink($old_file);
     }
+    
     $id = $_GET['idxoa'];
     $sql = "DELETE FROM `khuyenmai` WHERE km_id=" . $id;
     // 5. Thực thi câu lệnh DELETE

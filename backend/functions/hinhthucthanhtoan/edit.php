@@ -52,7 +52,6 @@
                         </div>
                     </form>
                 </div> 
-                
                 <?php
                     if(isset($_POST['btnsave'])){
                         $httt_ten =$_POST['httt_ten'];
