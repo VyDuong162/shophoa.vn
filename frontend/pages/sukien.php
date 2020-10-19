@@ -3,6 +3,8 @@ if (session_id() === '') {
     session_start();
 }
 include_once(__DIR__ . '/../../dbconnect.php');
+$km_id = $_GET['km_id'];
+$sqlKhuyenMai = "SELECT * FROM khuyenmai;";
 ?>
 <!DOCTYPE html>
 <html lang="vn">
@@ -10,7 +12,7 @@ include_once(__DIR__ . '/../../dbconnect.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Hoa | Giỏ hàng</title>
+    <title>Shop Hoa | Khuyến mãi</title>
     <?php include_once(__DIR__ . '/../layouts/styles.php'); ?>
 </head>
 
@@ -22,6 +24,8 @@ include_once(__DIR__ . '/../../dbconnect.php');
         </div>
     </div>
     <?php include_once(__DIR__ . '/../layouts/partials/header.php'); ?>
+    <!-- Phần banner sự kiện -->
+    <!-- End phần banner sự kiện -->
     <!-- Phần nội dung trang web -->
     
     <!-- End phần nội dung trang web -->
