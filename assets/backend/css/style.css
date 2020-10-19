@@ -622,9 +622,7 @@ a.navbar-brand {
 .row a button#btndanhsach{
     text-align: right!important;
 }
-table .odd{
-    background:#ddd9d9;
-}
+table tr:nth-child(even){background-color:#ddd9d9;}
 form #frmtitle{
     background: rgb(199, 202, 199); 
     width: initial;

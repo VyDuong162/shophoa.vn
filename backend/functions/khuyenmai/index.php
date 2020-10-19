@@ -143,14 +143,5 @@
             
         });
     </script>
-    <script>
-        $(document).ready(function(e){
-            <?php foreach ($dataKhuyenMai as $kmid) : ?>
-                if (<?= $kmid['km_id']?>%2!=0) {
-                    $('table tr:odd').addClass('odd');
-                }
-            <?php endforeach;?>
-        });
-    </script>
 </body>
 </html>

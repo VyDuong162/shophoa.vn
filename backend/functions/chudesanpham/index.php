@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loại hoa sản phẩm</title>
+    <title>chủ đề sản phẩm</title>
     <?php include_once(__DIR__.'/../../layouts/styles.php');?>
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css"/> 
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css" type="text/css">
@@ -20,14 +20,13 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
                     include_once(__DIR__.'/../../../dbconnect.php');
-                    $sql="SELECT lh_id,lh_ten,lh_mota FROM loaihoa";
+                    $sql="SELECT cd_id,cd_ten FROM chude";
                     $result=mysqli_query($conn,$sql);
-                    $dataLoaiHoa = [];
+                    $dataChuDe = [];
                     while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                        $dataLoaiHoa[] = array(
-                            'lh_id' => $row['lh_id'],
-                            'lh_ten' => $row['lh_ten'],
-                            'lh_mota' => $row['lh_mota']
+                        $dataChuDe[] = array(
+                            'cd_id' => $row['cd_id'],
+                            'cd_ten' => $row['cd_ten']
                         );
                     }
                 ?>
@@ -38,30 +37,30 @@
                 </div>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                            <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách loại hoa</h1>
+                            <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách chủ đề</h1>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="tblDanhSach" class="table mx-auto table-bordered ">
                                 <thead class="thead-dark">
                                     <tr class="text-center">
-                                        <th>Mã loại hoa</th>
-                                        <th>tên loại hoa</th>
-                                        <th>Mô tả loại hoa</th>
+                                        <th>Mã chủ đề</th>
+                                        <th>Tên chủ đề</th>
+                                        
                                         <th>Hành động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($dataLoaiHoa as $lh) : ?>
+                                    <?php foreach ($dataChuDe as $lh) : ?>
                                         <tr>
-                                            <td><?= $lh['lh_id']; ?></td>
-                                            <td><?= $lh['lh_ten']; ?></td>
-                                            <td><?= $lh['lh_mota'];?></td>
+                                            <td><?= $lh['cd_id']; ?></td>
+                                            <td><?= $lh['cd_ten']; ?></td>
+                                           
                                             <td class="text-center">
-                                                <a href="edit.php?idupdate=<?php echo $lh['lh_id']; ?>" class="btn btn-success">
+                                                <a href="edit.php?idupdate=<?php echo $lh['cd_id']; ?>" class="btn btn-success">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $lh['lh_id']; ?>>
+                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $lh['cd_id']; ?>>
                                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                                             </a>
                                             </td>   
@@ -122,14 +121,23 @@
                     })
                     .then((willDelete) => {
                         if (willDelete) {
-                            var lh_id = $(this).data('idxoa');
-                            var url = 'delete.php?idxoa=' + lh_id;
+                            var cd_id = $(this).data('idxoa');
+                            var url = 'delete.php?idxoa=' + cd_id;
                             location.href = url;
                         } else {
                             swal("Hủy xóa thành công!");
                         }
                     });
             });
+        });
+    </script>
+    <script>
+        $(document).ready(function(e){
+            <?php foreach ($dataChuDe as $cdid) : ?>
+                if (<?= $cdid['cd_id']?>%2!=0) {
+                    $('table tr:odd').addClass('odd');
+                }
+            <?php endforeach;?>
         });
     </script>
 </body>

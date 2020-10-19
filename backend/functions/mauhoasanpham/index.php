@@ -131,14 +131,5 @@
             });
         });
     </script>
-    <script>
-        $(document).ready(function(e){
-            <?php foreach ($dataMauHoa as $mhid) : ?>
-                if (<?= $mhid['mh_id']?>%2!=0) {
-                    $('table tr:odd').addClass('odd');
-                }
-            <?php endforeach;?>
-        });
-    </script>
 </body>
 </html>

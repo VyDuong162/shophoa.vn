@@ -31,7 +31,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="#chudesanpham"  >
+                <a class="nav-link " href="/shophoa.vn/backend/functions/chudesanpham/index.php"  >
                 <i class="fa fa-themeisle" aria-hidden="true"></i>
                     Chủ đề sản phẩm
                 </a>

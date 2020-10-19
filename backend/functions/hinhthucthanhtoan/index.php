@@ -129,14 +129,5 @@
             });
         });
     </script>
-    <script>
-        $(document).ready(function(e){
-            <?php foreach ($dataHinhThucThanhToan as $htttid) : ?>
-                if (<?= $htttid['httt_id']?>%2!=0) {
-                    $('table tr:odd').addClass('odd');
-                }
-            <?php endforeach;?>
-        });
-    </script>
 </body>
 </html>
