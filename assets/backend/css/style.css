@@ -622,7 +622,9 @@ a.navbar-brand {
 .row a button#btndanhsach{
     text-align: right!important;
 }
+/*bang table*/
 table tr:nth-child(even){background-color:#ddd9d9;}
+/*end table*/
 form #frmtitle{
     background: rgb(199, 202, 199); 
     width: initial;
