@@ -53,14 +53,18 @@ include_once(__DIR__ . '/../../dbconnect.php');
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="/shophoa.vn/assets/shared/img-km/km3.jpg" class="d-block w-100" alt="">
+                            <img src="/shophoa.vn/assets/uploads/img-km/km3.jpg" class="d-block w-100"  height="500px" alt="Shop hoa">
                             <div class="carousel-caption d-none d-md-block">
                                 <h1 class="text-shadow">Chào mừng đến với SHOPHOA</h1>
                             </div>
                         </div>
                         <?php foreach ($dataKhuyenMai as $km) : ?>
                             <div class="carousel-item">
-                                <img src="/shophoa.vn/assets/shared/img-km/<?= $km['km_anh'] ?>" class="d-block w-100" alt="<?= $km['km_ten'] ?>">
+                                <?php if (file_exists('../../assets/uploads/img-km/' . $km['km_anh'])) : ?>
+                                    <img src="/shophoa.vn/assets/uploads/img-km/<?= $km['km_anh'] ?>" class="d-block w-100" height="500px" alt="<?= $km['km_ten'] ?>">
+                                <?php else : ?>
+                                    <img src="/shophoa.vn/assets/shared/img/default.png" class="d-block w-100" height="500px" alt="<?= $km['km_ten'] ?>">
+                                <?php endif; ?>
                                 <div class="carousel-caption d-none d-md-block">
                                     <a class="text-white" href="/shophoa.vn/frontend/pages/sukien.php?km_id=<?= $km['km_id'] ?>">
                                         <h1 class="text-shadow"><?= $km['km_ten'] ?></h1>
