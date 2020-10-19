@@ -78,7 +78,7 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                             <div class="carousel-item">
                                 <img src="/shophoa.vn/assets/shared/img-km/<?= $km['km_anh'] ?>" class="d-block w-100" alt="<?= $km['km_ten'] ?>">
                                 <div class="carousel-caption d-none d-md-block">
-                                    <a class="text-white" href="sukien.php?km_id=<?= $km['km_id'] ?>">
+                                    <a class="text-white" href="/shophoa.vn/frontend/pages/sukien.php?km_id=<?= $km['km_id'] ?>">
                                         <h1 class="text-shadow"><?= $km['km_ten'] ?></h1>
                                     </a>
                                 </div>
