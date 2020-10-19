@@ -111,9 +111,9 @@ include_once(__DIR__ . '/../../dbconnect.php');
                         </table>
                     </form>
                     <div class="text-right">
-                        <button class="btn myfont text-danger btn-add">
+                        <a href="/shophoa.vn/frontend/thanhtoan/thanhtoan.php" class="btn myfont text-danger btn-add">
                             <h1>Đặt hàng</h1>
-                        </button>
+                        </a>
                     </div>
                 <?php else : ?>
                     <h2>Giỏ hàng rỗng!!!</h2>

@@ -82,7 +82,7 @@ if (!isset($_SESSION['page_count'][$sp_id])) {
             <!-- Phần ảnh sản phẩm -->
             <div class="col-md-6">
                 <div class="row">
-                    <?php if (!file_exists('../../assets/shared/img-product/' . $dataSanPham['sp_avt_tenfile'])) : ?>
+                    <?php if (!file_exists('../../assets/uploads/img-product/' . $dataSanPham['sp_avt_tenfile'])) : ?>
                         <div class="col-md-9 text-center" id="anh_dai_dien">
                             <a data-fancybox="gallery" href="/shophoa.vn/assets/shared/img/default.png" data-caption="<?= $dataSanPham['sp_ten'] ?>">
                                 <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $dataSanPham['sp_ten'] ?>" class="img-fluid my-1">
@@ -90,15 +90,15 @@ if (!isset($_SESSION['page_count'][$sp_id])) {
                         </div>
                     <?php else : ?>
                         <div class="col-md-9 text-center" id="anh_dai_dien">
-                            <a data-fancybox="gallery" href="/shophoa.vn/assets/shared/img-product/<?= $dataSanPham['sp_avt_tenfile'] ?>" data-caption="<?= $dataSanPham['sp_ten'] ?>">
-                                <img src="/shophoa.vn/assets/shared/img-product/<?= $dataSanPham['sp_avt_tenfile'] ?>" alt="<?= $dataSanPham['sp_ten'] ?>" class="img-fluid my-1">
+                            <a data-fancybox="gallery" href="/shophoa.vn/assets/uploads/img-product/<?= $dataSanPham['sp_avt_tenfile'] ?>" data-caption="<?= $dataSanPham['sp_ten'] ?>">
+                                <img src="/shophoa.vn/assets/uploads/img-product/<?= $dataSanPham['sp_avt_tenfile'] ?>" alt="<?= $dataSanPham['sp_ten'] ?>" class="img-fluid my-1">
                             </a>
                         </div>
                         <div class="col-md-3 order-md-first" id="anh_nho">
                             <div class="row row-cols-md-1 row-cols-sm-4 row-cols-3">
                                 <?php foreach ($dataHinhSanPham as $anh) : ?>
-                                    <div class="col anh" data-anhnho="/shophoa.vn/assets/shared/img-product/<?= $anh['hsp_tenfile'] ?>">
-                                        <img src="/shophoa.vn/assets/shared/img-product/<?= $anh['hsp_tenfile'] ?>" alt="<?= $dataSanPham['sp_ten'] ?>" class="img-fluid my-1">
+                                    <div class="col anh" data-anhnho="/shophoa.vn/assets/uploads/img-product/<?= $anh['hsp_tenfile'] ?>">
+                                        <img src="/shophoa.vn/assets/uploads/img-product/<?= $anh['hsp_tenfile'] ?>" alt="<?= $dataSanPham['sp_ten'] ?>" class="img-fluid my-1">
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -258,16 +258,16 @@ if (!isset($_SESSION['page_count'][$sp_id])) {
                                 <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $sp['sp_id'] ?>">
                                     <div class="my-box-card-img">
                                         <!-- Ảnh đại diện -->
-                                        <?php if (!file_exists('../../assets/shared/img-product/' . $sp['sp_avt_tenfile'])) : ?>
+                                        <?php if (!file_exists('../../assets/uploads/img-product/' . $sp['sp_avt_tenfile'])) : ?>
                                             <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
                                         <?php else : ?>
-                                            <img src="/shophoa.vn/assets/shared/img-product/<?= $sp['sp_avt_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
+                                            <img src="/shophoa.vn/assets/uploads/img-product/<?= $sp['sp_avt_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-show">
                                         <?php endif; ?>
                                         <!-- Ảnh thứ 2 -->
-                                        <?php if (!file_exists('../../assets/shared/img-product/' . $sp['hsp_tenfile']) || empty($sp['hsp_tenfile'])) : ?>
+                                        <?php if (!file_exists('../../assets/uploads/img-product/' . $sp['hsp_tenfile']) || empty($sp['hsp_tenfile'])) : ?>
                                             <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
                                         <?php else : ?>
-                                            <img src="/shophoa.vn/assets/shared/img-product/<?= $sp['hsp_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
+                                            <img src="/shophoa.vn/assets/uploads/img-product/<?= $sp['hsp_tenfile'] ?>" alt="<?= $sp['sp_ten'] ?>" class="card-img-top my-card-img img-hide">
                                         <?php endif; ?>
                                         <div class="text-danger danh_gia">
                                             <?php for ($i = 1; $i <= floor($sp['sao']); $i++) : ?>
