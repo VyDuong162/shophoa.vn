@@ -36,7 +36,7 @@ if (session_id() === '') {
                 <h1 class="myfont text-center py-5" style="border-radius: 5px 5px 0 0;">Đăng ký tài khoản</h1>
                 <form action="" method="post" id="frm_dang_ky" name="frm_dang_ky" enctype="multipart/form-data" class="px-5">
                     <fieldset class="mt-md-5 mt-sm-0">
-                        <legend class="myfont mb-0">Phần thông tin cơ bản</legend>
+                        <legend class="myfont text-danger mb-0">Phần thông tin cơ bản</legend>
                         <hr class="mt-0">
                         <div class="form-group">
                             <input type="text" name="ten" id="ten" class="form-control hoa-form-control" placeholder="Họ và tên ...">
@@ -76,7 +76,7 @@ if (session_id() === '') {
                         </div>
                     </fieldset>
                     <fieldset class="mt-md-5 mt-sm-0">
-                        <legend class="myfont mb-0">Phần thông tin liên hệ</legend>
+                        <legend class="myfont text-danger mb-0">Phần thông tin liên hệ</legend>
                         <hr class="mt-0">
                         <div class="form-row">
                             <div class="col-md-6 mb-3">
@@ -96,7 +96,7 @@ if (session_id() === '') {
                         </div>
                     </fieldset>
                     <fieldset class="mt-md-5 mt-sm-0">
-                        <legend class="myfont mb-0">Phần tài khoản</legend>
+                        <legend class="myfont text-danger mb-0">Phần tài khoản</legend>
                         <hr class="mt-0">
                         <div class="form-group">
                             <input type="text" name="tendangnhap" id="tendangnhap" class="form-control hoa-form-control" placeholder="Tên đăng nhập ...">

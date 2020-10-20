@@ -11,13 +11,18 @@
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/Buttons/css/buttons.bootstrap4.min.css" type="text/css">
 </head>
 <body>
+    <!-- Phần loading trang web -->
+    <div id="load">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
     <?php include_once(__DIR__ . '/../../layouts/partials/header.php');?> 
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3 position-static">
                 <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php');?>
             </div>
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
                     include_once(__DIR__.'/../../../dbconnect.php');
                     $sql="SELECT cd_id,cd_ten FROM chude";
@@ -31,7 +36,7 @@
                     }
                 ?>
                 <div class="row ">
-                        <div class="col-md-12 text-right mt-3">
+                        <div class="col-md-12 mt-3">
                         <a href="create.php"><button type="button" class="btn btn-primary">Thêm mới</button></a> <br><br>
                         </div>
                 </div>

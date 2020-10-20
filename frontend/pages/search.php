@@ -69,7 +69,7 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="/shophoa.vn/assets/uploads/img-km/km3.jpg" class="d-block w-100"  height="500px" alt="Shop hoa">
+                            <img src="/shophoa.vn/assets/uploads/img-km/wellcome.jpg" class="d-block w-100" alt="Shop hoa">
                             <div class="carousel-caption d-none d-md-block">
                                 <h1 class="text-shadow">Chào mừng đến với SHOPHOA</h1>
                             </div>
@@ -77,9 +77,9 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                         <?php foreach ($dataKhuyenMai as $km) : ?>
                             <div class="carousel-item">
                                 <?php if (file_exists('../../assets/uploads/img-km/' . $km['km_anh'])) : ?>
-                                    <img src="/shophoa.vn/assets/uploads/img-km/<?= $km['km_anh'] ?>" class="d-block w-100" height="500px" alt="<?= $km['km_ten'] ?>">
+                                    <img src="/shophoa.vn/assets/uploads/img-km/<?= $km['km_anh'] ?>" class="d-block w-100"alt="<?= $km['km_ten'] ?>">
                                 <?php else : ?>
-                                    <img src="/shophoa.vn/assets/shared/img/default.png" class="d-block w-100" height="500px" alt="<?= $km['km_ten'] ?>">
+                                    <img src="/shophoa.vn/assets/uploads/img-km/default-image.jpg" class="d-block w-100"alt="<?= $km['km_ten'] ?>">
                                 <?php endif; ?>
                                 <div class="carousel-caption d-none d-md-block">
                                     <a class="text-white" href="/shophoa.vn/frontend/pages/sukien.php?km_id=<?= $km['km_id'] ?>">
