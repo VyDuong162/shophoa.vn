@@ -10,7 +10,7 @@ if (session_id() === '') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Hoa | Đăng ký</title>
+    <title>Shop Hoa | Tài khoản</title>
     <link rel="stylesheet" href="style.css">
     <?php include_once(__DIR__ . '/../layouts/styles.php'); ?>
 </head>
@@ -93,20 +93,20 @@ if (session_id() === '') {
                 <div class="col-md-12 border mt-3">
                     <h4 class="text-danger myfont text-center py-2">Đơn hàng gần đây</h4>
                     <?php
-                    $sqlDonHang = "SELECT * FROM dondathang AS a WHERE a.khachhang_kh_id = {$_SESSION['kh_tendangnhap_id']} ORDER BY a.ddh_ngaylap DESC;";
+                    $sqlDonHang = "SELECT * FROM dondathang AS a WHERE a.khachhang_kh_id = {$_SESSION['kh_tendangnhap_id']} ORDER BY a.ddh_id DESC;";
                     $resultDonHang = mysqli_query($conn, $sqlDonHang);
                     $dataDonHang = [];
                     while ($row = mysqli_fetch_array($resultDonHang, MYSQLI_ASSOC)) {
                         $dataDonHang[] = array(
                             'ddh_id' => $row['ddh_id'],
                             'ddh_tongtien' => number_format($row['ddh_tongtien'], 0, ".", ","),
-                            'ddh_ngaylap' => $row['ddh_ngaylap'],
+                            'ddh_ngaylap' => date('d/m/Y', strtotime($row['ddh_ngaylap'])),
                             'ddh_trangthai' => $row['ddh_trangthai'],
                         );
                     }
                     ?>
                     <?php if (count($dataDonHang) > 0) : ?>
-                        <table class="table">
+                        <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
                                     <th class="text-left">Đơn hàng</th>
@@ -119,21 +119,29 @@ if (session_id() === '') {
                             <tbody>
                                 <?php foreach ($dataDonHang as $dh) : ?>
                                     <tr>
-                                        <td class="text-left"><?= $dh['ddh_id'] ?></td>
+                                        <td class="text-left"><strong><?= $dh['ddh_id'] ?></strong></td>
                                         <td class="text-left"><?= $dh['ddh_ngaylap'] ?></td>
                                         <td class="text-left">
                                             <?php
-                                            $sqlAnh = "SELECT b.sp_avt_tenfile FROM	dondathang_has_sanpham AS a, sanpham AS b WHERE a.dondathang_ddh_id = {$dh['ddh_id']} AND a.sanpham_sp_id = b.sp_id;";
+                                            $sqlAnh = "SELECT b.sp_avt_tenfile, b.sp_id, b.sp_ten FROM	dondathang_has_sanpham AS a, sanpham AS b WHERE a.dondathang_ddh_id = {$dh['ddh_id']} AND a.sanpham_sp_id = b.sp_id;";
                                             $resultAnh = mysqli_query($conn, $sqlAnh);
                                             $dataAnh = [];
-                                            while($row = mysqli_fetch_array($resultAnh, MYSQLI_ASSOC)){
+                                            while ($row = mysqli_fetch_array($resultAnh, MYSQLI_ASSOC)) {
                                                 $dataAnh[] = array(
-                                                    'sp_avt_tenfile' => $row['sp_avt_tenfile']
+                                                    'sp_id' => $row['sp_id'],
+                                                    'sp_ten' => $row['sp_ten'],
+                                                    'sp_avt_tenfile' => $row['sp_avt_tenfile'],
                                                 );
                                             }
                                             ?>
-                                            <?php foreach($dataAnh as $a): ?>
-                                            <img src="/shophoa.vn/assets/uploads/img-product/<?=$a['sp_avt_tenfile']?>" alt="<?=$a['sp_avt_tenfile']?>" height="50px">
+                                            <?php foreach ($dataAnh as $a) : ?>
+                                                <a href="/shophoa.vn/frontend/sanpham/chitiet.php?sp_id=<?= $a['sp_id'] ?>">
+                                                    <?php if (!file_exists('../../assets/uploads/img-product/' . $a['sp_avt_tenfile']) || empty($a['sp_avt_tenfile'])) : ?>
+                                                        <img src="/shophoa.vn/assets/shared/img/default.png" alt="<?= $a['sp_avt_tenfile'] ?>" height="50px">
+                                                    <?php else : ?>
+                                                        <img src="/shophoa.vn/assets/uploads/img-product/<?= $a['sp_avt_tenfile'] ?>" alt="<?= $a['sp_avt_tenfile'] ?>" height="50px">
+                                                    <?php endif; ?>
+                                                </a>
                                             <?php endforeach; ?>
                                         </td>
                                         <td class="text-right"><?= $dh['ddh_tongtien'] ?></td>
