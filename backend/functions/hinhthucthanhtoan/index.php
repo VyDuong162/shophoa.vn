@@ -26,7 +26,7 @@
                     while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
                         $dataHinhThucThanhToan[] = array(
                             'httt_id' => $row['httt_id'],
-                            'httt_ten' => $row['httt_ten']
+                            'httt_ten' => $row['httt_ten'],
                         );
                     }
                 ?>

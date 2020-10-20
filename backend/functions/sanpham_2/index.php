@@ -73,7 +73,7 @@ EOT;
                         <div class="col-md-12 text-right mt-3">
                         <a href="create.php"><button type="button" class="btn btn-primary">Thêm mới</button></a> <br><br>
                         </div>
-                </div>
+                </div>_2
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                             <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách sản phẩm</h1>
