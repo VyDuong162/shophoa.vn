@@ -63,7 +63,7 @@ include_once(__DIR__ . '/../dbconnect.php');
                                 <?php if (file_exists('../assets/uploads/img-km/' . $km['km_anh'])) : ?>
                                     <img src="/shophoa.vn/assets/uploads/img-km/<?= $km['km_anh'] ?>" class="d-block w-100" height="500px" alt="<?= $km['km_ten'] ?>">
                                 <?php else : ?>
-                                    <img src="/shophoa.vn/assets/shared/img/default.png" class="d-block w-100" height="500px" alt="<?= $km['km_ten'] ?>">
+                                    <img src="/shophoa.vn/assets/uploads/img-km/default-image.jpg" class="d-block w-100" height="500px" alt="<?= $km['km_ten'] ?>">
                                 <?php endif; ?>
                                 <div class="carousel-caption d-none d-md-block">
                                     <a class="text-white" href="/shophoa.vn/frontend/pages/sukien.php?km_id=<?= $km['km_id'] ?>">
