@@ -129,7 +129,7 @@
                             Xin chào <span class="text-danger"><?= $_SESSION['kh_tendangnhap_name'] ?></span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="chude2" id="subchude2">
-                            <a class="dropdown-item" href="">Tài khoản</a>
+                            <a class="dropdown-item" href="/shophoa.vn/frontend/pages/taikhoan.php">Tài khoản</a>
                             <a class="dropdown-item" href="/shophoa.vn/backend/auth/logout.php">Đăng xuất</a>
                         </div>
                     </li>
