@@ -159,6 +159,7 @@ if (session_id() === '') {
                 $data = mysqli_fetch_array($result, MYSQLI_ASSOC);
                 $_SESSION['kh_tendangnhap_logged'] = $ten_dang_nhap;
                 $_SESSION['kh_tendangnhap_name'] = $data['kh_hoten'];
+                $_SESSION['kh_tendangnhap_anh'] = $data['kh_avt_tenfile'];
                 $_SESSION['kh_tendangnhap_quantri'] = $data['kh_quantri'];
                 $_SESSION['kh_tendangnhap_id'] = $data['kh_id'];
                 if ($_SESSION['kh_tendangnhap_quantri'])
