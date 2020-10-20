@@ -14,7 +14,7 @@
             <div class="col-md-3 position-static">
                 <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php');?>
             </div>
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
                     include_once(__DIR__.'/../../../dbconnect.php');
                     $sql="SELECT httt_id,httt_ten FROM hinhthucthanhtoan";
@@ -54,6 +54,7 @@
                 <?php
                     if(isset($_POST['btnsave'])){
                         $httt_ten =$_POST['httt_ten'];
+                        $httt_ten = htmlentities( $_POST['httt_ten'] );
                         // Câu lệnh INSERT
                         $sql = "INSERT INTO `hinhthucthanhtoan` (httt_ten) VALUES ('$httt_ten');";
                         // print_r($sql); die;

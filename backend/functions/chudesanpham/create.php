@@ -14,7 +14,7 @@
             <div class="col-md-3 position-static">
                 <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php');?>
             </div>
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
                     include_once(__DIR__.'/../../../dbconnect.php');
                     $sql="SELECT cd_id,cd_ten FROM chude";

@@ -14,7 +14,7 @@
             <div class="col-md-3 position-static">
                 <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php');?>
             </div>
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
                     include_once(__DIR__.'/../../../dbconnect.php');
                     $sql="SELECT lh_id,lh_ten FROM loaihoa";
@@ -58,8 +58,8 @@
                 </div> 
                 <?php
                     if(isset($_POST['btnsave'])){
-                        $lh_ten =$_POST['lh_ten'];
-                        $lh_mota =$_POST['lh_mota'];
+                        $lh_ten = htmlentities( $_POST['lh_ten'] );
+                        $lh_mota = htmlentities( $_POST['lh_mota'] );
                         // Câu lệnh INSERT
                         $sql = "INSERT INTO `loaihoa` (lh_ten,lh_mota) VALUES ('$lh_ten','$lh_mota');";
                         // print_r($sql); die;

@@ -17,7 +17,7 @@
             <div class="col-md-3 position-static">
                 <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php');?>
             </div>
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
                     include_once(__DIR__.'/../../../dbconnect.php');
                     $sql="SELECT httt_id,httt_ten FROM hinhthucthanhtoan";
@@ -31,7 +31,7 @@
                     }
                 ?>
                 <div class="row ">
-                        <div class="col-md-12 text-right mt-3">
+                        <div class="col-md-12 mt-3">
                         <a href="create.php"><button type="button" class="btn btn-primary">Thêm mới</button></a> <br><br>
                         </div>
                 </div>
@@ -40,7 +40,7 @@
                             <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách hình thức thanh toán</h1>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive ">
                             <table id="tblDanhSach" class="table mx-auto table-bordered ">
                                 <thead class="thead-dark">
                                     <tr class="text-center">
@@ -55,10 +55,10 @@
                                             <td><?= $httt['httt_id']; ?></td>
                                             <td><?= $httt['httt_ten']; ?></td>
                                             <td class="text-center">
-                                                <a href="edit.php?idupdate=<?php echo $httt['httt_id']; ?>" class="btn btn-success">
+                                                <a href="edit.php?idupdate=<?php echo $httt['httt_id']; ?>" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="sửa">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $httt['httt_id']; ?>>
+                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $httt['httt_id']; ?> data-toggle="tooltip" data-placement="top" title="xóa">
                                                 <i class="fa fa-trash-o" aria-hidden="true"></i>
                                             </a>
                                             </td>   
@@ -108,6 +108,9 @@
                         "pdf": "Xuất ra file PDF",
                     }
                 }
+            });
+            $(function() {
+                $('[data-toggle="tooltip"]').tooltip()
             });
             $('.btnDelete').click(function() {
                 swal({

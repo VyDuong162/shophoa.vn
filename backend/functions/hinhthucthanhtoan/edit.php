@@ -14,7 +14,7 @@
             <div class="col-md-3 position-static">
                 <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php');?>
             </div>
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
                     include_once(__DIR__.'/../../../dbconnect.php');
                     $id=$_GET['idupdate'];
@@ -55,6 +55,7 @@
                 <?php
                     if(isset($_POST['btnsave'])){
                         $httt_ten =$_POST['httt_ten'];
+                        $httt_ten = htmlentities( $_POST['httt_ten'] );
                         // Câu lệnh UPDATE
                         $sql = "UPDATE `hinhthucthanhtoan` SET httt_ten = '$httt_ten' WHERE httt_id='$id' ;";
                         // print_r($sql); die;
