@@ -47,7 +47,7 @@ include_once(__DIR__ . '/../../dbconnect.php');
                                 'kh_sodienthoai' => $row['kh_sodienthoai'],
                             );
                         }
-                        $sqlHTTT = "SELECT * FROM hinhthucthantoan;";
+                        $sqlHTTT = "SELECT * FROM hinhthucthanhtoan;";
                         $resultHTTT = mysqli_query($conn, $sqlHTTT);
                         $dataHTTT = [];
                         while ($row = mysqli_fetch_array($resultHTTT, MYSQLI_ASSOC)) {
