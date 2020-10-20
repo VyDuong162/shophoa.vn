@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css"/> 
 </head>
 <body>
+    <!-- Phần loading trang web -->
+    <div id="load">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
     <?php include_once(__DIR__ . '/../../layouts/partials/header.php');?> 
     <div class="container-fluid">
         <div class="row">
