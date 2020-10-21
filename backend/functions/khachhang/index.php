@@ -2,9 +2,7 @@
 if (session_id() === '') {
     session_start();
 }
-include_once(__DIR__ . '/../../../dbconnect.php');
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,84 +15,102 @@ include_once(__DIR__ . '/../../../dbconnect.php');
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css" type="text/css">
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/DataTables/css/dataTables.bootstrap4.min.css" type="text/css">
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/Buttons/css/buttons.bootstrap4.min.css" type="text/css">
-    <link rel="stylesheet" href="/shophoa.vn/assets/vendor/fancybox/jquery.fancybox.min.css">
 </head>
 
 <body>
+    <!-- Phần loading trang web -->
+    <div id="load">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
     <?php include_once(__DIR__ . '/../../layouts/partials/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3 position-static">
                 <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php'); ?>
             </div>
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
-                $sql = <<<EOT
-                SELECT *
-                 FROM `hinhsanpham` hsp
-                 JOIN `sanpham` sp ON sp.sp_id=hsp.sanpham_sp_id
-EOT;
+                include_once(__DIR__ . '/../../../dbconnect.php');
+                $sql = " SELECT * FROM `khachhang` ";
                 $result = mysqli_query($conn, $sql);
-                $data = [];
+                $dataKhachHang = [];
                 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                    $sp_tomtat = sprintf(
-                        "Sản phẩm %s, giá: %s",
-                        $row['sp_ten'],
-                        number_format($row['sp_gia'], 0, ".", ",") . ' vnđ'
-                    );
-                    $data[] = array(
-                        'hasp_id' => $row['hasp_id'],
-                        'hsp_tenfile' => $row['hsp_tenfile'],
-                        'sp_tomtat' => $sp_tomtat,
+                    $dataKhachHang[] = array(
+                        'kh_id' => $row['kh_id'],
+                        'kh_hoten' => $row['kh_hoten'],
+                        'kh_tendangnhap' => $row['kh_tendangnhap'],
+                        'kh_matkhau' => $row['kh_matkhau'],
+                        'kh_gioitinh' => $row['kh_gioitinh'],
+                        'kh_ngaysinh' => $row['kh_ngaysinh'],
+                        'kh_sodienthoai' => $row['kh_sodienthoai'],
+                        'kh_email' => $row['kh_email'],
+                        'kh_diachi' => $row['kh_diachi'],
+                        'kh_avt_tenfile' => $row['kh_avt_tenfile'],
                     );
                 }
                 ?>
                 <div class="row ">
-                    <div class="col-md-12 text-right mt-3">
+                    <div class="col-md-12 mt-3">
                         <a href="create.php"><button type="button" class="btn btn-primary">Thêm mới</button></a> <br><br>
                     </div>
                 </div>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách hình ảnh sản phẩm</h1>
+                        <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách khách hàng</h1>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="tblDanhSach" class="table mx-auto table-bordered table-hover">
                                 <thead class="thead-dark">
                                     <tr class="text-center">
-                                        <th>Mã hình sản phẩm </th>
-                                        <th>Hình sản phẩm</th>
-                                        <th>sản phẩm</th>
-                                        <th>Thực thi</th>
+                                        <th class="align-middle text-center">Mã khách hàng</th>
+                                        <th class="align-middle text-center">Tên khách hàng</th>
+                                        <th class="align-middle text-center">Tên đăng nhập</th>
+                                        <th class="align-middle text-center">Mật khẩu</th>
+                                        <th class="align-middle text-center">Giới tính</th>
+                                        <th class="align-middle text-center">Ngày sinh</th>
+                                        <th class="align-middle text-center">Số điện thoại</th>
+                                        <th class="align-middle text-center">Email</th>
+                                        <th class="align-middle text-center">Địa chỉ</th>
+                                        <th class="align-middle text-center">Ảnh đại diện</th>
+                                        <th class="align-middle text-center">Thực thi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($data as $sanpham) : ?>
+                                    <?php foreach ($dataKhachHang as $khachhang) : ?>
                                         <tr>
-                                            <td class="align-middle text-center"><?= $sanpham['hasp_id'] ?></td>
+                                            <td class="align-middle text-center"><?= $khachhang['kh_id'] ?></td>
+                                            <td class="align-middle text-center"><?= $khachhang['kh_hoten'] ?></td>
+                                            <td class="align-middle text-center"><?= $khachhang['kh_tendangnhap'] ?></td>
+                                            <td class="align-middle text-center"><?= $khachhang['kh_matkhau'] ?></td>
+                                            <td class="align-middle text-center"><?= $khachhang['kh_gioitinh'] ?></td>
+                                            <td class="align-middle text-center"><?= $khachhang['kh_ngaysinh'] ?></td>
+                                            <td class="align-middle text-center"><?= $khachhang['kh_sodienthoai'] ?></td>
+                                            <td class="align-middle text-center"><?= $khachhang['kh_email'] ?></td>
+                                            <td class="align-middle text-center"><?= $khachhang['kh_diachi'] ?></td>
                                             <td class="align-middle text-center">
-                                                <?php if (!file_exists("../../../assets/uploads/img-product/".$sanpham['hsp_tenfile']) || empty($sanpham['hsp_tenfile'])) : ?>
-                                                    <a data-fancybox="gallery" href="/shophoa.vn/assets/shared/img/default.png" data-caption="[Ảnh mặc định] <?= $sanpham['sp_tomtat'] ?>">
+                                                <?php if (!file_exists("../../../assets/uploads/avatar/".$khachhang['kh_avt_tenfile']) || empty($khachhang['kh_avt_tenfile'])) : ?>
+                                                    <a data-fancybox="gallery" href="/shophoa.vn/assets/shared/img/default.png">
                                                         <img src="/shophoa.vn/assets/shared/img/default.png" class="img-fluid" width="100px">
                                                     </a>
                                                 <?php else : ?>
-                                                    <a data-fancybox="gallery" href="/shophoa.vn/assets/uploads/img-product/<?= $sanpham['hsp_tenfile'] ?>" data-caption="[<?= $sanpham['hasp_id'] ?>] <?= $sanpham['sp_tomtat'] ?>">
-                                                        <img src="/shophoa.vn/assets/uploads/img-product/<?= $sanpham['hsp_tenfile'] ?>" class="img-fluid" width="100px" />
+                                                    <a data-fancybox="gallery" href="/shophoa.vn/assets/uploads/img-product/<?= $khachhang['kh_avt_tenfile'] ?>">
+                                                        <img src="/shophoa.vn/assets/uploads/avatar/<?= $khachhang['kh_avt_tenfile'] ?>" class="img-fluid" width="100px" />
                                                     </a>
                                                 <?php endif ?>
                                             </td>
-                                            <td class="align-middle text-center"><?= $sanpham['sp_tomtat'] ?></td>
+                                           
                                             <td class="align-middle text-center">
-                                                <a href="edit.php?hasp_id=<?= $sanpham['hasp_id']; ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
+                                                <a href="edit.php?kh_id=<?= $khachhang['kh_id']; ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <button class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa" data-hasp_id="<?= $sanpham['hasp_id'] ?>">
+                                                <a href="#" class="btn btn-warning btnDelete" data-idxoa=<?php echo $khachhang['kh_id']; ?> data-toggle="tooltip" data-placement="top" title="xóa">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                </button>
+                                                </a>
                                         </tr>
-
-                                    <?php endforeach ?>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -110,7 +126,6 @@ EOT;
     <script src="/shophoa.vn/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/sweetalert/sweetalert.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
-    <script src="/shophoa.vn/assets/vendor/fancybox/jquery.fancybox.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#tblDanhSach').DataTable({
@@ -147,26 +162,24 @@ EOT;
             });
             $('.btnDelete').click(function() {
                 swal({
-                        title: "Bạn có chắc chắn muốn xóa?",
-                        text: "Một khi đã xóa, không thể phục hồi....",
+                        title: "Bạn có chắn chắn xóa không?",
+                        text: "Không thể phục hồi dữ liệu khi xóa!",
                         icon: "warning",
                         buttons: true,
                         dangerMode: true,
                     })
                     .then((willDelete) => {
                         if (willDelete) {
-                            var hasp_id = $(this).data('hasp_id');
-                            var url = "delete.php?hasp_id=" + hasp_id;
+                            var kh_id = $(this).data('idxoa');
+                            var url = 'delete.php?idxoa=' + kh_id;
                             location.href = url;
                         } else {
-                            swal("Cẩn thận hơn nhé!");
+                            swal("Hủy xóa thành công!");
                         }
                     });
-
             });
         });
     </script>
-
 </body>
 
 </html>

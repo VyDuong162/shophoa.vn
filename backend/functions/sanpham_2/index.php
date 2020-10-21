@@ -73,7 +73,7 @@ EOT;
                         <div class="col-md-12 text-right mt-3">
                         <a href="create.php"><button type="button" class="btn btn-primary">Thêm mới</button></a> <br><br>
                         </div>
-                </div>_2
+                </div>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                             <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách sản phẩm</h1>
@@ -83,29 +83,29 @@ EOT;
                             <table id="tblDanhSach" class="table mx-auto table-bordered ">
                                 <thead class="thead-dark">
                                     <tr class="text-center">
-                                    <th>Mã hoa</th>
-                                    <th>Tên hoa</th>
-                                    <th>Loại hoa</th>
-                                    <th>Chủ đề</th>
-                                    <th>Màu hoa</th>
-                                    <th>Giá hoa</th>
-                                    <th>Khuyến mãi</th>
-                                    <th>Ngày cập nhật</th>
-                                    <th>Thực thi</th>
+                                    <th class="align-middle text-center">Mã hoa</th>
+                                    <th class="align-middle text-center">Tên hoa</th>
+                                    <th class="align-middle text-center">Loại hoa</th>
+                                    <th class="align-middle text-center">Chủ đề</th>
+                                    <th class="align-middle text-center">Màu hoa</th>
+                                    <th class="align-middle text-center">Giá hoa</th>
+                                    <th class="align-middle text-center">Khuyến mãi</th>
+                                    <th class="align-middle text-center">Ngày cập nhật</th>
+                                    <th class="align-middle text-center">Thực thi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <?php foreach ($data as $sanpham) : ?>
                                     <tr>
-                                        <td><?= $sanpham['sp_id'] ?></td>
-                                        <td><?= $sanpham['sp_ten'] ?></td>
-                                        <td><?= $sanpham['lh_ten'] ?></td>
-                                        <td><?= $sanpham['cd_ten'] ?></td>
-                                        <td><?= $sanpham['mh_ten'] ?></td>
-                                        <td><?= $sanpham['sp_gia'] ?></td>
-                                        <td><?= $sanpham['km_tomtat'] ?></td>
-                                        <td><?= $sanpham['sp_ngaycapnhat'] ?></td>
-                                        <td>
+                                        <td class="align-middle text-center"><?= $sanpham['sp_id'] ?></td>
+                                        <td class="align-middle text-center"><?= $sanpham['sp_ten'] ?></td>
+                                        <td class="align-middle text-center"><?= $sanpham['lh_ten'] ?></td>
+                                        <td class="align-middle text-center"><?= $sanpham['cd_ten'] ?></td>
+                                        <td class="align-middle text-center"><?= $sanpham['mh_ten'] ?></td>
+                                        <td class="align-middle text-center"><?= $sanpham['sp_gia'] ?></td>
+                                        <td class="align-middle text-center"><?= $sanpham['km_tomtat'] ?></td>
+                                        <td class="align-middle text-center"><?= $sanpham['sp_ngaycapnhat'] ?></td>
+                                        <td class="align-middle text-center">
                                             <a href="edit.php?sp_id=<?= $sanpham['sp_id'];?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a>

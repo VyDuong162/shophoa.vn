@@ -21,7 +21,7 @@
             </li>
             <hr class="ml-3" style="border: 0.5px solid red; width: 80%;">
             <li class="nav-item">
-                <a class="nav-link" href="#khachhang" data-toggle="collapse" aria-expanded="false">
+                <a class="nav-link" href="/shophoa.vn/backend/functions/khachhang/index.php" >
                     <i class="fa fa-users" aria-hidden="true"></i>
                     Khách hàng
                 </a>

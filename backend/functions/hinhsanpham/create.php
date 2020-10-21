@@ -110,10 +110,10 @@ if (session_id() === '') {
                         // print_r($sql); die;
                         // Thực thi INSERT
                         mysqli_query($conn, $sql);
-                        //var_dump($sql); die();
+                        var_dump($sql); die();
                         mysqli_close($conn);
 
-                        echo '<script>location.href = "index.php";</script>';
+                        //echo '<script>location.href = "index.php";</script>';
                     }
                 }
                 ?>
