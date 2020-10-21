@@ -535,3 +535,20 @@ section {
     width: 150px;
     border-radius: 50%!important;
 }
+
+.page-link{
+    color: #1b0e0e!important;
+}
+
+.page-item.active .page-link {
+    color: #fff!important;
+    background-color: #dc3545!important;
+    border-color: #dc3545!important;
+}
+.page-item.disabled .page-link{
+    color: #ccc!important;
+    background-color: #fff!important;
+    border-color: #ccc!important;
+}
+
+
