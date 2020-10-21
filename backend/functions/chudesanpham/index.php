@@ -59,17 +59,15 @@ if (session_id() === '') {
                                     <tr class="text-center">
                                         <th>Mã chủ đề</th>
                                         <th>Tên chủ đề</th>
-
                                         <th>Hành động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($dataChuDe as $lh) : ?>
                                         <tr>
-                                            <td><?= $lh['cd_id']; ?></td>
-                                            <td><?= $lh['cd_ten']; ?></td>
-
-                                            <td class="text-center">
+                                            <td class="text-center align-middle"><?= $lh['cd_id']; ?></td>
+                                            <td class="align-middle"><?= $lh['cd_ten']; ?></td>
+                                            <td class="text-center align-middle">
                                                 <a href="edit.php?idupdate=<?php echo $lh['cd_id']; ?>" class="btn btn-success">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
