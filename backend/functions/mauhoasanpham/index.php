@@ -58,10 +58,10 @@ if (session_id() === '') {
                                 <tbody>
                                     <?php foreach ($dataMauHoa as $lh) : ?>
                                         <tr>
-                                            <td><?= $lh['mh_id']; ?></td>
-                                            <td><?= $lh['mh_ten']; ?></td>
+                                            <td class="text-center align-middle"><?= $lh['mh_id']; ?></td>
+                                            <td class="align-middle"><?= $lh['mh_ten']; ?></td>
                                            
-                                            <td class="text-center">
+                                            <td class="text-center align-middle">
                                                 <a href="edit.php?idupdate=<?php echo $lh['mh_id']; ?>" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="sửa">
                                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
