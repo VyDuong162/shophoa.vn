@@ -109,7 +109,11 @@
                         "excel": "Xuất ra file Excel",
                         "pdf": "Xuất ra file PDF",
                     }
-                }
+                },
+                "lengthMenu": [
+                    [10, 15, 20, 25, 50, 100, -1],
+                    [10, 15, 20, 25, 50, 100, "Tất cả"]
+                ]
             });
             $(function() {
                 $('[data-toggle="tooltip"]').tooltip()
