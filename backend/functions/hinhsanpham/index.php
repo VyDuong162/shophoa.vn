@@ -17,6 +17,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css" type="text/css">
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/DataTables/css/dataTables.bootstrap4.min.css" type="text/css">
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/Buttons/css/buttons.bootstrap4.min.css" type="text/css">
+    <link rel="stylesheet" href="/shophoa.vn/assets/vendor/fancybox/jquery.fancybox.min.css">
 </head>
 
 <body>
@@ -37,9 +38,9 @@ EOT;
                 $data = [];
                 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                     $sp_tomtat = sprintf(
-                        "Sản phẩm %s, giá: %d",
+                        "Sản phẩm %s, giá: %s",
                         $row['sp_ten'],
-                        number_format($row['sp_gia'], 2, ".", ",") . ' vnđ'
+                        number_format($row['sp_gia'], 0, ".", ",") . ' vnđ'
                     );
                     $data[] = array(
                         'hasp_id' => $row['hasp_id'],
@@ -70,24 +71,28 @@ EOT;
                                 </thead>
                                 <tbody>
                                     <?php foreach ($data as $sanpham) : ?>
-                                            <tr>
-                                                <td class="align-middle text-center"><?= $sanpham['hasp_id'] ?></td>
-                                                <td class="align-middle text-center">
-                                                    <?php if (!file_exists("../../../assets/uploads/img-product/") || empty($sanpham['hsp_tenfile'])):?>
-                                                        <img src="../../../assets/shared/img/default.png" class="img-fluid" width="100px">
-                                                    <?php else: ?>
-                                                        <img src="/shophoa.vn/assets/uploads/img-product/<?= $sanpham['hsp_tenfile'] ?>" class="img-fluid" width="100px" />
-                                                    <?php endif ?>    
-                                                </td>
-                                                <td class="align-middle text-center"><?= $sanpham['sp_tomtat'] ?></td>
-                                                <td class="align-middle text-center">
-                                                    <a href="edit.php?hasp_id=<?= $sanpham['hasp_id']; ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
-                                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        <tr>
+                                            <td class="align-middle text-center"><?= $sanpham['hasp_id'] ?></td>
+                                            <td class="align-middle text-center">
+                                                <?php if (!file_exists("../../../assets/uploads/img-product/".$sanpham['hsp_tenfile']) || empty($sanpham['hsp_tenfile'])) : ?>
+                                                    <a data-fancybox="gallery" href="/shophoa.vn/assets/shared/img/default.png" data-caption="[Ảnh mặc định] <?= $sanpham['sp_tomtat'] ?>">
+                                                        <img src="/shophoa.vn/assets/shared/img/default.png" class="img-fluid" width="100px">
                                                     </a>
-                                                    <button class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa" data-hasp_id="<?= $sanpham['hasp_id'] ?>">
-                                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                    </button>
-                                            </tr>
+                                                <?php else : ?>
+                                                    <a data-fancybox="gallery" href="/shophoa.vn/assets/uploads/img-product/<?= $sanpham['hsp_tenfile'] ?>" data-caption="[<?= $sanpham['hasp_id'] ?>] <?= $sanpham['sp_tomtat'] ?>">
+                                                        <img src="/shophoa.vn/assets/uploads/img-product/<?= $sanpham['hsp_tenfile'] ?>" class="img-fluid" width="100px" />
+                                                    </a>
+                                                <?php endif ?>
+                                            </td>
+                                            <td class="align-middle text-center"><?= $sanpham['sp_tomtat'] ?></td>
+                                            <td class="align-middle text-center">
+                                                <a href="edit.php?hasp_id=<?= $sanpham['hasp_id']; ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                </a>
+                                                <button class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa" data-hasp_id="<?= $sanpham['hasp_id'] ?>">
+                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                </button>
+                                        </tr>
 
                                     <?php endforeach ?>
                                 </tbody>
@@ -105,6 +110,7 @@ EOT;
     <script src="/shophoa.vn/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/sweetalert/sweetalert.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/shophoa.vn/assets/vendor/fancybox/jquery.fancybox.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#tblDanhSach').DataTable({
@@ -133,7 +139,11 @@ EOT;
                         "excel": "Xuất ra file Excel",
                         "pdf": "Xuất ra file PDF",
                     }
-                }
+                },
+                "lengthMenu": [
+                    [5, 10, 15, 20, 25, 50, 100, -1],
+                    [5, 10, 15, 20, 25, 50, 100, "Tất cả"]
+                ]
             });
             $('.btnDelete').click(function() {
                 swal({
@@ -144,11 +154,11 @@ EOT;
                         dangerMode: true,
                     })
                     .then((willDelete) => {
-                        if (willDelete) { 
+                        if (willDelete) {
                             var hasp_id = $(this).data('hasp_id');
                             var url = "delete.php?hasp_id=" + hasp_id;
                             location.href = url;
-                        } else { 
+                        } else {
                             swal("Cẩn thận hơn nhé!");
                         }
                     });
