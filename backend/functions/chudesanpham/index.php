@@ -5,49 +5,52 @@ if (session_id() === '') {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>chủ đề sản phẩm</title>
-    <?php include_once(__DIR__.'/../../layouts/styles.php');?>
-    <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css"/> 
+    <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
+    <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css" />
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css" type="text/css">
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/DataTables/css/dataTables.bootstrap4.min.css" type="text/css">
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/Buttons/css/buttons.bootstrap4.min.css" type="text/css">
 </head>
+
 <body>
     <!-- Phần loading trang web -->
     <div id="load">
-    <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
     </div>
-    <?php include_once(__DIR__ . '/../../layouts/partials/header.php');?> 
+    <?php include_once(__DIR__ . '/../../layouts/partials/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3 position-static">
-                <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php');?>
+                <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php'); ?>
             </div>
             <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
-                    include_once(__DIR__.'/../../../dbconnect.php');
-                    $sql="SELECT cd_id,cd_ten FROM chude";
-                    $result=mysqli_query($conn,$sql);
-                    $dataChuDe = [];
-                    while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                        $dataChuDe[] = array(
-                            'cd_id' => $row['cd_id'],
-                            'cd_ten' => $row['cd_ten']
-                        );
-                    }
+                include_once(__DIR__ . '/../../../dbconnect.php');
+                $sql = "SELECT cd_id,cd_ten FROM chude";
+                $result = mysqli_query($conn, $sql);
+                $dataChuDe = [];
+                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                    $dataChuDe[] = array(
+                        'cd_id' => $row['cd_id'],
+                        'cd_ten' => $row['cd_ten']
+                    );
+                }
                 ?>
                 <div class="row ">
-                        <div class="col-md-12 mt-3">
+                    <div class="col-md-12 mt-3">
                         <a href="create.php"><button type="button" class="btn btn-primary">Thêm mới</button></a> <br><br>
-                        </div>
+                    </div>
                 </div>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                            <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách chủ đề</h1>
+                        <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách chủ đề</h1>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -56,7 +59,7 @@ if (session_id() === '') {
                                     <tr class="text-center">
                                         <th>Mã chủ đề</th>
                                         <th>Tên chủ đề</th>
-                                        
+
                                         <th>Hành động</th>
                                     </tr>
                                 </thead>
@@ -65,15 +68,15 @@ if (session_id() === '') {
                                         <tr>
                                             <td><?= $lh['cd_id']; ?></td>
                                             <td><?= $lh['cd_ten']; ?></td>
-                                           
+
                                             <td class="text-center">
                                                 <a href="edit.php?idupdate=<?php echo $lh['cd_id']; ?>" class="btn btn-success">
-                                                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $lh['cd_id']; ?>>
-                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                            </a>
-                                            </td>   
+                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -84,8 +87,8 @@ if (session_id() === '') {
             </main>
         </div>
     </div>
-    <?php include_once(__DIR__ . '/../../layouts/partials/footer.php');?>
-    <?php include_once(__DIR__.'/../../layouts/scripts.php');?>
+    <?php include_once(__DIR__ . '/../../layouts/partials/footer.php'); ?>
+    <?php include_once(__DIR__ . '/../../layouts/scripts.php'); ?>
     <script src="/shophoa.vn/assets/vendor/DataTables/datatables.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/DataTables/pdfmake-0.1.36/pdfmake.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -142,13 +145,14 @@ if (session_id() === '') {
         });
     </script>
     <script>
-        $(document).ready(function(e){
+        $(document).ready(function(e) {
             <?php foreach ($dataChuDe as $cdid) : ?>
-                if (<?= $cdid['cd_id']?>%2!=0) {
+                if (<?= $cdid['cd_id'] ?> % 2 != 0) {
                     $('table tr:odd').addClass('odd');
                 }
-            <?php endforeach;?>
+            <?php endforeach; ?>
         });
     </script>
 </body>
+
 </html>
