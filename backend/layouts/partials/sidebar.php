@@ -39,15 +39,15 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/shophoa.vn/backend/functions/chudesanpham/index.php">
-                    <i class="fa fa-themeisle" aria-hidden="true"></i>
-                    Chủ đề sản phẩm
-                </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link " href="/shophoa.vn/backend/functions/hinhsanpham/index.php">
                     <i class="fa fa-picture-o" aria-hidden="true"></i>
                     Hình sản phẩm
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/shophoa.vn/backend/functions/chudesanpham/index.php">
+                    <i class="fa fa-themeisle" aria-hidden="true"></i>
+                    Chủ đề sản phẩm
                 </a>
             </li>
             <li class="nav-item">
