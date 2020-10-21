@@ -2,7 +2,7 @@
     <div class="sidebar-sticky pt-3 position-static">
         <?php if (isset($_SESSION['kh_tendangnhap_logged'])) : ?>
             <div class="my-2 text-center" id="avatar" style="padding-top:  1rem;">
-            <?php if (!file_exists('../../assets/uploads/img-product/' . $_SESSION['kh_tendangnhap_anh']) || empty($_SESSION['kh_tendangnhap_anh'])) : ?>
+            <?php if (empty($_SESSION['kh_tendangnhap_anh'])) : ?>
                 <img src="/shophoa.vn/assets/shared/img/avatar-default.jpg" alt="<?= $_SESSION['kh_tendangnhap_name'] ?>" height="100px">
             <?php else:?>
                 <img src="/shophoa.vn/assets/uploads/avatar/<?=$_SESSION['kh_tendangnhap_anh']?>" alt="<?= $_SESSION['kh_tendangnhap_name'] ?>" height="100px">
