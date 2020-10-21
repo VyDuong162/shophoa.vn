@@ -60,7 +60,7 @@ EOT;
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="tblDanhSach" class="table mx-auto table-bordered ">
+                            <table id="tblDanhSach" class="table mx-auto table-bordered table-hover">
                                 <thead class="thead-dark">
                                     <tr class="text-center">
                                         <th>Mã hình sản phẩm </th>
