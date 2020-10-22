@@ -50,7 +50,7 @@ if (session_id() === '') {
                         <h4 class="text-danger myfont text-center py-2">Thông tin cá nhân</h4>
                         <div class="row">
                             <div class="col-md-4 text-center">
-                                <?php if (!empty($khachhangRow['kh_avt_tenfile']) && file_exists('../assets/uploads/avatar/' . $khachhangRow['kh_avt_tenfile'])) : ?>
+                                <?php if (!empty($khachhangRow['kh_avt_tenfile']) && file_exists('../../assets/uploads/avatar/' . $khachhangRow['kh_avt_tenfile'])) : ?>
                                     <img src="/shophoa.vn/assets/uploads/avatar/<?= $khachhangRow['kh_avt_tenfile'] ?>" alt="<?= $khachhangRow['kh_hoten'] ?>" class="img-avatar img-thumbnail">
                                 <?php else : ?>
                                     <img src="/shophoa.vn/assets/shared/img/avatar-default.jpg" alt="<?= $khachhangRow['kh_hoten'] ?>" class="img-avatar img-thumbnail">
