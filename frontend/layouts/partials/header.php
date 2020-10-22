@@ -126,7 +126,7 @@
                     <?php endif; ?>
                     <li class="nav-item dropdown mx-2">
                         <a class="nav-link" href="#" id="chude3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Xin chào <span class="text-danger"><?= $_SESSION['kh_tendangnhap_name'] ?></span>
+                            Xin chào <span class="text-dark"><?= $_SESSION['kh_tendangnhap_name'] ?></span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="chude2" id="subchude2">
                             <a class="dropdown-item" href="/shophoa.vn/frontend/pages/taikhoan.php">Tài khoản</a>

@@ -64,10 +64,10 @@ if (session_id() === '') {
                                     <div class="col-sm-6"><strong>Giới tính : </strong></div>
                                     <div class="col-sm-6">
                                         <?php
-                                        if ($khachhangRow['kh_ngaysinh'])
+                                        if ($khachhangRow['kh_ngaysinh']==1)
                                             echo 'Nam';
                                         else
-                                            echo 'Nu';
+                                            echo 'Nữ';
                                         ?>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@ if (session_id() === '') {
                         <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
-                                    <th class="text-left">Đơn hàng</th>
+                                    <th class="text-left">Mã đơn hàng</th>
                                     <th class="text-left">Ngày đặt</th>
                                     <th class="text-left">Sản phẩm</th>
                                     <th class="text-right">Tổng tiền</th>
