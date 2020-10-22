@@ -64,7 +64,7 @@ if (session_id() === '') {
                                     <div class="col-sm-6"><strong>Giới tính : </strong></div>
                                     <div class="col-sm-6">
                                         <?php
-                                        if ($khachhangRow['kh_ngaysinh']==1)
+                                        if ($khachhangRow['kh_gioitinh']==1)
                                             echo 'Nam';
                                         else
                                             echo 'Nữ';
