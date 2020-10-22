@@ -229,9 +229,15 @@ a.my_nav {
     height: 5px;
     width: 5px;
     transform: rotate(45deg);
-    background: #9a9da0;
+    background: #d12c4f;
     right: -10px;
-    top: 18px;
+    top: 23px;
+}
+
+@media (max-width: 991px){
+    .dot::after{
+        display: none;
+    }
 }
 
 #btn-search {
@@ -576,4 +582,10 @@ section {
     color: #ccc !important;
     background-color: #fff !important;
     border-color: #ccc !important;
+}
+
+#nav a {
+    color : #dc3545;
+    font-size: 1.5rem;
+    font-family: 'Lobster', cursive;
 }
