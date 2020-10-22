@@ -15,6 +15,7 @@ if (session_id() === '') {
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css" type="text/css">
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/DataTables/css/dataTables.bootstrap4.min.css" type="text/css">
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/Buttons/css/buttons.bootstrap4.min.css" type="text/css">
+    <link rel="stylesheet" href="/shophoa.vn/assets/vendor/fancybox/jquery.fancybox.min.css">
 </head>
 
 <body>
@@ -42,12 +43,13 @@ if (session_id() === '') {
                         'kh_hoten' => $row['kh_hoten'],
                         'kh_tendangnhap' => $row['kh_tendangnhap'],
                         'kh_matkhau' => $row['kh_matkhau'],
-                        'kh_gioitinh' => $row['kh_gioitinh'],
-                        'kh_ngaysinh' => $row['kh_ngaysinh'],
+                        'kh_gioitinh' => ($row['kh_gioitinh']==1)?'Nam':'Nữ',
+                        'kh_ngaysinh' => date('d/m/Y',strtotime($row['kh_ngaysinh'])),
                         'kh_sodienthoai' => $row['kh_sodienthoai'],
                         'kh_email' => $row['kh_email'],
                         'kh_diachi' => $row['kh_diachi'],
                         'kh_avt_tenfile' => $row['kh_avt_tenfile'],
+                        'kh_quantri' => $row['kh_quantri'],
                     );
                 }
                 ?>
@@ -75,6 +77,7 @@ if (session_id() === '') {
                                         <th class="align-middle text-center">Email</th>
                                         <th class="align-middle text-center">Địa chỉ</th>
                                         <th class="align-middle text-center">Ảnh đại diện</th>
+                                        <th class="align-middle text-center">Quyền</th>
                                         <th class="align-middle text-center">Thực thi</th>
                                     </tr>
                                 </thead>
@@ -92,16 +95,22 @@ if (session_id() === '') {
                                             <td class="align-middle text-center"><?= $khachhang['kh_diachi'] ?></td>
                                             <td class="align-middle text-center">
                                                 <?php if (!file_exists("../../../assets/uploads/avatar/".$khachhang['kh_avt_tenfile']) || empty($khachhang['kh_avt_tenfile'])) : ?>
-                                                    <a data-fancybox="gallery" href="/shophoa.vn/assets/shared/img/default.png">
-                                                        <img src="/shophoa.vn/assets/shared/img/default.png" class="img-fluid" width="100px">
+                                                    <a data-fancybox="gallery" href="/shophoa.vn/assets/shared/img/avatar-default.jpg">
+                                                        <img src="/shophoa.vn/assets/shared/img/avatar-default.jpg" class="img-fluid" width="100px">
                                                     </a>
                                                 <?php else : ?>
-                                                    <a data-fancybox="gallery" href="/shophoa.vn/assets/uploads/img-product/<?= $khachhang['kh_avt_tenfile'] ?>">
+                                                    <a data-fancybox="gallery" href="/shophoa.vn/assets/uploads/avatar/<?= $khachhang['kh_avt_tenfile'] ?>">
                                                         <img src="/shophoa.vn/assets/uploads/avatar/<?= $khachhang['kh_avt_tenfile'] ?>" class="img-fluid" width="100px" />
                                                     </a>
                                                 <?php endif ?>
                                             </td>
-                                           
+                                            <td class="align-middle text-center">
+                                                <?php if($khachhang['kh_quantri']): ?>
+                                                    <span class="badge badge-primary">admin</span>
+                                                <?php else:?>
+                                                    <span class="badge badge-secondary">user</span>
+                                                <?php endif;?>
+                                            </td>
                                             <td class="align-middle text-center">
                                                 <a href="edit.php?kh_id=<?= $khachhang['kh_id']; ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -126,6 +135,7 @@ if (session_id() === '') {
     <script src="/shophoa.vn/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/sweetalert/sweetalert.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/shophoa.vn/assets/vendor/fancybox/jquery.fancybox.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#tblDanhSach').DataTable({
