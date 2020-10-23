@@ -56,6 +56,13 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         $mauHoa .= '<li>'.$rowMauHoa['mh_ten'].'</li>';
                     }
                     $mauHoa .= '</ul>';
+                    $sqlChuDe = "SELECT a.cd_ten FROM chude AS a, sanpham_has_chude AS b WHERE a.cd_id = b.chude_cd_id AND b.sanpham_sp_id = {$rowSanPham['sp_id']};";
+                    $resultChuDe = mysqli_query($conn, $sqlChuDe);
+                    $ChuDe = '<ul> ';
+                    while($rowChuDe = mysqli_fetch_array($resultChuDe, MYSQLI_ASSOC)){
+                        $ChuDe .= '<li>'.$rowChuDe['cd_ten'].'</li>';
+                    }
+                    $ChuDe .= '</ul>';
                     $dataSanPham[] = array(
                         'sp_id' => $rowSanPham['sp_id'],
                         'sp_ten' => $rowSanPham['sp_ten'],
@@ -69,6 +76,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         'km_tomtat' => $km_tomtat,
                         'loaiHoa' => $loaiHoa,
                         'mauHoa' => $mauHoa,
+                        'chuDe' => $ChuDe,
                     );
                 }
                 ?>
@@ -111,6 +119,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                             <td class="text-center align-middle"><?= $sp['sp_yeuthich']; ?></td>
                                             <td class="text-center align-middle"><?= $sp['loaiHoa']; ?></td>
                                             <td class="text-center align-middle"><?= $sp['mauHoa']; ?></td>
+                                            <td class="text-center align-middle"><?= $sp['chuDe']; ?></td>
                                             <td class="text-center align-middle"><?= $sp['sp_ngaycapnhat']; ?></td>
                                             <td class="text-center align-middle"><?= $sp['km_tomtat']; ?></td>
                                             <td class="text-center align-middle">
@@ -119,7 +128,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                                         <img src="/shophoa.vn/assets/shared/img/default.png" class="img-fluid" width="100px">
                                                     </a>
                                                 <?php else : ?>
-                                                    <a data-fancybox="gallery" href="/shophoa.vn/assets/uploads/img-product/<?= $sp['sp_avt_tenfile'] ?>" data-caption="[<?= $sp['hasp_id'] ?>] <?= $sp['sp_ten'] ?>">
+                                                    <a data-fancybox="gallery" href="/shophoa.vn/assets/uploads/img-product/<?= $sp['sp_avt_tenfile'] ?>" data-caption="<?= $sp['sp_ten'] ?>">
                                                         <img src="/shophoa.vn/assets/uploads/img-product/<?= $sp['sp_avt_tenfile'] ?>" class="img-fluid" width="100px" />
                                                     </a>
                                                 <?php endif ?>
