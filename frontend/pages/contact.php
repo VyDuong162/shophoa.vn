@@ -1,65 +1,67 @@
+<?php
+if (session_id() === '') {
+  session_start();
+}
+include_once(__DIR__ . '/../../dbconnect.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <?php
-        include_once(__DIR__ . '/style.php');
-    ?>
-    <link rel="stylesheet" href="/templatedoan/template-index/stylelinh.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Hoa | Liên hệ</title>
+  <?php include_once(__DIR__ . '/../layouts/styles.php'); ?>
 
 </head>
+
 <body>
-      <!--      Phần header     -->
-      <?php
-            include_once(__DIR__ . '/../layout/navbar.php');
-        ?>
-    <!-- Drop Phần header     -->
-<section id="contact">
-  <div class="container">
-    <div class="well well-sm">
-      <h3><strong>Liên hệ với chúng tôi</strong></h3>
+  <div id="load">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
     </div>
-	
-	<div class="row">
-	  <div class="col-md-7">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d3736489.7218514383!2d90.21589792292741!3d23.857125486636733!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1506502314230" width="100%" height="315" frameborder="0" style="border:0" allowfullscreen></iframe>
+  </div>
+  <!--      Phần header     -->
+  <?php include_once(__DIR__ . '/../layouts/partials/header.php'); ?>
+  <!-- Drop Phần header     -->
+  <div class="container my-3">
+    <h3 class="myfont text-danger">Liên hệ với chúng tôi</h3>
+
+    <div class="row">
+      <div class="col-md-7 order-last order-sm-first">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3926.481517685543!2d105.5311542152584!3d10.222693471963998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1603456603045!5m2!1svi!2s" width="100%" height="330" frameborder="0" style="border:0;" aria-hidden="false" tabindex="0"></iframe>
       </div>
-          
+
       <div class="col-md-5">
-          <h4><strong>Gửi thắc mắc</strong></h4>
+        <h4 class="myfont text-danger">Gửi thắc mắc</h4>
         <form>
           <div class="form-group">
-            <input type="text" class="form-control" name="" value="" placeholder="Tên khách hàng">
+            <input type="text" class="form-control" name="title" id="title" placeholder="Tiêu đề">
           </div>
           <div class="form-group">
-            <input type="email" class="form-control" name="" value="" placeholder="E-mail">
+            <input type="email" class="form-control" name="email" id="email" placeholder="E-mail">
           </div>
           <div class="form-group">
-            <input type="tel" class="form-control" name="" value="" placeholder="Số điện thoại">
+            <input type="tel" class="form-control" name="dienthoai" id="dienthoai" placeholder="Số điện thoại">
           </div>
           <div class="form-group">
-            <textarea class="form-control" name="" rows="3" placeholder="Nội dung"></textarea>
+            <textarea class="form-control" name="message" id="message" rows="3" placeholder="Nội dung"></textarea>
           </div>
-          <button class="btn btn-default" type="submit" name="button">
-              <i class="fa fa-paper-plane-o" aria-hidden="true"></i> Submit
-          </button>
+          <div class="text-center">
+            <button class="btn btn-add myfont text-danger" name="btnGoiLoiNhan">
+              <h3><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Gửi</h3>
+            </button>
+          </div>
         </form>
       </div>
     </div>
   </div>
-</section>
-<!--      Phần footer     -->
-<?php
-    include_once(__DIR__ . '/../layout/footer.php');
-    ?>
-    <!-- Drop Phần footer     -->
-    <!-- Liên kết js -->
-    <?php
-    include_once(__DIR__ . '/script.php');
-    ?>
-    <!-- Liên kết js -->
+  <!-- Phần footer -->
+  <?php include_once(__DIR__ . '/../layouts/partials/footer.php'); ?>
+  <!-- Drop Phần footer -->
+  <!-- Liên kết js -->
+  <?php include_once(__DIR__ . '/../layouts/scripts.php'); ?>
+  <!-- Liên kết js -->
 </body>
+
 </html>
-  
