@@ -2,6 +2,13 @@
 if (session_id() === '') {
     session_start();
 }
+include_once(__DIR__ . '/../../../dbconnect.php');
+$cd_id = $_GET['cd_id'];
+$sqlChuDe = "SELECT cd_ten FROM chude WHERE cd_id = {$cd_id}";
+$resultChuDe = mysqli_query($conn, $sqlChuDe);
+while ($rowChuDe = mysqli_fetch_array($resultChuDe, MYSQLI_ASSOC)) {
+    $chuDe = $rowChuDe['cd_ten'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,12 +16,13 @@ if (session_id() === '') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>chủ đề sản phẩm</title>
+    <title>Shop Hoa | San phẩm chủ đề <?= $chuDe ?></title>
     <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css" />
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css" type="text/css">
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/DataTables/css/dataTables.bootstrap4.min.css" type="text/css">
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/Buttons/css/buttons.bootstrap4.min.css" type="text/css">
+    <link rel="stylesheet" href="/shophoa.vn/assets/vendor/fancybox/jquery.fancybox.min.css">
 </head>
 
 <body>
@@ -32,51 +40,74 @@ if (session_id() === '') {
             </div>
             <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
-                include_once(__DIR__ . '/../../../dbconnect.php');
-                $sql = "SELECT cd_id,cd_ten FROM chude";
-                $result = mysqli_query($conn, $sql);
-                $dataChuDe = [];
-                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                    $dataChuDe[] = array(
-                        'cd_id' => $row['cd_id'],
-                        'cd_ten' => $row['cd_ten']
+                $sqlSanPham = "SELECT * FROM sanpham AS a JOIN sanpham_has_chude AS b ON a.sp_id = b.sanpham_sp_id WHERE b.chude_cd_id = {$cd_id};";
+                $resultSanPham = mysqli_query($conn, $sqlSanPham);
+                $dataSanPham = [];
+                while ($row = mysqli_fetch_array($resultSanPham, MYSQLI_ASSOC)) {
+                    $dataSanPham[] = array(
+                        'sp_id' => $row['sp_id'],
+                        'sp_ten' => $row['sp_ten'],
+                        'sp_gia' => number_format($row['sp_gia'], 0, ".", ","),
+                        'sp_giacu' => ($row['sp_giacu'] > 0) ? number_format($row['sp_giacu'], 0, ".", ",") : '',
+                        'sp_yeuthich' => $row['sp_yeuthich'],
+                        'sp_mota_ngan' => $row['sp_mota_ngan'],
+                        'sp_mota_chitiet' => $row['sp_mota_chitiet'],
+                        'sp_ngaycapnhat' => date('d/m/Y', strtotime($row['sp_ngaycapnhat'])),
+                        'sp_avt_tenfile' => $row['sp_avt_tenfile'],
                     );
                 }
                 ?>
-                <div class="row ">
-                    <div class="col-md-12 mt-3">
-                        <a href="create.php"><button type="button" class="btn btn-primary">Thêm mới</button></a> <br><br>
-                    </div>
-                </div>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách chủ đề sản phẩm</h1>
+                        <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách sản phẩm thuộc chủ đề <?= $chuDe ?></h1>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table id="tblDanhSach" class="table mx-auto table-bordered table-hover">
                                 <thead class="thead-dark">
                                     <tr class="text-center">
-                                        <th>Mã chủ đề</th>
-                                        <th>Tên chủ đề</th>
-                                        <th>Hành động</th>
+                                        <th>STT</th>
+                                        <th>Tên</th>
+                                        <th>Giá</th>
+                                        <th>Giá cũ</th>
+                                        <th>Yêu thích</th>
+                                        <th width="20%">Mô tả ngắn</th>
+                                        <th width="20%">Mô tả chi tiết</th>
+                                        <th>Ngày cập nhật</th>
+                                        <th>Ảnh</th>
+                                        <th>Thao tác</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($dataChuDe as $lh) : ?>
+                                    <?php $i = 1; ?>
+                                    <?php foreach ($dataSanPham as $sp) : ?>
                                         <tr>
-                                            <td class="text-center align-middle"><?= $lh['cd_id']; ?></td>
-                                            <td class="align-middle"><?= $lh['cd_ten']; ?></td>
+                                            <td class="text-center align-middle"><?= $i++; ?></td>
+                                            <td class="text-center align-middle"><?= $sp['sp_ten']; ?></td>
+                                            <td class="text-center align-middle"><?= $sp['sp_gia']; ?></td>
+                                            <td class="text-center align-middle"><?= $sp['sp_giacu']; ?></td>
+                                            <td class="text-center align-middle"><?= $sp['sp_yeuthich']; ?></td>
+                                            <td class="text-center align-middle"><?= $sp['sp_mota_ngan']; ?></td>
+                                            <td class="text-center align-middle"><?= $sp['sp_mota_chitiet']; ?></td>
+                                            <td class="text-center align-middle"><?= $sp['sp_ngaycapnhat']; ?></td>
                                             <td class="text-center align-middle">
-                                                <a href="edit.php?idupdate=<?php echo $lh['cd_id']; ?>" class="btn btn-success">
+                                                <?php if (!file_exists("../../../assets/uploads/img-product/" . $sp['sp_avt_tenfile']) || empty($sp['sp_avt_tenfile'])) : ?>
+                                                    <a data-fancybox="gallery" href="/shophoa.vn/assets/shared/img/default.png" data-caption="[Ảnh mặc định] <?= $sp['sp_ten'] ?>">
+                                                        <img src="/shophoa.vn/assets/shared/img/default.png" class="img-fluid" width="100px">
+                                                    </a>
+                                                <?php else : ?>
+                                                    <a data-fancybox="gallery" href="/shophoa.vn/assets/uploads/img-product/<?= $sp['sp_avt_tenfile'] ?>" data-caption="[<?= $sp['hasp_id'] ?>] <?= $sp['sp_ten'] ?>">
+                                                        <img src="/shophoa.vn/assets/uploads/img-product/<?= $sp['sp_avt_tenfile'] ?>" class="img-fluid" width="100px" />
+                                                    </a>
+                                                <?php endif ?>
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Sửa">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa="<?php echo $lh['cd_id']; ?>">
+                                                <button type="button" class="btn btn-danger btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa" data-sanpham_sp_id="<?= $sp['sp_id'] ?>" data-chude_cd_id="<?=$cd_id?>">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="sanpham.php?cd_id=<?=$lh['cd_id']?>" class="btn btn-secondary">
-                                                    <i class="fa fa-cubes" aria-hidden="true"></i>
-                                                </a>
+                                                </button>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -95,6 +126,7 @@ if (session_id() === '') {
     <script src="/shophoa.vn/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/sweetalert/sweetalert.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/shophoa.vn/assets/vendor/fancybox/jquery.fancybox.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#tblDanhSach').DataTable({
@@ -139,14 +171,18 @@ if (session_id() === '') {
                     })
                     .then((willDelete) => {
                         if (willDelete) {
-                            var cd_id = $(this).data('idxoa');
-                            var url = 'delete.php?idxoa=' + cd_id;
+                            var sanpham_sp_id = $(this).data('sanpham_sp_id');
+                            var chude_cd_id = $(this).data('chude_cd_id');
+                            var url = 'delete2.php?chude_cd_id=' + chude_cd_id + '&sanpham_sp_id='+sanpham_sp_id;
                             location.href = url;
                         } else {
                             swal("Hủy xóa thành công!");
                         }
                     });
             });
+            $(function() {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
         });
     </script>
 </body>

@@ -2,14 +2,16 @@
 if (session_id() === '') {
     session_start();
 }
+include_once(__DIR__ . '/../../../dbconnect.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>chủ đề sản phẩm</title>
+    <title>Loại hoa sản phẩm</title>
     <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css" />
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css" type="text/css">
@@ -18,68 +20,65 @@ if (session_id() === '') {
 </head>
 
 <body>
-    <!-- Phần loading trang web -->
-    <div id="load">
-        <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
     <?php include_once(__DIR__ . '/../../layouts/partials/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3 position-static">
                 <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php'); ?>
             </div>
-            <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
-                include_once(__DIR__ . '/../../../dbconnect.php');
-                $sql = "SELECT cd_id,cd_ten FROM chude";
-                $result = mysqli_query($conn, $sql);
-                $dataChuDe = [];
-                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                    $dataChuDe[] = array(
-                        'cd_id' => $row['cd_id'],
-                        'cd_ten' => $row['cd_ten']
-                    );
-                }
+                    $sqlSanPham = "SELECT * FROM sanpham;";
+                    $resultSanPham = mysqli_query($conn, $sqlSanPham);
+                    $dataSanPham = [];
+                    
                 ?>
                 <div class="row ">
-                    <div class="col-md-12 mt-3">
+                    <div class="col-md-12 text-right mt-3">
                         <a href="create.php"><button type="button" class="btn btn-primary">Thêm mới</button></a> <br><br>
                     </div>
                 </div>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách chủ đề sản phẩm</h1>
+                        <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách sản phẩm</h1>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="tblDanhSach" class="table mx-auto table-bordered table-hover">
+                            <table id="tblDanhSach" class="table mx-auto table-bordered ">
                                 <thead class="thead-dark">
                                     <tr class="text-center">
-                                        <th>Mã chủ đề</th>
-                                        <th>Tên chủ đề</th>
-                                        <th>Hành động</th>
+                                        <th class="align-middle text-center">Mã hoa</th>
+                                        <th class="align-middle text-center">Tên hoa</th>
+                                        <th class="align-middle text-center">Loại hoa</th>
+                                        <th class="align-middle text-center">Chủ đề</th>
+                                        <th class="align-middle text-center">Màu hoa</th>
+                                        <th class="align-middle text-center">Giá hoa</th>
+                                        <th class="align-middle text-center">Khuyến mãi</th>
+                                        <th class="align-middle text-center">Ngày cập nhật</th>
+                                        <th class="align-middle text-center">Thực thi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach ($dataChuDe as $lh) : ?>
+                                    <?php foreach ($data as $sanpham) : ?>
                                         <tr>
-                                            <td class="text-center align-middle"><?= $lh['cd_id']; ?></td>
-                                            <td class="align-middle"><?= $lh['cd_ten']; ?></td>
-                                            <td class="text-center align-middle">
-                                                <a href="edit.php?idupdate=<?php echo $lh['cd_id']; ?>" class="btn btn-success">
+                                            <td class="align-middle text-center"><?= $sanpham['sp_id'] ?></td>
+                                            <td class="align-middle text-center"><?= $sanpham['sp_ten'] ?></td>
+                                            <td class="align-middle text-center"><?= $sanpham['lh_ten'] ?></td>
+                                            <td class="align-middle text-center"><?= $sanpham['cd_ten'] ?></td>
+                                            <td class="align-middle text-center"><?= $sanpham['mh_ten'] ?></td>
+                                            <td class="align-middle text-center"><?= $sanpham['sp_gia'] ?></td>
+                                            <td class="align-middle text-center"><?= $sanpham['km_tomtat'] ?></td>
+                                            <td class="align-middle text-center"><?= $sanpham['sp_ngaycapnhat'] ?></td>
+                                            <td class="align-middle text-center">
+                                                <a href="edit.php?sp_id=<?= $sanpham['sp_id']; ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa="<?php echo $lh['cd_id']; ?>">
+                                                <button class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa" data-sp_id="<?= $sanpham['sp_id'] ?>">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="sanpham.php?cd_id=<?=$lh['cd_id']?>" class="btn btn-secondary">
-                                                    <i class="fa fa-cubes" aria-hidden="true"></i>
-                                                </a>
-                                            </td>
+
+                                                </button>
                                         </tr>
-                                    <?php endforeach; ?>
+                                    <?php endforeach ?>
                                 </tbody>
                             </table>
                         </div>
@@ -123,11 +122,7 @@ if (session_id() === '') {
                         "excel": "Xuất ra file Excel",
                         "pdf": "Xuất ra file PDF",
                     }
-                },
-                "lengthMenu": [
-                    [10, 15, 20, 25, 50, 100, -1],
-                    [10, 15, 20, 25, 50, 100, "Tất cả"]
-                ]
+                }
             });
             $('.btnDelete').click(function() {
                 swal({
@@ -139,14 +134,23 @@ if (session_id() === '') {
                     })
                     .then((willDelete) => {
                         if (willDelete) {
-                            var cd_id = $(this).data('idxoa');
-                            var url = 'delete.php?idxoa=' + cd_id;
+                            var lh_id = $(this).data('idxoa');
+                            var url = 'delete.php?idxoa=' + lh_id;
                             location.href = url;
                         } else {
                             swal("Hủy xóa thành công!");
                         }
                     });
             });
+        });
+    </script>
+    <script>
+        $(document).ready(function(e) {
+            <?php foreach ($dataLoaiHoa as $lhid) : ?>
+                if (<?= $lhid['lh_id'] ?> % 2 != 0) {
+                    $('table tr:odd').addClass('odd');
+                }
+            <?php endforeach; ?>
         });
     </script>
 </body>

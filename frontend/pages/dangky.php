@@ -1,8 +1,8 @@
 <?php
 if (session_id() === '') {
     session_start();
-    include_once(__DIR__ . '/../../dbconnect.php');
 }
+include_once(__DIR__ . '/../../dbconnect.php');
 ?>
 <!DOCTYPE html>
 <html lang="vn">
@@ -11,7 +11,6 @@ if (session_id() === '') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop Hoa | Đăng ký</title>
-    <link rel="stylesheet" href="style.css">
     <?php include_once(__DIR__ . '/../layouts/styles.php'); ?>
     <style>
         h1 {
@@ -304,7 +303,7 @@ if (session_id() === '') {
                 </div>
             <?php endif; ?>
             <?php
-            if (isset($_POST['btn_dangky']) && !(isset($errors) && count($errors) > 0)){
+            if (isset($_POST['btn_dangky']) && !(isset($errors) && count($errors) > 0)) {
                 $sqlDangky = "INSERT INTO khachhang (kh_hoten, kh_tendangnhap, kh_matkhau, kh_gioitinh, kh_ngaysinh, kh_sodienthoai, kh_email, kh_diachi, kh_avt_tenfile, kh_trangthai, kh_quantri) VALUES (N'$ten', '$tendangnhap', '$matkhau', $gioitinh, '$ngaysinh', '$dienthoai', '$email', '$diachi', '$kh_avt_tenfile', 1, 0)";
                 mysqli_query($conn, $sqlDangky);
             }
