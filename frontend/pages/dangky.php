@@ -280,8 +280,8 @@ if (session_id() === '') {
                         if ($_FILES['kh_avt_tenfile']['error'] > 0) {
                             $kh_avt_tenfile = '';
                         } else {
-                            $kh_avt_tenfile = $_FILES['kh_avt_tenfile']['name'];
-                            $tentaptin = date('YmdHis') . '_' . $kh_avt_tenfile;
+                            $tentaptin = date('YmdHis') . '_' . $_FILES['kh_avt_tenfile']['name'];
+                            $kh_avt_tenfile = $tentaptin;
                             move_uploaded_file($_FILES['kh_avt_tenfile']['tmp_name'], $upload_dir . $subdir . $tentaptin);
                         }
                     } else {

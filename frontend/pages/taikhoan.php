@@ -50,7 +50,7 @@ if (session_id() === '') {
                         <h4 class="text-danger myfont text-center py-2">Thông tin cá nhân</h4>
                         <div class="row">
                             <div class="col-md-4 text-center">
-                                <?php if (!empty($khachhangRow['kh_avt_tenfile']) && file_exists('../assets/uploads/avatar/' . $khachhangRow['kh_avt_tenfile'])) : ?>
+                                <?php if (!empty($khachhangRow['kh_avt_tenfile']) && file_exists('../../assets/uploads/avatar/' . $khachhangRow['kh_avt_tenfile'])) : ?>
                                     <img src="/shophoa.vn/assets/uploads/avatar/<?= $khachhangRow['kh_avt_tenfile'] ?>" alt="<?= $khachhangRow['kh_hoten'] ?>" class="img-avatar img-thumbnail">
                                 <?php else : ?>
                                     <img src="/shophoa.vn/assets/shared/img/avatar-default.jpg" alt="<?= $khachhangRow['kh_hoten'] ?>" class="img-avatar img-thumbnail">
@@ -64,10 +64,10 @@ if (session_id() === '') {
                                     <div class="col-sm-6"><strong>Giới tính : </strong></div>
                                     <div class="col-sm-6">
                                         <?php
-                                        if ($khachhangRow['kh_ngaysinh'])
+                                        if ($khachhangRow['kh_gioitinh']==1)
                                             echo 'Nam';
                                         else
-                                            echo 'Nu';
+                                            echo 'Nữ';
                                         ?>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@ if (session_id() === '') {
                         <table class="table table-responsive-sm">
                             <thead>
                                 <tr>
-                                    <th class="text-left">Đơn hàng</th>
+                                    <th class="text-left">Mã đơn hàng</th>
                                     <th class="text-left">Ngày đặt</th>
                                     <th class="text-left">Sản phẩm</th>
                                     <th class="text-right">Tổng tiền</th>

@@ -7,7 +7,7 @@
             <?php else:?>
                 <img src="/shophoa.vn/assets/uploads/avatar/<?=$_SESSION['kh_tendangnhap_anh']?>" alt="<?= $_SESSION['kh_tendangnhap_name'] ?>" height="100px">
             <?php endif;?>
-                <h6 class="m-0 mt-md-3"><?= $_SESSION['kh_tendangnhap_name'] ?></h6>
+                <a href="/shophoa.vn/backend/functions/khachhang/edit.php?kh_id=<?= $_SESSION['kh_tendangnhap_id']?>" class="text-dark"><h6 class="m-0 mt-md-3"><?= $_SESSION['kh_tendangnhap_name'] ?></h6></a>
             </div>
         <?php else : ?>
             <h5 class="my-2">Bạn chưa đăng nhập</h5>

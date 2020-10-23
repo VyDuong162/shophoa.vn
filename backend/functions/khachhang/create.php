@@ -24,25 +24,25 @@ include_once(__DIR__ . '/../../../dbconnect.php');
             </div>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
-                    $sql = " SELECT * FROM `khachhang` ";
-                    $result = mysqli_query($conn, $sql);
-                    $dataKhachHang = [];
-                    while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                        $dataKhachHang[] = array(
-                            'kh_id' => $row['kh_id'],
-                            'kh_hoten' => $row['kh_hoten'],
-                            'kh_tendangnhap' => $row['kh_tendangnhap'],
-                            'kh_matkhau' => $row['kh_matkhau'],
-                            'kh_gioitinh' => $row['kh_gioitinh'],
-                            'kh_ngaysinh' => $row['kh_ngaysinh'],
-                            'kh_sodienthoai' => $row['kh_sodienthoai'],
-                            'kh_email' => $row['kh_email'],
-                            'kh_diachi' => $row['kh_diachi'],
-                            'kh_avt_tenfile' => $row['kh_avt_tenfile'],
-                        );
-                    }
+                $sql = " SELECT * FROM `khachhang` ";
+                $result = mysqli_query($conn, $sql);
+                $dataKhachHang = [];
+                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                    $dataKhachHang[] = array(
+                        'kh_id' => $row['kh_id'],
+                        'kh_hoten' => $row['kh_hoten'],
+                        'kh_tendangnhap' => $row['kh_tendangnhap'],
+                        'kh_matkhau' => $row['kh_matkhau'],
+                        'kh_gioitinh' => $row['kh_gioitinh'],
+                        'kh_ngaysinh' => $row['kh_ngaysinh'],
+                        'kh_sodienthoai' => $row['kh_sodienthoai'],
+                        'kh_email' => $row['kh_email'],
+                        'kh_diachi' => $row['kh_diachi'],
+                        'kh_avt_tenfile' => $row['kh_avt_tenfile'],
+                    );
+                }
                 ?>
-               <div class="container-fluid">
+                <div class="container-fluid">
                     <div class="row ">
                         <div class="col-md-12 text-right mt-3">
                             <a href="index.php"><button type="button" id="btndanhsach" class="btn btn-primary">Danh sách</button></a> <br><br>
@@ -103,16 +103,16 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                 </div>
                             </div>
                             <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="kh_avt_tenfile"> Ảnh đại diện</label>
-                                <div class="preview-img-container">
-                                    <img src="../../../assets/shared/img/default.png" id="preview-img" width="200px" />
+                                <div class="form-group">
+                                    <label for="kh_avt_tenfile"> Ảnh đại diện</label>
+                                    <div class="preview-img-container">
+                                        <img src="../../../assets/shared/img/default.png" id="preview-img" width="200px" />
+                                    </div>
+                                    <input type="file" class="form-control" id="kh_avt_tenfile" name="kh_avt_tenfile">
                                 </div>
-                                <input type="file" class="form-control" id="kh_avt_tenfile" name="kh_avt_tenfile">
                             </div>
-                            </div>
-                            
-                            
+
+
                             <div class="col-md-12 text-center mb-5">
                                 <button class="btn btn-success" name="btnsave" id="btnsave" type="submit">Lưu dữ liệu</button>
                             </div>
@@ -131,26 +131,27 @@ include_once(__DIR__ . '/../../../dbconnect.php');
             $sodienthoai = $_POST['kh_sodienthoai'];
             $email = $_POST['kh_email'];
             $diachi = $_POST['kh_diachi'];
-                    //$kh_id=$_POST['kh_id'];
-                    if (isset($_FILES['kh_avt_tenfile'])) {
+            //$kh_id=$_POST['kh_id'];
+            if (isset($_FILES['kh_avt_tenfile'])) {
 
-                        $upload_dir = __DIR__ . "/../../../assets/uploads/";
-                        $subdir = 'avatar/';
+                $upload_dir = __DIR__ . "/../../../assets/uploads/";
+                $subdir = 'avatar/';
 
-                        if ($_FILES['kh_avt_tenfile']['error'] > 0) {
-                            echo 'File Upload Bị Lỗi';
-                            die;
-                        } else {
+                if ($_FILES['kh_avt_tenfile']['error'] > 0) {
+                    echo 'File Upload Bị Lỗi';
+                    die;
+                } else {
 
-                            $kh_avt_tenfile = $_FILES['kh_avt_tenfile']['name'];
-                            $tenfile = date('YmdHis') . '_' . $kh_avt_tenfile;
+                    $kh_avt_tenfile = $_FILES['kh_avt_tenfile']['name'];
+                    $tenfile = date('YmdHis') . '_' . $kh_avt_tenfile;
 
-                            move_uploaded_file($_FILES['kh_avt_tenfile']['tmp_name'], $upload_dir . $subdir . $tenfile);
-                        }
-                    }
+                    move_uploaded_file($_FILES['kh_avt_tenfile']['tmp_name'], $upload_dir . $subdir . $tenfile);
+                }
+            }
             $sql = "INSERT INTO `khachhang` (`kh_hoten`, `kh_tendangnhap`, `kh_matkhau`,`kh_gioitinh`,`kh_ngaysinh`, `kh_sodienthoai`, `kh_email`, `kh_diachi`, `kh_avt_tenfile`) VALUES ('$ten', '$tendangnhap','$matkhau','$gioitinh' '$ngaysinh', '$sodienthoai', '$email', '$diachi', '$tenfile');";
             mysqli_query($conn, $sql);
-            var_dump($sql); die;
+            var_dump($sql);
+            die;
             mysqli_close($conn);
             //echo "<script>location.href = 'index.php';</script>";
         }

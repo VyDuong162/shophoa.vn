@@ -36,12 +36,12 @@
             </div>
         </div>
     </div>
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light" id="nav">
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="navbar-collapse collapse" id="navbarSupportedContent" style="">
+        <div class="navbar-collapse collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
                     <a href="/shophoa.vn/frontend/" class="nav-link mx-2 dot">Trang chủ</a>
@@ -126,7 +126,7 @@
                     <?php endif; ?>
                     <li class="nav-item dropdown mx-2">
                         <a class="nav-link" href="#" id="chude3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Xin chào <span class="text-danger"><?= $_SESSION['kh_tendangnhap_name'] ?></span>
+                            Xin chào <span class="text-dark"><?= $_SESSION['kh_tendangnhap_name'] ?></span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="chude2" id="subchude2">
                             <a class="dropdown-item" href="/shophoa.vn/frontend/pages/taikhoan.php">Tài khoản</a>
