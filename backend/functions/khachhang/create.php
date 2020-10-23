@@ -38,6 +38,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         'kh_sodienthoai' => $row['kh_sodienthoai'],
                         'kh_email' => $row['kh_email'],
                         'kh_diachi' => $row['kh_diachi'],
+                        'kh_diachi' => $row['kh_trangthai'],
                         'kh_avt_tenfile' => $row['kh_avt_tenfile'],
                     );
                 }
@@ -104,6 +105,12 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
+                                    <label for="kh_trangthai">Trạng thai</label>
+                                    <input type="text" class="form-control" id="kh_trangthai" name="kh_trangthai" placeholder="Địa chỉ" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     <label for="kh_avt_tenfile"> Ảnh đại diện</label>
                                     <div class="preview-img-container">
                                         <img src="../../../assets/shared/img/default.png" id="preview-img" width="200px" />
@@ -118,53 +125,39 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             </div>
                         </div>
                     </form>
+                    
+                    <?php
+                    if (isset($_POST['btnsave'])) {
+                        $ten = $_POST['kh_hoten'];
+                        $tendangnhap = $_POST['kh_tendangnhap'];
+                        $matkhau = $_POST['kh_matkhau'];
+                        $gioitinh = $_POST['kh_gioitinh'];
+                        $ngaysinh = $_POST['kh_ngaysinh'];
+                        $sodienthoai = $_POST['kh_sodienthoai'];
+                        $email = $_POST['kh_email'];
+                        $diachi = $_POST['kh_diachi'];
+                        $trangthai = $_POST['kh_trangthai'];
+                        //$kh_id=$_POST['kh_id'];
+                        
+                        $sql = "INSERT INTO `khachhang` (`kh_hoten`, `kh_tendangnhap`, `kh_matkhau`,`kh_gioitinh`,`kh_ngaysinh`, `kh_sodienthoai`, `kh_email`, `kh_diachi`, `kh_trangthai`) VALUES ('$ten','$tendangnhap','$matkhau',$gioitinh' ,'$ngaysinh', '$sodienthoai','$email', '$diachi','$trangthai');";
+                        
+                        mysqli_query($conn, $sql);
+                        //var_dump($sql);
+                        die;
+                        mysqli_close($conn);
+                        echo "<script>location.href = 'index.php';</script>";
+                    }
+                    ?>
                 </div>
         </div>
-        <?php
-        if (isset($_POST['btnSave'])) {
-            // L?y d? li?u ngư?i dùng hi?u ch?nh g?i t? REQUEST POST
-            $ten = $_POST['kh_hoten'];
-            $tendangnhap = $_POST['kh_tendangnhap'];
-            $matkhau = $_POST['kh_matkhau'];
-            $gioitinh = $_POST['kh_gioitinh'];
-            $ngaysinh = $_POST['kh_ngaysinh'];
-            $sodienthoai = $_POST['kh_sodienthoai'];
-            $email = $_POST['kh_email'];
-            $diachi = $_POST['kh_diachi'];
-            //$kh_id=$_POST['kh_id'];
-            if (isset($_FILES['kh_avt_tenfile'])) {
-
-                $upload_dir = __DIR__ . "/../../../assets/uploads/";
-                $subdir = 'avatar/';
-
-                if ($_FILES['kh_avt_tenfile']['error'] > 0) {
-                    echo 'File Upload Bị Lỗi';
-                    die;
-                } else {
-
-                    $kh_avt_tenfile = $_FILES['kh_avt_tenfile']['name'];
-                    $tenfile = date('YmdHis') . '_' . $kh_avt_tenfile;
-
-                    move_uploaded_file($_FILES['kh_avt_tenfile']['tmp_name'], $upload_dir . $subdir . $tenfile);
-                }
-            }
-            $sql = "INSERT INTO `khachhang` (`kh_hoten`, `kh_tendangnhap`, `kh_matkhau`,`kh_gioitinh`,`kh_ngaysinh`, `kh_sodienthoai`, `kh_email`, `kh_diachi`, `kh_avt_tenfile`) VALUES ('$ten', '$tendangnhap','$matkhau','$gioitinh' '$ngaysinh', '$sodienthoai', '$email', '$diachi', '$tenfile');";
-            mysqli_query($conn, $sql);
-            var_dump($sql);
-            die;
-            mysqli_close($conn);
-            //echo "<script>location.href = 'index.php';</script>";
-        }
-        ?>
+       
         </main>
     </div>
-    </div>
+    
     <?php include_once(__DIR__ . '/../../layouts/partials/footer.php'); ?>
     <?php include_once(__DIR__ . '/../../layouts/scripts.php'); ?>
     <script src="/shophoa.vn/assets/vendor/ckeditor/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('lh_mota');
-    </script>
+   
 </body>
 
 </html>
