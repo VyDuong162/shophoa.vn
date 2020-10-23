@@ -71,11 +71,8 @@ if (session_id() === '') {
                                                 <a href="edit.php?idupdate=<?php echo $lh['cd_id']; ?>" class="btn btn-success">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa="<?php echo $lh['cd_id']; ?>">
+                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $lh['cd_id']; ?>>
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                                </a>
-                                                <a href="sanpham.php?cd_id=<?=$lh['cd_id']?>" class="btn btn-secondary">
-                                                    <i class="fa fa-cubes" aria-hidden="true"></i>
                                                 </a>
                                             </td>
                                         </tr>
