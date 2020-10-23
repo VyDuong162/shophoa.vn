@@ -118,6 +118,7 @@ if (session_id() === '') {
                                                 <a href="#" class="btn btn-warning btnDelete" data-idxoa=<?php echo $khachhang['kh_id']; ?> data-toggle="tooltip" data-placement="top" title="xóa">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                 </a>
+                                               <!--  <a href="delete.php?idxoa=<?= $khachhang['kh_id'];?>">Xóa</a> -->
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

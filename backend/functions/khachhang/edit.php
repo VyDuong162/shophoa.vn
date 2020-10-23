@@ -157,6 +157,7 @@ if (session_id() === '') {
                                 unlink($old_file);
                             }
                          
+                            
                             $kh_avt_tenfile = $_FILES['kh_avt_tenfile']['name'];
                             $tenfile = date('YmdHis') . '_' . $kh_avt_tenfile; 
                            
