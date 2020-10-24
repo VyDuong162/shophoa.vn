@@ -88,8 +88,8 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="sp_gia">Tên hoa</label>
-                                <input type="text" class="form-control" id="sp_ten" name="sp_ten" placeholder="Tên hoa" value="">
+                                <label for="sp_gia">Tên bó hoa</label>
+                                <input type="text" class="form-control" id="sp_ten" name="sp_ten" placeholder="Tên bó hoa" value="">
                             </div>
                         </div>
 
@@ -130,6 +130,9 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                         <label class="form-check-label" for="lh_id<?= $loaisanpham['lh_id'] ?>">
                                             <?= $loaisanpham['lh_ten'] ?>
                                         </label>
+                                        <div id="lh_id<?= $chude['lh_id'] ?>" class="invalid-feedback">
+                                            Bạn phải chọn loại hoa
+                                        </div>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -144,6 +147,9 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                         <label class="form-check-label" for="mh_id<?= $mauhoa['mh_id'] ?>">
                                             <?= $mauhoa['mh_ten'] ?>
                                         </label>
+                                        <div id="mh_id<?= $chude['mh_id'] ?>" class="invalid-feedback">
+                                            Bạn phải chọn màu hoa
+                                        </div>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -158,6 +164,9 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                         <label class="form-check-label" for="cd_id<?= $chude['cd_id'] ?>">
                                             <?= $chude['cd_ten'] ?>
                                         </label>
+                                        <div id="cd_id<?= $chude['cd_id'] ?>" class="invalid-feedback">
+                                            Bạn phải chọn chủ đề
+                                        </div>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -252,29 +261,71 @@ include_once(__DIR__ . '/../../../dbconnect.php');
             reader.readAsDataURL(f);
         })
         $('#frmsanpham').validate({
-                rules: {
-                    
+            rules: {
+                sp_ten: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 100,
                 },
-                messages: {
-                    
+                sp_giacu: {
+                    required: true,
+                    min: 0,
                 },
-                errorElement: "em",
-                errorPlacement: function(error, element) {
-                    error.addClass("invalid-feedback");
-                    if (element.prop("type") === "checkbox") {
-                        error.insertAfter(element.parent("label"));
-                    } else {
-                        error.insertAfter(element);
-                    }
+                sp_mota_ngan: {
+                    required: true,
+                    maxlength: 300,
                 },
-                success: function(label, element) {},
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass("is-invalid").removeClass("is-valid");
+                'lh_id[]': {
+                    required: true,
                 },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).addClass("is-valid").removeClass("is-invalid");
+                'mh_id[]': {
+                    required: true,
+                },
+                'cd_id[]': {
+                    required: true,
+                },
+            },
+            messages: {
+                sp_ten: {
+                    required: 'Nhập tên bó hoa',
+                    minlength: 'Tên bó hoa phải có tối thiểu 3 ký tự',
+                    maxlength: 'Tên bó hoa phải có tối đa 100 ký tự',
+                },
+                sp_giacu: {
+                    required: 'Nhập giá sản phẩm',
+                    min: 'Giá sản phẩm phải lớn hơn 0',
+                },
+                sp_mota_ngan: {
+                    required: 'Bạn phải nhập mô tả',
+                    maxlength: 'Mô tả chỉ có tối đa 100 ký tự',
+                },
+                'lh_id[]': {
+                    required: 'Bạn phải chọn loại hoa',
+                },
+                'mh_id[]': {
+                    required: 'Bạn phải chọn màu hoa',
+                },
+                'cd_id[]': {
+                    required: 'Bạn phải chọn chủ đề',
+                },
+            },
+            errorElement: "em",
+            errorPlacement: function(error, element) {
+                error.addClass("invalid-feedback");
+                if (element.prop("type") === "checkbox") {
+                    error.insertAfter(element.parent("label"));
+                } else {
+                    error.insertAfter(element);
                 }
-            });
+            },
+            success: function(label, element) {},
+            highlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-invalid").removeClass("is-valid");
+            },
+            unhighlight: function(element, errorClass, validClass) {
+                $(element).addClass("is-valid").removeClass("is-invalid");
+            }
+        });
         CKEDITOR.replace('sp_mota_chitiet');
     </script>
 </body>
