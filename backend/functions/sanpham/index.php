@@ -134,10 +134,10 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                                 <?php endif ?>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <a href="edit.php?sp_id=<?= $sanpham['sp_id']; ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
+                                                <a href="edit.php?sp_id=<?= $sp['sp_id']; ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <button class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa" data-sp_id="<?= $sanpham['sp_id'] ?>">
+                                                <button class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa" data-sp_id="<?= $sp['sp_id'] ?>">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
 
                                                 </button>
