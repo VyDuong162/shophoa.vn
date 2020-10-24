@@ -81,7 +81,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                 }
                 ?>
                 <div class="row">
-                    <div class="col-md-12 text-right mt-3">
+                    <div class="col-md-12 mt-3">
                         <a href="create.php"><button type="button" class="btn btn-primary">Thêm mới</button></a> <br><br>
                     </div>
                 </div>
