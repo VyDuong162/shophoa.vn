@@ -224,11 +224,11 @@ while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC))
                                 <select class="form-control" id="km_id" name="km_id">
                                     <option value="">Không áp dụng khuyến mãi</option>
                                     <?php foreach ($dataKhuyenMai as $khuyenmai) : ?>
-                                    <?php if($khuyenmai['km_id']==$dataSanPham['km']):?>
-                                        <option value="<?= $khuyenmai['km_id'] ?>" selected><?= $khuyenmai['km_tomtat'] ?></option>
-                                    <?php else:?>
-                                        <option value="<?= $khuyenmai['km_id'] ?>"><?= $khuyenmai['km_tomtat'] ?></option>
-                                    <?php endif;?>
+                                        <?php if ($khuyenmai['km_id'] == $dataSanPham['km']) : ?>
+                                            <option value="<?= $khuyenmai['km_id'] ?>" selected><?= $khuyenmai['km_tomtat'] ?></option>
+                                        <?php else : ?>
+                                            <option value="<?= $khuyenmai['km_id'] ?>"><?= $khuyenmai['km_tomtat'] ?></option>
+                                        <?php endif; ?>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -243,7 +243,7 @@ while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC))
                             </div>
                         </div>
                         <div class="col-md-12 text-center mb-5">
-                            <button class="btn btn-success" name="btnsave" id="btnsave">Lưu dữ liệu</button>
+                            <button class="btn btn-success" name="btnsave" id="btnsave">Cập nhật</button>
                         </div>
                 </form>
                 <?php
@@ -263,12 +263,16 @@ while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC))
                         if ($_FILES['sp_avt_tenfile']['error'] > 0) {
                             $sp_avt_tenfile = '';
                         } else {
+                            $old_file = $upload_dir . $subdir . $dataSanPham['sp_avt_tenfile'];
+                            if (file_exists($old_file)) {
+                                unlink($old_file);
+                            }
                             $tentaptin = date('YmdHis') . '_' . $_FILES['sp_avt_tenfile']['name'];
                             $sp_avt_tenfile = $tentaptin;
                             move_uploaded_file($_FILES['sp_avt_tenfile']['tmp_name'], $upload_dir . $subdir . $tentaptin);
                         }
                     } else {
-                        $sp_avt_tenfile = '';
+                        $sp_avt_tenfile = $dataSanPham['sp_avt_tenfile'];
                     }
                     if (empty($sp_gia)) {
                         $sp_gia = $sp_giacu;
@@ -276,21 +280,7 @@ while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC))
                     }
                     if (empty($km_id))
                         $km_id = "NULL";
-                    $sqlThemSanPham = "INSERT INTO sanpham (sp_ten, sp_gia, sp_giacu, sp_yeuthich, sp_mota_ngan, sp_mota_chitiet, sp_ngaycapnhat, sp_trangthai, sp_avt_tenfile, km) VALUES (N'$sp_ten', $sp_gia, $sp_giacu, 0, N'$sp_mota_ngan', N'$sp_mota_chitiet', NOW(), 1, '$sp_avt_tenfile', $km_id);";
-                    mysqli_query($conn, $sqlThemSanPham);
-                    $sp_id = $conn->insert_id;
-                    foreach ($cd_id as $id) {
-                        $sqlThemChuDe = "INSERT INTO sanpham_has_chude (sanpham_sp_id, chude_cd_id) VALUES ($sp_id, $id)";
-                        mysqli_query($conn, $sqlThemChuDe);
-                    }
-                    foreach ($mh_id as $id) {
-                        $sqlThemMauHoa = "INSERT INTO sanpham_has_mauhoa (sanpham_sp_id, mauhoa_mh_id) VALUES ($sp_id, $id)";
-                        mysqli_query($conn, $sqlThemMauHoa);
-                    }
-                    foreach ($lh_id as $id) {
-                        $sqlThemLoaiHoa = "INSERT INTO sanpham_has_loaihoa (sanpham_sp_id, loaihoa_lh_id) VALUES ($sp_id, $id)";
-                        mysqli_query($conn, $sqlThemLoaiHoa);
-                    }
+                    $sqlThemSanPham = "UPDATE sanpham SET sp_ten=N'$sp_ten', sp_gia=$sp_gia, sp_giacu=$sp_giacu, sp_mota_ngan=N'$sp_mota_ngan', sp_mota_chitiet=N'sp_mota_chitiet', sp_ngaycapnhat=NOW(), sp_avt_tenfile='$sp_avt_tenfile', km=$km_id WHERE sp_id = {$sp_id};";
                     echo '<script>location.href = "/shophoa.vn/backend/functions/sanpham/;</script>';
                 }
                 ?>
