@@ -4,7 +4,7 @@ if (session_id() === '') {
 }
 include_once(__DIR__ . '/../../../dbconnect.php');
 $sp_id = $_GET['sp_id'];
-$sqlSanPham = "SELECT * FROM sanpham AS a LEFT JOIN khuyenmai AS b ON a.km = b.km_id WHERE a.sp_id = {$sp_id};";
+$sqlSanPham = "SELECT * FROM sanpham AS a WHERE a.sp_id = {$sp_id};";
 $resultSanPham = mysqli_query($conn, $sqlSanPham);
 $dataSanPham = [];
 while ($rowSanPham = mysqli_fetch_array($resultSanPham, MYSQLI_ASSOC)) {
@@ -16,6 +16,7 @@ while ($rowSanPham = mysqli_fetch_array($resultSanPham, MYSQLI_ASSOC)) {
         'sp_mota_ngan' => $rowSanPham['sp_mota_ngan'],
         'sp_mota_chitiet' => $rowSanPham['sp_mota_chitiet'],
         'sp_avt_tenfile' => $rowSanPham['sp_avt_tenfile'],
+        'km' => $rowSanPham['km'],
     );
 }
 $sqlSanPhamLoaiSanPham = "SELECT loaihoa_lh_id FROM sanpham_has_loaihoa WHERE sanpham_sp_id = {$sp_id};";
@@ -223,7 +224,11 @@ while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC))
                                 <select class="form-control" id="km_id" name="km_id">
                                     <option value="">Không áp dụng khuyến mãi</option>
                                     <?php foreach ($dataKhuyenMai as $khuyenmai) : ?>
+                                    <?php if($khuyenmai['km_id']==$dataSanPham['km']):?>
+                                        <option value="<?= $khuyenmai['km_id'] ?>" selected><?= $khuyenmai['km_tomtat'] ?></option>
+                                    <?php else:?>
                                         <option value="<?= $khuyenmai['km_id'] ?>"><?= $khuyenmai['km_tomtat'] ?></option>
+                                    <?php endif;?>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
