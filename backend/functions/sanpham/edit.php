@@ -3,6 +3,39 @@ if (session_id() === '') {
     session_start();
 }
 include_once(__DIR__ . '/../../../dbconnect.php');
+$sp_id = $_GET['sp_id'];
+$sqlSanPham = "SELECT * FROM sanpham AS a LEFT JOIN khuyenmai AS b ON a.km = b.km_id WHERE a.sp_id = {$sp_id};";
+$resultSanPham = mysqli_query($conn, $sqlSanPham);
+$dataSanPham = [];
+while ($rowSanPham = mysqli_fetch_array($resultSanPham, MYSQLI_ASSOC)) {
+    $dataSanPham = array(
+        'sp_id' => $rowSanPham['sp_id'],
+        'sp_ten' => $rowSanPham['sp_ten'],
+        'sp_gia' => (int)$rowSanPham['sp_gia'],
+        'sp_giacu' => (int)$rowSanPham['sp_giacu'],
+        'sp_mota_ngan' => $rowSanPham['sp_mota_ngan'],
+        'sp_mota_chitiet' => $rowSanPham['sp_mota_chitiet'],
+        'sp_avt_tenfile' => $rowSanPham['sp_avt_tenfile'],
+    );
+}
+$sqlSanPhamLoaiSanPham = "SELECT loaihoa_lh_id FROM sanpham_has_loaihoa WHERE sanpham_sp_id = {$sp_id};";
+$resultSanPhamLoaiSanPham = mysqli_query($conn, $sqlSanPhamLoaiSanPham);
+$dataSanPhamLoaiSanPham = [];
+while ($rowLoaiSanPham = mysqli_fetch_array($resultSanPhamLoaiSanPham, MYSQLI_ASSOC)) {
+    $dataSanPhamLoaiSanPham[] = $rowLoaiSanPham['loaihoa_lh_id'];
+}
+$sqlSanPhamMauHoa = "SELECT mauhoa_mh_id FROM sanpham_has_mauhoa WHERE sanpham_sp_id = {$sp_id};";
+$resultSanPhamMauHoa = mysqli_query($conn, $sqlSanPhamMauHoa);
+$dataSanPhamMauHoa = [];
+while ($rowSanPhamMauHoa = mysqli_fetch_array($resultSanPhamMauHoa, MYSQLI_ASSOC)) {
+    $dataSanPhamMauHoa[] = $rowSanPhamMauHoa['mauhoa_mh_id'];
+}
+$sqlSanPhamChuDe = "SELECT chude_cd_id FROM sanpham_has_chude WHERE sanpham_sp_id = {$sp_id};";
+$resultSanPhamChuDe = mysqli_query($conn, $sqlSanPhamChuDe);
+$dataSanPhamChuDe = [];
+while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC)) {
+    $dataSanPhamChuDe[] = $rowSanPhamChuDe['chude_cd_id'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -75,7 +108,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                 }
                 ?>
                 <div class="row ">
-                    <div class="col-md-12 text-right mt-3">
+                    <div class="col-md-12 mt-3">
                         <a href="index.php"><button type="button" id="btndanhsach" class="btn btn-primary">Danh sách</button></a> <br><br>
                     </div>
                 </div>
@@ -89,27 +122,27 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="sp_gia">Tên bó hoa</label>
-                                <input type="text" class="form-control" id="sp_ten" name="sp_ten" placeholder="Tên bó hoa" value="">
+                                <input type="text" class="form-control" id="sp_ten" name="sp_ten" placeholder="Tên bó hoa" value="<?= $dataSanPham['sp_ten'] ?>">
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="sp_giacu">Giá sản phẩm</label>
-                                <input type="number" class="form-control" id="sp_giacu" name="sp_giacu" min=0 placeholder="Giá sản phẩm" value="">
+                                <input type="number" class="form-control" id="sp_giacu" name="sp_giacu" min=0 placeholder="Giá sản phẩm" value="<?= ($dataSanPham['sp_giacu'] == 0) ? $dataSanPham['sp_gia'] : $dataSanPham['sp_giacu'] ?>">
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="sp_gia">Giá giảm giá</label>
-                                <input type="number" class="form-control" id="sp_gia" name="sp_gia" min=0 placeholder="Giá giảm giá" value="">
+                                <input type="number" class="form-control" id="sp_gia" name="sp_gia" min=0 placeholder="Giá giảm giá" value="<?= ($dataSanPham['sp_giacu'] == 0) ? $dataSanPham['sp_giacu'] : $dataSanPham['sp_gia'] ?>">
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="sp_mota_ngan">Mô tả ngắn</label>
-                                <input type="text" class="form-control" id="sp_mota_ngan" name="sp_mota_ngan" placeholder="Mô tả ngắn sản phẩm" value="">
+                                <textarea class="form-control" id="sp_mota_ngan" name="sp_mota_ngan" placeholder="Mô tả ngắn sản phẩm"><?= $dataSanPham['sp_mota_ngan'] ?></textarea>
                             </div>
                         </div>
 
@@ -117,7 +150,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="sp_mota_chitiet">Mô tả chi tiết</label>
-                                <textarea name="sp_mota_chitiet" id="sp_mota_chitiet" class="form-control"></textarea>
+                                <textarea name="sp_mota_chitiet" id="sp_mota_chitiet" class="form-control"><?= $dataSanPham['sp_mota_chitiet'] ?></textarea>
                             </div>
                         </div>
                         <!-- Them select cho loai san pham -->
@@ -126,7 +159,11 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                 <label>Loại hoa</label>
                                 <?php foreach ($dataLoaiSanPham as $loaisanpham) : ?>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="<?= $loaisanpham['lh_id'] ?>" id="lh_id<?= $loaisanpham['lh_id'] ?>" name="lh_id[]">
+                                        <?php if (is_numeric(array_search($loaisanpham['lh_id'], $dataSanPhamLoaiSanPham))) : ?>
+                                            <input class="form-check-input" type="checkbox" value="<?= $loaisanpham['lh_id'] ?>" id="lh_id<?= $loaisanpham['lh_id'] ?>" name="lh_id[]" checked>
+                                        <?php else : ?>
+                                            <input class="form-check-input" type="checkbox" value="<?= $loaisanpham['lh_id'] ?>" id="lh_id<?= $loaisanpham['lh_id'] ?>" name="lh_id[]">
+                                        <?php endif; ?>
                                         <label class="form-check-label" for="lh_id<?= $loaisanpham['lh_id'] ?>">
                                             <?= $loaisanpham['lh_ten'] ?>
                                         </label>
@@ -143,7 +180,11 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                 <label>Màu hoa</label>
                                 <?php foreach ($dataMauHoa as $mauhoa) : ?>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="<?= $mauhoa['mh_id'] ?>" id="mh_id<?= $mauhoa['mh_id'] ?>" name="mh_id[]">
+                                        <?php if (is_numeric(array_search($mauhoa['mh_id'], $dataSanPhamMauHoa))) : ?>
+                                            <input class="form-check-input" type="checkbox" value="<?= $mauhoa['mh_id'] ?>" id="mh_id<?= $mauhoa['mh_id'] ?>" name="mh_id[]" checked>
+                                        <?php else : ?>
+                                            <input class="form-check-input" type="checkbox" value="<?= $mauhoa['mh_id'] ?>" id="mh_id<?= $mauhoa['mh_id'] ?>" name="mh_id[]">
+                                        <?php endif; ?>
                                         <label class="form-check-label" for="mh_id<?= $mauhoa['mh_id'] ?>">
                                             <?= $mauhoa['mh_ten'] ?>
                                         </label>
@@ -160,7 +201,11 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                 <label>Chủ đề</label>
                                 <?php foreach ($dataChuDe as $chude) : ?>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="<?= $chude['cd_id'] ?>" id="cd_id<?= $chude['cd_id'] ?>" name="cd_id[]">
+                                        <?php if (is_numeric(array_search($chude['cd_id'], $dataSanPhamChuDe))) : ?>
+                                            <input class="form-check-input" type="checkbox" value="<?= $chude['cd_id'] ?>" id="cd_id<?= $chude['cd_id'] ?>" name="cd_id[]" checked>
+                                        <?php else : ?>
+                                            <input class="form-check-input" type="checkbox" value="<?= $chude['cd_id'] ?>" id="cd_id<?= $chude['cd_id'] ?>" name="cd_id[]">
+                                        <?php endif; ?>
                                         <label class="form-check-label" for="cd_id<?= $chude['cd_id'] ?>">
                                             <?= $chude['cd_ten'] ?>
                                         </label>
@@ -188,7 +233,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                 <label for="sp_avt_tenfile" class="col-md-2">Ảnh sản phẩm</label>
                                 <input type="file" name="sp_avt_tenfile" id="sp_avt_tenfile" class="form-control col-sm-8">
                                 <div class="preview-img-container col-sm-2">
-                                    <img src="/shophoa.vn/assets/shared/img/avatar-default.jpg" id="preview-img" class=" img-fluid" />
+                                    <img src="/shophoa.vn/assets/uploads/img-product/<?= $dataSanPham['sp_avt_tenfile'] ?>" id="preview-img" class=" img-fluid" />
                                 </div>
                             </div>
                         </div>
@@ -298,7 +343,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                 },
                 sp_mota_ngan: {
                     required: 'Bạn phải nhập mô tả',
-                    maxlength: 'Mô tả chỉ có tối đa 100 ký tự',
+                    maxlength: 'Mô tả chỉ có tối đa 300 ký tự',
                 },
                 'lh_id[]': {
                     required: 'Bạn phải chọn loại hoa',

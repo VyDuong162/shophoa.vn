@@ -109,7 +109,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="sp_mota_ngan">Mô tả ngắn</label>
-                                <input type="text" class="form-control" id="sp_mota_ngan" name="sp_mota_ngan" placeholder="Mô tả ngắn sản phẩm" value="">
+                                <textarea class="form-control" id="sp_mota_ngan" name="sp_mota_ngan" placeholder="Mô tả ngắn sản phẩm"></textarea>
                             </div>
                         </div>
 
@@ -298,7 +298,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                 },
                 sp_mota_ngan: {
                     required: 'Bạn phải nhập mô tả',
-                    maxlength: 'Mô tả chỉ có tối đa 100 ký tự',
+                    maxlength: 'Mô tả chỉ có tối đa 300 ký tự',
                 },
                 'lh_id[]': {
                     required: 'Bạn phải chọn loại hoa',
