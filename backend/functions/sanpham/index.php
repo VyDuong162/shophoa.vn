@@ -19,7 +19,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/Buttons/css/buttons.bootstrap4.min.css" type="text/css">
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/fancybox/jquery.fancybox.min.css">
     <style>
-        ul{
+        ul {
             list-style-type: none;
         }
     </style>
@@ -45,22 +45,22 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                     $sqlLoaiHoa = "SELECT a.lh_ten FROM loaihoa AS a, sanpham_has_loaihoa AS b WHERE a.lh_id = b.loaihoa_lh_id AND b.sanpham_sp_id = {$rowSanPham['sp_id']};";
                     $resultLoaiHoa = mysqli_query($conn, $sqlLoaiHoa);
                     $loaiHoa = '<ul> ';
-                    while($rowLoaiHoa = mysqli_fetch_array($resultLoaiHoa, MYSQLI_ASSOC)){
-                        $loaiHoa .= '<li>'.$rowLoaiHoa['lh_ten'].'</li>';
+                    while ($rowLoaiHoa = mysqli_fetch_array($resultLoaiHoa, MYSQLI_ASSOC)) {
+                        $loaiHoa .= '<li>' . $rowLoaiHoa['lh_ten'] . '</li>';
                     }
                     $loaiHoa .= '</ul>';
                     $sqlMauHoa = "SELECT a.mh_ten FROM mauhoa AS a, sanpham_has_mauhoa AS b WHERE a.mh_id = b.mauhoa_mh_id AND b.sanpham_sp_id = {$rowSanPham['sp_id']};";
                     $resultMauHoa = mysqli_query($conn, $sqlMauHoa);
                     $mauHoa = '<ul> ';
-                    while($rowMauHoa = mysqli_fetch_array($resultMauHoa, MYSQLI_ASSOC)){
-                        $mauHoa .= '<li>'.$rowMauHoa['mh_ten'].'</li>';
+                    while ($rowMauHoa = mysqli_fetch_array($resultMauHoa, MYSQLI_ASSOC)) {
+                        $mauHoa .= '<li>' . $rowMauHoa['mh_ten'] . '</li>';
                     }
                     $mauHoa .= '</ul>';
                     $sqlChuDe = "SELECT a.cd_ten FROM chude AS a, sanpham_has_chude AS b WHERE a.cd_id = b.chude_cd_id AND b.sanpham_sp_id = {$rowSanPham['sp_id']};";
                     $resultChuDe = mysqli_query($conn, $sqlChuDe);
                     $ChuDe = '<ul> ';
-                    while($rowChuDe = mysqli_fetch_array($resultChuDe, MYSQLI_ASSOC)){
-                        $ChuDe .= '<li>'.$rowChuDe['cd_ten'].'</li>';
+                    while ($rowChuDe = mysqli_fetch_array($resultChuDe, MYSQLI_ASSOC)) {
+                        $ChuDe .= '<li>' . $rowChuDe['cd_ten'] . '</li>';
                     }
                     $ChuDe .= '</ul>';
                     $dataSanPham[] = array(
@@ -81,7 +81,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                 }
                 ?>
                 <div class="row">
-                    <div class="col-md-12 text-right mt-3">
+                    <div class="col-md-12 mt-3">
                         <a href="create.php"><button type="button" class="btn btn-primary">Thêm mới</button></a> <br><br>
                     </div>
                 </div>
@@ -134,10 +134,10 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                                 <?php endif ?>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <a href="edit.php?sp_id=<?= $sanpham['sp_id']; ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
+                                                <a href="edit.php?sp_id=<?= $sp['sp_id']; ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <button class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa" data-sp_id="<?= $sanpham['sp_id'] ?>">
+                                                <button class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa" data-sp_id="<?= $sp['sp_id'] ?>">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
 
                                                 </button>

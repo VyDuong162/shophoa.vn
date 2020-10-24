@@ -102,7 +102,7 @@ while ($rowChuDe = mysqli_fetch_array($resultChuDe, MYSQLI_ASSOC)) {
                                                 <?php endif ?>
                                             </td>
                                             <td class="text-center align-middle">
-                                                <a href="#" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Sửa">
+                                                <a href="/shophoa.vn/backend/functions/sanpham/edit.php?sp_id=<?=$sp['sp_id']?>" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Sửa">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
                                                 <button type="button" class="btn btn-danger btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa" data-sanpham_sp_id="<?= $sp['sp_id'] ?>" data-chude_cd_id="<?=$cd_id?>">

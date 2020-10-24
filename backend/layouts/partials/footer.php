@@ -7,7 +7,7 @@
                 <span>Bản quyền &copy; bởi <a href="#">Shop Hoa</a> - <script>
                         document.write(new Date().getFullYear());
                     </script>.</span>
-                <span class="text-muted">Sản phẩm chất lượng-giao hàng nội thành Cần Thờ</span>
+                <span class="text-muted">Sản phẩm chất lượng-giao hàng nội thành Cần Thơ</span>
             </div>
         </div>
     </div>
