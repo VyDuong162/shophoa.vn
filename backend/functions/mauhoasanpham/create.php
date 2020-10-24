@@ -56,23 +56,27 @@ if (session_id() === '') {
                     </form>
                 </div> 
                 <?php
-                    if(isset($_POST['btnsave'])){
+                    if(isset($_POST['btnsave'])&&!empty($_POST['mh_ten'])){
                         $mh_ten =$_POST['mh_ten'];
-                        // Câu lệnh INSERT
+                        // INSERT
                         $sql = "INSERT INTO `mauhoa` (mh_ten) VALUES ('$mh_ten');";
-                        // print_r($sql); die;
-                        // Thực thi INSERT
-                        //var_dump($sql);die;
                         mysqli_query($conn, $sql);
-                        //Đóng kết nối
                         mysqli_close($conn);  
-                        echo '<script>location.href = "index.php";</script>';    
-                    } 
+                        echo '<script>location.href = "index.php";</script>'; 
+                    }
                 ?>
             </main>
         </div>
     </div>
     <?php include_once(__DIR__ . '/../../layouts/partials/footer.php');?>
     <?php include_once(__DIR__.'/../../layouts/scripts.php');?>
+    <script>
+        $('#btnsave').click(function() {
+            var mh_ten = document.getElementById("mh_ten").value;
+            if(mh_ten==null || mh_ten==""){
+                alert('Chưa nhập dữ liệu!');
+            }
+        });
+    </script>
 </body>
 </html>

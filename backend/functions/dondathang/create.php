@@ -65,7 +65,6 @@ if (session_id() === '') {
                             'sp_ten' => $rowSanPham['sp_ten'],
                         );
                     }
-
                     ?>
                 <div class="container-fluid">
                     <div class="row ">
@@ -80,7 +79,7 @@ if (session_id() === '') {
                                     </div> 
                                 </div>
                                 <fieldset id="dondathang_container">
-                                    <legend>Thông tin Đơn hàng</legend>
+                                    <legend>Thông tin đơn hàng</legend>
                                     <div class="form-row">
                                         <div class="col">
                                             <div class="form-group">
@@ -142,7 +141,7 @@ if (session_id() === '') {
                                     </div>
                                 </fieldset>
                                 <fieldset id="chiTietDonHangContainer">
-                                    <legend>Thông tin Chi tiết Đơn hàng</legend>
+                                    <legend>Thông tin chi tiết đơn hàng</legend>
                                     <div class="form-row">
                                         <div class="col">
                                             <div class="form-group">
@@ -167,9 +166,9 @@ if (session_id() === '') {
                                                 <button type="button" id="btnThemSanPham" class="btn btn-secondary">Thêm vào đơn hàng</button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>                               
                                     <table id="tblChiTietDonHang" class="table table-bordered">
-                                        <thead>
+                                        <thead class="text-center align-middle" >
                                             <th>Sản phẩm</th>
                                             <th>Số lượng</th>
                                             <th>Đơn giá</th>
@@ -177,9 +176,10 @@ if (session_id() === '') {
                                             <th>Hành động</th>
                                         </thead>
                                         <tbody>
+            
                                         </tbody>
                                     </table>
-                                </fieldset>
+                                </fieldset> 
                                 <div class="col-md-12 text-center mb-5">
                                     <button class="btn btn-success text-center" name="btnsave">Lưu dữ liệu</button>
                                     <a href="index.php" class="btn btn-outline-secondary text-center" name="btnBack" id="btnBack">Quay về</a>
@@ -200,17 +200,17 @@ if (session_id() === '') {
                         $arr_sp_ddh_soluong = $_POST['sp_ddh_soluong'];   
                         $arr_sp_ddh_dongia = $_POST['sp_ddh_dongia'];     
                         //INSERT
-                        $sqlDonHang = "INSERT INTO `dondathang` (`dh_ngaylap`, `dh_ngaygiao`, `ddh_diachi`, `dh_trangthaithanhtoan`, `httt_id`, `kh_tendangnhap`) VALUES ('$dh_ngaylap', '$dh_ngaygiao', N'$dh_noigiao', '$dh_trangthaithanhtoan', '$httt_id', '$kh_tendangnhap')";
+                        $sqlDonHang = "INSERT INTO `dondathang` (`ddh_ngaylap`, `ddh_ngaygiao`, `ddh_diachi`, `dDh_trangthai`, `httt_id`, `kh_tendangnhap`) VALUES ('$ddh_ngaylap', '$ddh_ngaygiao', N'$ddh_diachi', '$ddh_trangthai', '$httt_id', '$kh_tendangnhap')";
                         mysqli_query($conn, $sqlDonHang);
                         $dh_id = $conn->insert_id;
                         
                         for($i = 0; $i < count($arr_sp_id); $i++) {
                            
                             $sp_id = $arr_sp_id[$i];
-                            $sp_dh_soluong = $arr_sp_dh_soluong[$i];
-                            $sp_dh_dongia = $arr_sp_dh_dongia[$i];
+                            $sp_dh_soluong = $arr_sp_ddh_soluong[$i];
+                            $sp_dh_dongia = $arr_sp_ddh_dongia[$i];
                             
-                            $sqlInsertSanPhamDonDatHang = "INSERT INTO `sanpham_dondathang` (`sp_id`, `dh_id`, `sp_dh_soluong`, `sp_dh_dongia`) VALUES ($sp_id, $dh_id, $sp_dh_soluong, $sp_dh_dongia)";
+                            $sqlInsertSanPhamDonDatHang = "INSERT INTO `dondathang_has_sanpham` (`sanpham_sp_id`,`dondathang_ddh_id` , `sp_dh_soluong`, `sp_dh_dongia`) VALUES ($sp_id, $dh_id, $sp_dh_soluong, $sp_dh_dongia)";
                             
                             mysqli_query($conn, $sqlInsertSanPhamDonDatHang);
                         }
@@ -223,21 +223,20 @@ if (session_id() === '') {
     <?php include_once(__DIR__ . '/../../layouts/partials/footer.php'); ?>
     <?php include_once(__DIR__ . '/../../layouts/scripts.php'); ?>
     <script>
-        
+       $tongtien=0;
         $('#btnThemSanPham').click(function() {
-           
+            
             var sp_id = $('#sp_id').val();
             var sp_gia = $('#sp_id option:selected').data('sp_gia');
             var sp_ten = $('#sp_id option:selected').text();
             var soluong = $('#soluong').val();
             var thanhtien = (soluong * sp_gia);
-    
-            var htmlTemplate = '<tr>'; 
+            var htmlTemplate = '<tr class="text-center align-middle">'; 
             htmlTemplate += '<td>' + sp_ten + '<input type="hidden" name="sp_id[]" value="' + sp_id + '"/></td>';
-            htmlTemplate += '<td>' + soluong + '<input type="hidden" name="sp_ddh_soluong[]" value="' + soluong + '"/></td>';
-            htmlTemplate += '<td>' + sp_gia + '<input type="hidden" name="sp_ddh_dongia[]" value="' + sp_gia + '"/></td>';
-            htmlTemplate += '<td>' + thanhtien + '</td>';
-            htmlTemplate += '<td text-center align-middle><button type="button" class="btn btn-danger btn-delete-row"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>';
+            htmlTemplate += '<td>' + soluong + '<input type="hidden" name="sp_dh_soluong[]" value="' + soluong + '"/></td>';
+            htmlTemplate += '<td>' +sp_gia+ '<input type="hidden" name="sp_dh_dongia[]" value="' + sp_gia + '"/></td>';
+            htmlTemplate += '<td>'+thanhtien+'</td>';
+            htmlTemplate += '<td><button type="button" class="btn btn-danger btn-delete-row"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>';
             htmlTemplate += '</tr>';
             // Thêm vào TABLE BODY
             $('#tblChiTietDonHang tbody').append(htmlTemplate);
@@ -247,16 +246,10 @@ if (session_id() === '') {
         });
         // Đăng ký sự kiện cho tất cả các nút XÓA có sử dụng class .btn-delete-row
         $('#chiTietDonHangContainer').on('click', '.btn-delete-row', function() {
-            // Ta có cấu trúc
-            // <tr>
-            //    <td>
-            //        <button class="btn-delete-row"></button>     <--- $(this) chính là đối tượng đang được người dùng click
-            //    </td>
-            // </tr>
-            
-            // Từ nút người dùng click -> tìm lên phần tử cha -> phần tử cha
-            // Xóa dòng TR
             $(this).parent().parent()[0].remove();
+        });
+        $('#btnThemSanPham').click(function(){
+            
         });
     </script>
 

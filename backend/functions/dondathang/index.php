@@ -19,11 +19,6 @@ if (session_id() === '') {
 
 <body>
     <!-- Phần loading trang web -->
-    <div id="load">
-        <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
     <?php include_once(__DIR__ . '/../../layouts/partials/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
@@ -49,7 +44,7 @@ EOT;
                             'kh_dienthoai' => $row['kh_sodienthoai'],
                             'ddh_diachi' => $row['ddh_diachi'],
                             'httt_ten' => $row['httt_ten'],
-                            'ddh_tongtien' =>number_format($row['ddh_tongtien'], 3, ".", ",") . ' vnđ' ,
+                            'ddh_tongtien' =>number_format($row['ddh_tongtien'], 3, ".", ",") . ' vnđ',
                             'ddh_ngaylap' => date('d/m/Y H:i:s', strtotime($row['ddh_ngaylap'])),
                             'ddh_ngaygiao' => empty($row['ddh_ngaygiao']) ? '' : date('d/m/Y H:i:s', strtotime($row['ddh_ngaygiao'])),
                             'ddh_trangthai' => $row['ddh_trangthai']
