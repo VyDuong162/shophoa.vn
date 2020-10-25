@@ -49,7 +49,7 @@ EOT;
                             'kh_dienthoai' => $row['kh_sodienthoai'],
                             'ddh_diachi' => $row['ddh_diachi'],
                             'httt_ten' => $row['httt_ten'],
-                            'ddh_tongtien' =>number_format($row['ddh_tongtien'], 3, ".", ",") . ' vnđ',
+                            'ddh_tongtien' =>number_format($row['ddh_tongtien'], 2, ".", ",") . ' vnđ',
                             'ddh_ngaylap' => date('d/m/Y H:i:s', strtotime($row['ddh_ngaylap'])),
                             'ddh_ngaygiao' => empty($row['ddh_ngaygiao']) ? '' : date('d/m/Y H:i:s', strtotime($row['ddh_ngaygiao'])),
                             'ddh_trangthai' => $row['ddh_trangthai']
@@ -91,7 +91,7 @@ EOT;
                                         <td><?= $ddh['ddh_ngaygiao'] ?></td>
                                         <td><?= $ddh['ddh_diachi'] ?></td>
                                         <td><span class="badge badge-primary"><?= $ddh['httt_ten'] ?></span></td>
-                                        <td><?= $ddh['ddh_tongtien'] ?></td>
+                                        <td><?= $ddh['ddh_tongtien']?></td>
                                         <td>
                                             <?php if ($ddh['ddh_trangthai'] == 0) : ?>
                                                 <span class="badge badge-danger">Chưa xử lý</span>
