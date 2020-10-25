@@ -2,6 +2,7 @@
 if (session_id() === '') {
     session_start();
 }
+include_once(__DIR__ . '/../../../dbconnect.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +34,6 @@ if (session_id() === '') {
             </div>
             <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
-                include_once(__DIR__ . '/../../../dbconnect.php');
                 $id = $_GET['idupdate'];
                 $sql = "SELECT km_id,km_ten,km_noidung,km_tungay,km_denngay,km_anh FROM khuyenmai WHERE km_id=$id";
                 $result = mysqli_query($conn, $sql);
@@ -43,8 +43,8 @@ if (session_id() === '') {
                         'km_id' => $row['km_id'],
                         'km_ten' => $row['km_ten'],
                         'km_noidung' => $row['km_noidung'],
-                        'km_tungay' => $row['km_tungay'],
-                        'km_denngay' => $row['km_denngay'],
+                        'km_tungay' => date('Y-m-d',strtotime($row['km_tungay'])),
+                        'km_denngay' => date('Y-m-d',strtotime($row['km_denngay'])),
                         'km_anh' => $row['km_anh']
                     );
                 }
@@ -85,9 +85,13 @@ if (session_id() === '') {
                                 <div class="form-group">
                                     <label for="km_anh">Ảnh khuyến mãi</label>
                                     <div class="preview-img-container">
-                                        <img src="/shophoa.vn/assets/shared/img/default.png" id="preview-img" width="200px" />
-                                    </div>
-                                    <input type="file" class="form-control" id="km_anh" name="km_anh" placeholder="Ảnh khuyến mãi" value="<?= $dataKhuyenMai['km_anh'] ?>">
+                                    <?php if (!file_exists('../../../assets/uploads/img-km/'.$dataKhuyenMai['km_anh']) || empty($dataKhuyenMai['km_anh'])) : ?>
+                                        <img src="/shophoa.vn/assets/uploads/img-km/default-image.jpg" id="preview-img" height="200px"/>
+                                    <?php else : ?>
+                                        <img src="/shophoa.vn/assets/uploads/img-km/<?= $dataKhuyenMai['km_anh'] ?>" id="preview-img" height="200px" />
+                                    <?php endif; ?>
+                                </div>
+                                    <input type="file" class="form-control" id="km_anh" name="km_anh">
                                 </div>
                             </div>
                             <div class="col-md-12">

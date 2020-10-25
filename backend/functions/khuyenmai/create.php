@@ -2,6 +2,7 @@
 if (session_id() === '') {
     session_start();
 }
+include_once(__DIR__ . '/../../../dbconnect.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +10,7 @@ if (session_id() === '') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm khuyến mãi</title>
+    <title>Shop Hoa | Thêm khuyến mãi</title>
     <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css" />
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css" type="text/css">
@@ -33,7 +34,6 @@ if (session_id() === '') {
             </div>
             <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
-                include_once(__DIR__ . '/../../../dbconnect.php');
                 $sql = "SELECT km_id,km_ten,km_noidung,km_tungay,km_denngay,km_anh FROM khuyenmai";
                 $result = mysqli_query($conn, $sql);
                 $dataKhuyenMai = [];
@@ -51,7 +51,7 @@ if (session_id() === '') {
 
                 <div class="container-fluid">
                     <div class="row ">
-                        <div class="col-md-12 text-right mt-5">
+                        <div class="col-md-12 mt-5">
                             <a href="index.php"><button type="button" id="btndanhsach" class="btn btn-primary">Danh sách</button></a> <br><br>
                         </div>
                     </div>
@@ -110,15 +110,6 @@ if (session_id() === '') {
                     if (isset($_FILES['km_anh'])) {
                         $upload_dir = __DIR__ . "/../../../assets/uploads/";
                         $subdir = 'products/';
-                        // Đối với mỗi file, sẽ có các thuộc tính như sau:
-                        // $_FILES['hsp_tentaptin']['name']     : Tên của file chúng ta upload
-                        // $_FILES['hsp_tentaptin']['type']     : Kiểu file mà chúng ta upload (hình ảnh, word, excel, pdf, txt, ...)
-                        // $_FILES['hsp_tentaptin']['tmp_name'] : Đường dẫn đến file tạm trên web server
-                        // $_FILES['hsp_tentaptin']['error']    : Trạng thái của file chúng ta upload, 0 => không có lỗi
-                        // $_FILES['hsp_tentaptin']['size']     : Kích thước của file chúng ta upload
-                        // 3.1. Chuyển file từ thư mục tạm vào thư mục Uploads
-                        // Nếu file upload bị lỗi, tức là thuộc tính error > 0
-                        //Lấy phần mở rộng của file (jpg, png, ...)
                         if ($_FILES['km_anh']['error'] > 0) {
                             echo 'File Upload Bị Lỗi';
                             die;
@@ -130,19 +121,12 @@ if (session_id() === '') {
                             die;
                         } else {
                             $km_anh = $_FILES['km_anh']['name'];
-                            $tentaptin = date('YmdHis') . '_' . $km_anh; //20200530154922_hoahong.jpg
+                            $tentaptin = date('YmdHis') . '_' . $km_anh;
 
                             move_uploaded_file($_FILES['km_anh']['tmp_name'], $upload_dir . $subdir . $tentaptin);
                         }
-
-                        // 3.2. Lưu thông tin file upload vào database
-                        // Câu lệnh INSERT
                         $sql = "INSERT INTO `khuyenmai` (km_ten,km_tungay,km_denngay,km_noidung,km_anh) VALUES ('$km_ten','$km_tungay','$km_denngay','$km_noidung','$tentaptin');";
-                        // print_r($sql); die;
-                        // Thực thi INSERT
-                        //var_dump($sql);die;
                         mysqli_query($conn, $sql);
-                        //Đóng kết nối
                         mysqli_close($conn);
                         echo '<script>location.href = "index.php";</script>';
                     }
