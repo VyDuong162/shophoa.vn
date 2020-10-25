@@ -238,11 +238,11 @@ while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC))
                                 <label for="sp_avt_tenfile" class="col-md-2">Ảnh sản phẩm</label>
                                 <input type="file" name="sp_avt_tenfile" id="sp_avt_tenfile" class="form-control col-sm-10">
                                 <div class="preview-img-container col-md-2">
-                                <?php if(!file_exists('../../../assets/uploads/img-product/'.$dataSanPham['sp_avt_tenfile']) || empty($dataSanPham['sp_avt_tenfile'])): ?>
-                                    <img src="/shophoa.vn/assets/shared/img/default.png" id="preview-img" class=" img-fluid" />
-                                        <?php else: ?>
-                                    <img src="/shophoa.vn/assets/uploads/img-product/<?= $dataSanPham['sp_avt_tenfile'] ?>" id="preview-img" class=" img-fluid" />
-                                        <?php endif; ?>
+                                    <?php if (!file_exists('../../../assets/uploads/img-product/' . $dataSanPham['sp_avt_tenfile']) || empty($dataSanPham['sp_avt_tenfile'])) : ?>
+                                        <img src="/shophoa.vn/assets/shared/img/default.png" id="preview-img" class=" img-fluid" />
+                                    <?php else : ?>
+                                        <img src="/shophoa.vn/assets/uploads/img-product/<?= $dataSanPham['sp_avt_tenfile'] ?>" id="preview-img" class=" img-fluid" />
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -261,11 +261,13 @@ while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC))
                     $mh_id = isset($_POST['mh_id']) ? $_POST['mh_id'] : '';
                     $cd_id = isset($_POST['cd_id']) ? $_POST['cd_id'] : '';
                     $km_id = $_POST['km_id'];
+                    $flat = true;
                     if (isset($_FILES['sp_avt_tenfile'])) {
                         $upload_dir = __DIR__ . "/../../../assets/uploads/";
                         $subdir = 'img-product/';
                         if ($_FILES['sp_avt_tenfile']['error'] > 0) {
                             $sp_avt_tenfile = $dataSanPham['sp_avt_tenfile'];
+                            $flat = false;
                         } else {
                             $old_file = $upload_dir . $subdir . $dataSanPham['sp_avt_tenfile'];
                             if (file_exists($old_file)) {
@@ -279,6 +281,7 @@ while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC))
                         }
                     } else {
                         $sp_avt_tenfile = $dataSanPham['sp_avt_tenfile'];
+                        $flat = false;
                     }
                     if (empty($sp_gia)) {
                         $sp_gia = $sp_giacu;
@@ -321,8 +324,10 @@ while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC))
                             mysqli_query($conn, $sqlThemChuDe);
                         }
                     }
-                    $sqlThemSanPham = "INSERT INTO hinhsanpham (hsp_tenfile, sanpham_sp_id) VALUES ('$sp_avt_tenfile', $sp_id)";
-                    mysqli_query($conn, $sqlThemSanPham);
+                    if ($flat) {
+                        $sqlThemSanPham = "INSERT INTO hinhsanpham (hsp_tenfile, sanpham_sp_id) VALUES ('$sp_avt_tenfile', $sp_id)";
+                        mysqli_query($conn, $sqlThemSanPham);
+                    }
                     echo '<script>location.href="edit.php?sp_id=' . $dataSanPham['sp_id'] . '"</script>';
                 }
                 ?>
