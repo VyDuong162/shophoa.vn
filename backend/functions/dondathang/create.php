@@ -98,13 +98,13 @@ if (session_id() === '') {
                                         <div class="col">
                                             <div class="form-group">
                                                 <label>Ngày lập</label>
-                                                <input type="date" name="ddh_ngaylap" id="ddh_ngaylap" class="form-control" />
+                                                <input type="text" name="ddh_ngaylap" id="ddh_ngaylap" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
                                                 <label>Ngày giao</label>
-                                                <input type="date" name="ddh_ngaygiao" id="ddh_ngaygiao" class="form-control" />
+                                                <input type="text" name="ddh_ngaygiao" id="ddh_ngaygiao" class="form-control" />
                                             </div>
                                         </div>
                                         <div class="col">
@@ -196,7 +196,6 @@ if (session_id() === '') {
                         $ddh_diachi = $_POST['ddh_diachi'];
                         $ddh_trangthai = $_POST['ddh_trangthai'];
                         $httt_id = $_POST['httt_id'];
-
                         $arr_sp_id = $_POST['sp_id'];                   
                         $arr_sp_ddh_soluong = $_POST['sp_ctdh_soluong'];   
                         $arr_sp_ddh_dongia = $_POST['sp_ctdh_dongia'];     
