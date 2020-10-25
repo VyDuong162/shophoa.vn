@@ -198,18 +198,18 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                     })
                     .then((willDelete) => {
                         if (willDelete) {
-                            var lh_id = $(this).data('idxoa');
-                            var url = 'delete.php?idxoa=' + lh_id;
+                            var sp_id = $(this).data('sp_id');
+                            var url = 'delete.php?sp_id=' + sp_id;
                             location.href = url;
                         } else {
                             swal("Hủy xóa thành công!");
                         }
                     });
             });
+            $(function() {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
         });
-        $(function() {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
     </script>
 </body>
 
