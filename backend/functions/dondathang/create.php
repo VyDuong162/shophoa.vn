@@ -41,6 +41,7 @@ if (session_id() === '') {
                             $rowKhachHang['kh_sodienthoai']
                         );
                         $dataKhachHang[] = array(
+                            'kh_id' => $rowKhachHang['kh_id'],
                             'kh_tendangnhap' => $rowKhachHang['kh_tendangnhap'],
                             'kh_tomtat' => $kh_tomtat,
                         );
@@ -84,10 +85,10 @@ if (session_id() === '') {
                                         <div class="col">
                                             <div class="form-group">
                                                 <label>Khách hàng</label>
-                                                <select name="kh_tendangnhap" id="kh_tendangnhap" class="form-control">
+                                                <select name="kh_id" id="kh_id" class="form-control">
                                                     <option value="">Vui lòng chọn Khách hàng</option>
                                                     <?php foreach ($dataKhachHang as $khachhang) : ?>
-                                                        <option value="<?= $khachhang['kh_tendangnhap'] ?>"><?= $khachhang['kh_tomtat'] ?></option>
+                                                        <option value="<?= $khachhang['kh_id'] ?>"><?= $khachhang['kh_tomtat'] ?></option>
                                                     <?php endforeach; ?>
                                                 </select>
                                             </div>
@@ -118,11 +119,11 @@ if (session_id() === '') {
                                             <div class="form-group">
                                                 <label>Trạng thái thanh toán</label><br />
                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" name="dh_trangthaithanhtoan" id="dh_trangthaithanhtoan-1" class="custom-control-input" value="0" checked>
+                                                    <input type="radio" name="ddh_trangthai" id="dh_trangthaithanhtoan-1" class="custom-control-input" value="0" checked>
                                                     <label class="custom-control-label" for="dh_trangthaithanhtoan-1">Chưa thanh toán</label>
                                                 </div>
                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" name="dh_trangthaithanhtoan" id="dh_trangthaithanhtoan-2" class="custom-control-input" value="1">
+                                                    <input type="radio" name="ddh_trangthai" id="dh_trangthaithanhtoan-2" class="custom-control-input" value="1">
                                                     <label class="custom-control-label" for="dh_trangthaithanhtoan-2">Đã thanh toán</label>
                                                 </div>
                                             </div>
@@ -189,7 +190,7 @@ if (session_id() === '') {
                 </div>
                     <?php
                     if (isset($_POST['btnsave'])) {
-                        $kh_tendangnhap = $_POST['kh_tendangnhap'];
+                        $kh_id = $_POST['kh_id'];
                         $ddh_ngaylap = $_POST['ddh_ngaylap'];
                         $ddh_ngaygiao = $_POST['ddh_ngaygiao'];
                         $ddh_diachi = $_POST['ddh_diachi'];
@@ -197,12 +198,12 @@ if (session_id() === '') {
                         $httt_id = $_POST['httt_id'];
 
                         $arr_sp_id = $_POST['sp_id'];                   
-                        $arr_sp_ddh_soluong = $_POST['sp_ddh_soluong'];   
-                        $arr_sp_ddh_dongia = $_POST['sp_ddh_dongia'];     
+                        $arr_sp_ddh_soluong = $_POST['sp_ctdh_soluong'];   
+                        $arr_sp_ddh_dongia = $_POST['sp_ctdh_dongia'];     
                         //INSERT
-                        $sqlDonHang = "INSERT INTO `dondathang` (`ddh_ngaylap`, `ddh_ngaygiao`, `ddh_diachi`, `dDh_trangthai`, `httt_id`, `kh_tendangnhap`) VALUES ('$ddh_ngaylap', '$ddh_ngaygiao', N'$ddh_diachi', '$ddh_trangthai', '$httt_id', '$kh_tendangnhap')";
+                        $sqlDonHang = "INSERT INTO `dondathang` (`ddh_ngaylap`, `ddh_ngaygiao`, `ddh_diachi`, `ddh_trangthai`, `httt_id`, `khachhang_kh_id`) VALUES ('$ddh_ngaylap', '$ddh_ngaygiao', N'$ddh_diachi', '$ddh_trangthai', '$httt_id', '$kh_id')";
                         mysqli_query($conn, $sqlDonHang);
-                        $dh_id = $conn->insert_id;
+                        $ddh_id = $conn->insert_id;
                         
                         for($i = 0; $i < count($arr_sp_id); $i++) {
                            
@@ -210,7 +211,7 @@ if (session_id() === '') {
                             $sp_dh_soluong = $arr_sp_ddh_soluong[$i];
                             $sp_dh_dongia = $arr_sp_ddh_dongia[$i];
                             
-                            $sqlInsertSanPhamDonDatHang = "INSERT INTO `dondathang_has_sanpham` (`sanpham_sp_id`,`dondathang_ddh_id` , `sp_dh_soluong`, `sp_dh_dongia`) VALUES ($sp_id, $dh_id, $sp_dh_soluong, $sp_dh_dongia)";
+                            $sqlInsertSanPhamDonDatHang = "INSERT INTO `dondathang_has_sanpham` (`dondathang_ddh_id`,`sanpham_sp_id` , `sp_ctdh_soluong`, `sp_ctdh_dongia`) VALUES ($ddh_id, $sp_id, $sp_dh_soluong, $sp_dh_dongia)";
                             
                             mysqli_query($conn, $sqlInsertSanPhamDonDatHang);
                         }
@@ -230,12 +231,11 @@ if (session_id() === '') {
             var sp_gia = $('#sp_id option:selected').data('sp_gia');
             var sp_ten = $('#sp_id option:selected').text();
             var soluong = $('#soluong').val();
-            var thanhtien = (soluong * sp_gia);
             var htmlTemplate = '<tr class="text-center align-middle">'; 
             htmlTemplate += '<td>' + sp_ten + '<input type="hidden" name="sp_id[]" value="' + sp_id + '"/></td>';
             htmlTemplate += '<td>' + soluong + '<input type="hidden" name="sp_dh_soluong[]" value="' + soluong + '"/></td>';
             htmlTemplate += '<td>' +sp_gia+ '<input type="hidden" name="sp_dh_dongia[]" value="' + sp_gia + '"/></td>';
-            htmlTemplate += '<td>'+thanhtien+'</td>';
+            htmlTemplate += '<td>'+(soluong * sp_gia)+'</td>';
             htmlTemplate += '<td><button type="button" class="btn btn-danger btn-delete-row"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>';
             htmlTemplate += '</tr>';
             // Thêm vào TABLE BODY
@@ -247,9 +247,6 @@ if (session_id() === '') {
         // Đăng ký sự kiện cho tất cả các nút XÓA có sử dụng class .btn-delete-row
         $('#chiTietDonHangContainer').on('click', '.btn-delete-row', function() {
             $(this).parent().parent()[0].remove();
-        });
-        $('#btnThemSanPham').click(function(){
-            
         });
     </script>
 

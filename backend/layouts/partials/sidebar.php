@@ -76,7 +76,7 @@
             </li>
             <hr class="ml-3" style="border: 0.5px solid red; width: 80%;">
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="/shophoa.vn/backend/functions/bieudo/index.php">
                     <i class="fa fa-area-chart" aria-hidden="true"></i>
                     Biểu đồ
                 </a>
