@@ -64,13 +64,12 @@ if (session_id() === '') {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php $i=1; ?>
+                                    <?php $i = 1; ?>
                                     <?php foreach ($dataMauHoa as $lh) : ?>
                                         <tr>
                                             <td class="text-center align-middle"><?= $i++; ?></td>
                                             <td class="text-center align-middle"><?= $lh['mh_id']; ?></td>
                                             <td class="align-middle"><?= $lh['mh_ten']; ?></td>
-
                                             <td class="text-center align-middle">
                                                 <a href="edit.php?idupdate=<?php echo $lh['mh_id']; ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="sửa">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
