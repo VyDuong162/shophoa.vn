@@ -3,11 +3,11 @@ if (session_id() === '') {
     session_start();
 }
 include_once(__DIR__ . '/../../../dbconnect.php');
-$lh_id = $_GET['lh_id'];
-$sqlLoaiHoa = "SELECT lh_ten FROM loaihoa WHERE lh_id = {$lh_id}";
-$resultLoaiHoa = mysqli_query($conn, $sqlLoaiHoa);
-while ($rowLoaiHoa = mysqli_fetch_array($resultLoaiHoa, MYSQLI_ASSOC)) {
-    $loaiHoa = $rowLoaiHoa['lh_ten'];
+$mh_id = $_GET['mh_id'];
+$sqlMauHoa = "SELECT mh_ten FROM mauhoa WHERE mh_id = {$mh_id}";
+$resultMauHoa = mysqli_query($conn, $sqlMauHoa);
+while ($rowMAuHoa = mysqli_fetch_array($resultMauHoa, MYSQLI_ASSOC)) {
+    $mauHoa = $rowMAuHoa['mh_ten'];
 }
 ?>
 <!DOCTYPE html>
@@ -16,7 +16,7 @@ while ($rowLoaiHoa = mysqli_fetch_array($resultLoaiHoa, MYSQLI_ASSOC)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Hoa | San phẩm loại <?= $loaiHoa ?></title>
+    <title>Shop Hoa | San phẩm màu hoa <?= $mauHoa ?></title>
     <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css" />
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css" type="text/css">
@@ -40,7 +40,7 @@ while ($rowLoaiHoa = mysqli_fetch_array($resultLoaiHoa, MYSQLI_ASSOC)) {
             </div>
             <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
-                $sqlSanPham = "SELECT * FROM sanpham AS a JOIN sanpham_has_loaihoa AS b ON a.sp_id = b.sanpham_sp_id WHERE b.loaihoa_lh_id = {$lh_id};";
+                $sqlSanPham = "SELECT * FROM sanpham AS a JOIN sanpham_has_mauhoa AS b ON a.sp_id = b.sanpham_sp_id WHERE b.mauhoa_mh_id = {$mh_id};";
                 $resultSanPham = mysqli_query($conn, $sqlSanPham);
                 $dataSanPham = [];
                 while ($row = mysqli_fetch_array($resultSanPham, MYSQLI_ASSOC)) {
@@ -59,7 +59,7 @@ while ($rowLoaiHoa = mysqli_fetch_array($resultLoaiHoa, MYSQLI_ASSOC)) {
                 ?>
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
-                        <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách sản phẩm thuộc loại <?= $loaiHoa ?></h1>
+                        <h1 class="h2 text-gray-800 text-center m-0 font-weight-bold text-primary">Danh sách sản phẩm thuộc màu hoa <?= $mauHoa ?></h1>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -105,7 +105,7 @@ while ($rowLoaiHoa = mysqli_fetch_array($resultLoaiHoa, MYSQLI_ASSOC)) {
                                                 <a href="/shophoa.vn/backend/functions/sanpham/edit.php?sp_id=<?= $sp['sp_id'] ?>" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Sửa">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <button type="button" class="btn btn-danger btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa" data-sanpham_sp_id="<?= $sp['sp_id'] ?>" data-loaihoa_lh_id="<?= $lh_id ?>">
+                                                <button type="button" class="btn btn-danger btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa" data-sanpham_sp_id="<?= $sp['sp_id'] ?>" data-mauhoa_mh_id="<?= $mh_id ?>">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                 </button>
                                             </td>
@@ -176,8 +176,8 @@ while ($rowLoaiHoa = mysqli_fetch_array($resultLoaiHoa, MYSQLI_ASSOC)) {
                 .then((willDelete) => {
                     if (willDelete) {
                         var sanpham_sp_id = $(this).data('sanpham_sp_id');
-                        var loaihoa_lh_id = $(this).data('loaihoa_lh_id');
-                        var url = 'delete2.php?loaihoa_lh_id=' + loaihoa_lh_id + '&sanpham_sp_id=' + sanpham_sp_id;
+                        var mauhoa_mh_id = $(this).data('mauhoa_mh_id');
+                        var url = 'delete2.php?mauhoa_mh_id=' + mauhoa_mh_id + '&sanpham_sp_id=' + sanpham_sp_id;
                         location.href = url;
                     } else {
                         swal("Hủy xóa thành công!");
