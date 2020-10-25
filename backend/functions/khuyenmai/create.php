@@ -110,15 +110,6 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                     if (isset($_FILES['km_anh'])) {
                         $upload_dir = __DIR__ . "/../../../assets/uploads/";
                         $subdir = 'products/';
-                        // Đối với mỗi file, sẽ có các thuộc tính như sau:
-                        // $_FILES['hsp_tentaptin']['name']     : Tên của file chúng ta upload
-                        // $_FILES['hsp_tentaptin']['type']     : Kiểu file mà chúng ta upload (hình ảnh, word, excel, pdf, txt, ...)
-                        // $_FILES['hsp_tentaptin']['tmp_name'] : Đường dẫn đến file tạm trên web server
-                        // $_FILES['hsp_tentaptin']['error']    : Trạng thái của file chúng ta upload, 0 => không có lỗi
-                        // $_FILES['hsp_tentaptin']['size']     : Kích thước của file chúng ta upload
-                        // 3.1. Chuyển file từ thư mục tạm vào thư mục Uploads
-                        // Nếu file upload bị lỗi, tức là thuộc tính error > 0
-                        //Lấy phần mở rộng của file (jpg, png, ...)
                         if ($_FILES['km_anh']['error'] > 0) {
                             echo 'File Upload Bị Lỗi';
                             die;
@@ -130,19 +121,12 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             die;
                         } else {
                             $km_anh = $_FILES['km_anh']['name'];
-                            $tentaptin = date('YmdHis') . '_' . $km_anh; //20200530154922_hoahong.jpg
+                            $tentaptin = date('YmdHis') . '_' . $km_anh;
 
                             move_uploaded_file($_FILES['km_anh']['tmp_name'], $upload_dir . $subdir . $tentaptin);
                         }
-
-                        // 3.2. Lưu thông tin file upload vào database
-                        // Câu lệnh INSERT
                         $sql = "INSERT INTO `khuyenmai` (km_ten,km_tungay,km_denngay,km_noidung,km_anh) VALUES ('$km_ten','$km_tungay','$km_denngay','$km_noidung','$tentaptin');";
-                        // print_r($sql); die;
-                        // Thực thi INSERT
-                        //var_dump($sql);die;
                         mysqli_query($conn, $sql);
-                        //Đóng kết nối
                         mysqli_close($conn);
                         echo '<script>location.href = "index.php";</script>';
                     }
