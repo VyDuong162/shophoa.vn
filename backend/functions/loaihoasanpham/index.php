@@ -77,6 +77,9 @@ if (session_id() === '') {
                                                 <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $lh['lh_id']; ?> data-toggle="tooltip" data-placement="top" title="xóa">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                 </a>
+                                                <a href="sanpham.php?lh_id=<?= $lh['lh_id'] ?>" class="btn btn-secondary">
+                                                    <i class="fa fa-cubes" aria-hidden="true"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -96,6 +99,9 @@ if (session_id() === '') {
     <script src="/shophoa.vn/assets/vendor/sweetalert/sweetalert.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
     <script>
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
         $(document).ready(function() {
             $('#tblDanhSach').DataTable({
                 dom: "<'row'<'col-md-12 text-center'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-sm-12'tr>><'row'<'col-md-6'i><'col-md-6'p>>",
@@ -129,27 +135,24 @@ if (session_id() === '') {
                     [10, 15, 20, 25, 50, 100, "Tất cả"]
                 ]
             });
-            $(function() {
-                $('[data-toggle="tooltip"]').tooltip()
-            });
-            $('.btnDelete').click(function() {
-                swal({
-                        title: "Bạn có chắn chắn xóa không?",
-                        text: "Không thể phục hồi dữ liệu khi xóa!",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            var lh_id = $(this).data('idxoa');
-                            var url = 'delete.php?idxoa=' + lh_id;
-                            location.href = url;
-                        } else {
-                            swal("Hủy xóa thành công!");
-                        }
-                    });
-            });
+        });
+        $('.btnDelete').click(function() {
+            swal({
+                    title: "Bạn có chắn chắn xóa không?",
+                    text: "Không thể phục hồi dữ liệu khi xóa!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        var lh_id = $(this).data('idxoa');
+                        var url = 'delete.php?idxoa=' + lh_id;
+                        location.href = url;
+                    } else {
+                        swal("Hủy xóa thành công!");
+                    }
+                });
         });
     </script>
 </body>
