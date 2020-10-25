@@ -1,6 +1,7 @@
 <?php
 if (session_id() === '') {
     session_start();
+    include_once(__DIR__ . '/../../../dbconnect.php');
 }
 ?>
 <!DOCTYPE html>
@@ -29,7 +30,6 @@ if (session_id() === '') {
             </div>
             <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
-                include_once(__DIR__ . '/../../../dbconnect.php');
                 $sql = "SELECT lh_id,lh_ten FROM loaihoa";
                 $result = mysqli_query($conn, $sql);
                 $dataLoaiHoa = [];
@@ -54,13 +54,7 @@ if (session_id() === '') {
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="lh_ten">Tên loại hoa</label>
-                                    <input type="text" class="form-control" id="lh_ten" name="lh_ten" placeholder="Tên loại hoa" value="">
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="lh_mota">Mô tả loại hoa</label>
-                                    <textarea id="lh_mota" class="form-control" name="lh_mota" cols="30" rows="10" placeholder="Mô tả loại hoa" value="<?= $dataLoaiHoa['lh_ten'] ?>"></textarea>
+                                    <input type="text" class="form-control" id="lh_ten" name="lh_ten" placeholder="Tên loại hoa" value="" required>
                                 </div>
                             </div>
                             <div class="col-md-12 text-center mb-5">
@@ -72,12 +66,9 @@ if (session_id() === '') {
                 <?php
                 if (isset($_POST['btnsave']) && !empty($_POST['lh_ten'])) {
                     $lh_ten = htmlentities($_POST['lh_ten']);
-                    $lh_mota = htmlentities($_POST['lh_mota']);
                     // Câu lệnh INSERT
                     $sql = "INSERT INTO `loaihoa` (lh_ten,lh_mota) VALUES ('$lh_ten','$lh_mota');";
-                    // print_r($sql); die;
-                    // Thực thi INSERT
-                    //var_dump($sql);die;
+                    // print_r($sql); die;;
                     mysqli_query($conn, $sql);
                     //Đóng kết nối
                     mysqli_close($conn);
@@ -89,10 +80,13 @@ if (session_id() === '') {
     </div>
     <?php include_once(__DIR__ . '/../../layouts/partials/footer.php'); ?>
     <?php include_once(__DIR__ . '/../../layouts/scripts.php'); ?>
-    <script src="/shophoa.vn/assets/vendor/ckeditor/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('lh_mota');
-    </script>
 </body>
-
+    <script>
+        $('#btnsave').click(function() {
+            var lh_ten = document.getElementById("lh_ten").value;
+            if(lh_ten==null || lh_ten==""){
+                alert('Chưa nhập dữ liệu!');
+            }
+        });
+    </script>
 </html>
