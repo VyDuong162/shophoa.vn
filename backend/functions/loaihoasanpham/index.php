@@ -58,26 +58,27 @@ if (session_id() === '') {
                             <table id="tblDanhSach" class="table mx-auto table-bordered table-hover">
                                 <thead class="thead-dark">
                                     <tr class="text-center">
-                                        <th>Mã loại hoa</th>
+                                        <th width="80px">STT</th>
+                                        <th width="80px">Mã loại hoa</th>
                                         <th>tên loại hoa</th>
-                                        <th>Mô tả loại hoa</th>
-                                        <th>Hành động</th>
+                                        <th width="170px">Hành động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $i=1; ?>
                                     <?php foreach ($dataLoaiHoa as $lh) : ?>
                                         <tr>
-                                            <td><?= $lh['lh_id']; ?></td>
-                                            <td><?= $lh['lh_ten']; ?></td>
-                                            <td><?= $lh['lh_mota']; ?></td>
-                                            <td class="text-center">
-                                                <a href="edit.php?idupdate=<?php echo $lh['lh_id']; ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="sửa">
+                                            <td class="text-center align-middle"><?= $i++; ?></td>
+                                            <td class="text-center align-middle"><?= $lh['lh_id']; ?></td>
+                                            <td class="align-middle"><?= $lh['lh_ten']; ?></td>
+                                            <td class="text-center align-middle">
+                                                <a href="edit.php?idupdate=<?php echo $lh['lh_id']; ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Sửa">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $lh['lh_id']; ?> data-toggle="tooltip" data-placement="top" title="xóa">
+                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $lh['lh_id']; ?> data-toggle="tooltip" data-placement="top" title="Xóa">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="sanpham.php?lh_id=<?= $lh['lh_id'] ?>" class="btn btn-secondary">
+                                                <a href="sanpham.php?lh_id=<?= $lh['lh_id'] ?>" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Xem danh sách loại hoa <?= $lh['lh_ten']; ?>">
                                                     <i class="fa fa-cubes" aria-hidden="true"></i>
                                                 </a>
                                             </td>

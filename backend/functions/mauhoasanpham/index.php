@@ -57,17 +57,19 @@ if (session_id() === '') {
                             <table id="tblDanhSach" class="table mx-auto table-bordered table-hover">
                                 <thead class="thead-dark">
                                     <tr class="text-center">
-                                        <th>Mã màu hoa</th>
+                                        <th width="80px">STT</th>
+                                        <th width="80px">Mã màu hoa</th>
                                         <th>Tên màu hoa</th>
-                                        <th>Hành động</th>
+                                        <th width="170px">Hành động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $i = 1; ?>
                                     <?php foreach ($dataMauHoa as $lh) : ?>
                                         <tr>
+                                            <td class="text-center align-middle"><?= $i++; ?></td>
                                             <td class="text-center align-middle"><?= $lh['mh_id']; ?></td>
                                             <td class="align-middle"><?= $lh['mh_ten']; ?></td>
-
                                             <td class="text-center align-middle">
                                                 <a href="edit.php?idupdate=<?php echo $lh['mh_id']; ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="sửa">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
@@ -75,8 +77,7 @@ if (session_id() === '') {
                                                 <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $lh['mh_id']; ?> data-toggle="tooltip" data-placement="top" title="xóa">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                 </a>
-
-                                                <a href="sanpham.php?mh_id=<?= $lh['mh_id'] ?>" class="btn btn-secondary">
+                                                <a href="sanpham.php?mh_id=<?= $lh['mh_id'] ?>" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Xem màu hoa <?= $lh['mh_ten']; ?>">
                                                     <i class="fa fa-cubes" aria-hidden="true"></i>
                                                 </a>
                                             </td>

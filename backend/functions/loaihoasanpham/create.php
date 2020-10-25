@@ -9,7 +9,7 @@ if (session_id() === '') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm khuyến mãi</title>
+    <title>Shop Hoa | Thêm mới loại hoa</title>
     <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css" />
 </head>
@@ -42,7 +42,7 @@ if (session_id() === '') {
                 ?>
                 <div class="container-fluid">
                     <div class="row ">
-                        <div class="col-md-12 text-right mt-3">
+                        <div class="col-md-12 mt-3">
                             <a href="index.php"><button type="button" id="btndanhsach" class="btn btn-primary">Danh sách</button></a> <br><br>
                         </div>
                     </div>
