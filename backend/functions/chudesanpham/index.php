@@ -2,6 +2,7 @@
 if (session_id() === '') {
     session_start();
 }
+include_once(__DIR__ . '/../../../dbconnect.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +33,6 @@ if (session_id() === '') {
             </div>
             <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
-                include_once(__DIR__ . '/../../../dbconnect.php');
                 $sql = "SELECT cd_id,cd_ten FROM chude";
                 $result = mysqli_query($conn, $sql);
                 $dataChuDe = [];
@@ -57,24 +57,27 @@ if (session_id() === '') {
                             <table id="tblDanhSach" class="table mx-auto table-bordered table-hover">
                                 <thead class="thead-dark">
                                     <tr class="text-center">
-                                        <th>Mã chủ đề</th>
+                                        <th width="80px">STT</th>
+                                        <th width="80px">Mã chủ đề</th>
                                         <th>Tên chủ đề</th>
-                                        <th>Hành động</th>
+                                        <th width="170px">Hành động</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $i = 1; ?>
                                     <?php foreach ($dataChuDe as $lh) : ?>
                                         <tr>
+                                            <td class="text-center align-middle"><?= $i++;?></td>
                                             <td class="text-center align-middle"><?= $lh['cd_id']; ?></td>
                                             <td class="align-middle"><?= $lh['cd_ten']; ?></td>
                                             <td class="text-center align-middle">
-                                                <a href="edit.php?idupdate=<?php echo $lh['cd_id']; ?>" class="btn btn-warning">
+                                                <a href="edit.php?idupdate=<?php echo $lh['cd_id']; ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Sửa">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa="<?php echo $lh['cd_id']; ?>">
+                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa="<?php echo $lh['cd_id']; ?>" data-toggle="tooltip" data-placement="top" title="Xóa">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="sanpham.php?cd_id=<?=$lh['cd_id']?>" class="btn btn-secondary">
+                                                <a href="sanpham.php?cd_id=<?= $lh['cd_id'] ?>" class="btn btn-secondary" data-toggle="tooltip" data-placement="top" title="Xem danh sách chủ đề <?= $lh['cd_ten']; ?>">
                                                     <i class="fa fa-cubes" aria-hidden="true"></i>
                                                 </a>
                                             </td>
@@ -96,6 +99,9 @@ if (session_id() === '') {
     <script src="/shophoa.vn/assets/vendor/sweetalert/sweetalert.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
     <script>
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
         $(document).ready(function() {
             $('#tblDanhSach').DataTable({
                 dom: "<'row'<'col-md-12 text-center'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-sm-12'tr>><'row'<'col-md-6'i><'col-md-6'p>>",
@@ -129,24 +135,24 @@ if (session_id() === '') {
                     [10, 15, 20, 25, 50, 100, "Tất cả"]
                 ]
             });
-            $('.btnDelete').click(function() {
-                swal({
-                        title: "Bạn có chắn chắn xóa không?",
-                        text: "Không thể phục hồi dữ liệu khi xóa!",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            var cd_id = $(this).data('idxoa');
-                            var url = 'delete.php?idxoa=' + cd_id;
-                            location.href = url;
-                        } else {
-                            swal("Hủy xóa thành công!");
-                        }
-                    });
-            });
+        });
+        $('.btnDelete').click(function() {
+            swal({
+                    title: "Bạn có chắn chắn xóa không?",
+                    text: "Không thể phục hồi dữ liệu khi xóa!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        var cd_id = $(this).data('idxoa');
+                        var url = 'delete.php?idxoa=' + cd_id;
+                        location.href = url;
+                    } else {
+                        swal("Hủy xóa thành công!");
+                    }
+                });
         });
     </script>
 </body>
