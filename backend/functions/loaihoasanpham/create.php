@@ -64,6 +64,29 @@ if (session_id() === '') {
                     </form>
                 </div>
                 <?php
+                if (isset($_POST['btnsave'])) {
+                    $lh_ten = $_POST['lh_ten'];
+                    $erorrs = [];
+                    if (empty( $httt_ten)) {
+                        $erorrs['lh_ten'][] = [
+                            'rule' => 'required',
+                            'rule_value' => true,
+                            'value' =>  $lh_ten,
+                            'mes' => 'không được bỏ trống',
+                        ];
+                    } else {
+                        if (strlen($lh_ten) > 50) {
+                            $erorrs['lh_ten'][] = [
+                                'rule' => 'maxlength',
+                                'rule_value' => 3,
+                                'value' => $lh_ten,
+                                'mes' => 'Tên chỉ được tối đa 50 ký tự',
+                            ];
+                        }
+                    }
+                }
+                ?>
+                <?php
                 if (isset($_POST['btnsave']) && !empty($_POST['lh_ten'])) {
                     $lh_ten = htmlentities($_POST['lh_ten']);
                     // Câu lệnh INSERT
@@ -82,11 +105,41 @@ if (session_id() === '') {
     <?php include_once(__DIR__ . '/../../layouts/scripts.php'); ?>
 </body>
     <script>
-        $('#btnsave').click(function() {
-            var lh_ten = document.getElementById("lh_ten").value;
-            if(lh_ten==null || lh_ten==""){
-                alert('Chưa nhập dữ liệu!');
-            }
+        $(document).ready(function() {
+            // Kiểm tra logic phần frontend
+            $('#frmthemmoi').validate({
+                // Phần logic
+                rules: {
+                    lh_ten: {
+                        required: true,
+                        maxlength: 50,
+                    },
+                },
+                // Phần thông báo
+                messages: {
+                    lh_ten: {
+                        required: "Nhập tên dữ liệu",
+                        maxlenght: "Tên chỉ có tối đa 50 ký tự",
+                    },
+                },
+                // Phần mặc định
+                errorElement: "em",
+                errorPlacement: function(error, element) {
+                    error.addClass("invalid-feedback");
+                    if (element.prop("type") === "checkbox") {
+                        error.insertAfter(element.parent("label"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                success: function(label, element) {},
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                }
+            });
         });
     </script>
 </html>
