@@ -10,7 +10,7 @@ if (session_id() === '') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop Hoa | Đăng nhập</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css">
     <?php include_once(__DIR__ . '/../layouts/styles.php'); ?>
     <style>
         *{

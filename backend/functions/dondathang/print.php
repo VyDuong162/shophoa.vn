@@ -140,8 +140,8 @@ EOT;
                                 <td align="center"><?= $stt; ?></td>
                                 <td align="left"><?= $sanpham['sp_ten'] ?></td>
                                 <td align="right"><?= $sanpham['sp_ctdh_soluong']?></td>
-                                <td align="right"><?= number_format($sanpham['sp_ctdh_dongia'], 3, ".", ",") ?></td>
-                                <td align="right"><?= number_format($sanpham['sp_ctdh_soluong'] * $sanpham['sp_ctdh_dongia'] , 3, ".", ",")  ?></td>
+                                <td align="right"><?= number_format($sanpham['sp_ctdh_dongia'], 2, ".", ",") ?></td>
+                                <td align="right"><?= number_format($sanpham['sp_ctdh_soluong'] * $sanpham['sp_ctdh_dongia'] , 2, ".", ",")  ?></td>
                             </tr>
                             <?php $stt++; ?>
                             <?php endforeach; ?>
@@ -149,7 +149,7 @@ EOT;
                         <tfoot>
                             <tr>
                                 <td colspan="4" align="right"><b>Tổng thành tiền</b></td>
-                                <td align="right"><b><?= number_format($dataDonDatHang['ddh_tongtien'], 3, ".", ",") . ' vnđ' ?></b></td>
+                                <td align="right"><b><?= number_format($dataDonDatHang['ddh_tongtien'], 2, ".", ",") . ' vnđ' ?></b></td>
                             </tr>
                         </tfoot>
                     </table>

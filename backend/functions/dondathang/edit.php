@@ -119,12 +119,12 @@ if (session_id() === '') {
                                             <div class="form-group">
                                                 <label>Trạng thái thanh toán</label><br />
                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" name="ddh_trangthai" id="dh_trangthai-1" class="custom-control-input" value="0" checked>
-                                                    <label class="custom-control-label" for="dh_trangthai-1">Chưa thanh toán</label>
+                                                    <input type="radio" name="ddh_trangthai" id="dh_trangthaithanhtoan-1" class="custom-control-input" value="0" checked>
+                                                    <label class="custom-control-label" for="dh_trangthaithanhtoan-1">Chưa thanh toán</label>
                                                 </div>
                                                 <div class="custom-control custom-radio custom-control-inline">
-                                                    <input type="radio" name="ddh_trangthai" id="dh_trangthai-2" class="custom-control-input" value="1">
-                                                    <label class="custom-control-label" for="dh_trangthai-2">Đã thanh toán</label>
+                                                    <input type="radio" name="ddh_trangthai" id="dh_trangthaithanhtoan-2" class="custom-control-input" value="1">
+                                                    <label class="custom-control-label" for="dh_trangthaithanhtoan-2">Đã thanh toán</label>
                                                 </div>
                                             </div>
                                         </div>
