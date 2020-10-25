@@ -58,6 +58,22 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- Biểu đồ thống kê màu hoa sản phẩm -->
+                             <!-- Bar Chart -->
+                             <div class="col-sm-6 col-lg-6 mt-3" >
+                                <div class="card shadow mb-4" >
+                                    <div class="card-header py-3">
+                                        <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="chart-pie">
+                                            <canvas id="chartOfobjChartThongKeMauHoaSanPham" ></canvas>
+                                        </div>
+                                        <hr>
+                                        <button class="btn btn-outline-primary btn-sm form-control" id="refreshThongKeMauHoaSanPham">Refresh dữ liệu</button>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- Biểu đồ thống kê sản phẩm yêu thích -->
                             <!-- Pie Chart -->
                             <div class="col-sm-6 col-lg-6 mt-3"  >
@@ -97,114 +113,6 @@
   <script src="/shophoa.vn/assets/vendor/Chart.js/Chart.min.js"></script>
     <script>
          $(document).ready(function(){
-            // ----------------- Tổng số sản phẩm --------------------------
-            function getDuLieuTongSoMatHang(){
-                $.ajax('/shophoa.vn/backend/api/baocao-tongsanpham.php',{
-                success: function(data){
-                    var dataobj = JSON.parse(data);
-                    var htmlstring =  `<h1>${dataobj.SoLuong}</h1>`;
-                    $('#baocaoSanPham_SoLuong').html(htmlstring);
-                    },
-                error: function() {
-                    var htmlString = `<h1>Không thể xử lý</h1>`;
-                    $('#baocaoSanPham_SoLuong').html(htmlString);
-                    }
-                });
-            }
-            $('#refreshBaoCaoSanPham').click(function(){
-                getDuLieuTongSoMatHang();
-            });
-       
-            // ----------------- Tổng số khách hàng --------------------------
-            function getDuLieuBaoCaoTongSoKhachHang() {
-                $.ajax('/shophoa.vn/backend/api/baocao-tongkhachhang.php', {
-                success: function(data) {
-                    var dataObj = JSON.parse(data);
-                    var htmlString = `<h1>${dataObj.SoLuong}</h1>`;
-                    $('#baocaoKhachHang_SoLuong').html(htmlString);
-                },
-                error: function() {
-                    var htmlString = `<h1>Không thể xử lý</h1>`;
-                    $('#baocaoKhachHang_SoLuong').html(htmlString);
-                }
-                });
-            }
-            $('#refreshBaoCaoKhachHang').click(function(event) {
-                event.preventDefault();
-                getDuLieuBaoCaoTongSoKhachHang();
-            });
-            // ----------------- Tổng số đơn hàng --------------------------
-            function getDuLieuBaoCaoTongSoDonHang() {
-                $.ajax('/shophoa.vn/backend/api/baocao-tongdondathang.php', {
-                success: function(data) {
-                    var dataObj = JSON.parse(data);
-                    var htmlString = `<h1>${dataObj.SoLuong}</h1>`;
-                    $('#baocaoDonHang_SoLuong').html(htmlString);
-                },
-                error: function() {
-                    var htmlString = `<h1>Không thể xử lý</h1>`;
-                    $('#baocaoDonHang_SoLuong').html(htmlString);
-                }
-                });
-            }
-            $('#refreshBaoCaoDonHang').click(function(event) {
-                event.preventDefault();
-                getDuLieuBaoCaoTongSoDonHang();
-            });
-            // ----------------- Tổng số chủ đề --------------------------
-            function getDuLieuBaoCaoTongSoChuDeSanPham() {
-                $.ajax('/shophoa.vn/backend/api/baocao-tongchudesanpham.php', {
-                success: function(data) {
-                    var dataObj = JSON.parse(data);
-                    var htmlString = `<h1>${dataObj.SoLuong}</h1>`;
-                    $('#baocaoChuDeSanPham_SoLuong').html(htmlString);
-                },
-                error: function() {
-                    var htmlString = `<h1>Không thể xử lý</h1>`;
-                    $('#baocaoChuDeSanPham_SoLuong').html(htmlString);
-                }
-                });
-            }
-            $('#refreshBaoCaoChuDeSanPham').click(function(event) {
-                event.preventDefault();
-                getDuLieuBaoCaoTongSoChuDeSanPham();
-            });
-            // ----------------- Tổng số khuyến mãi --------------------------
-            function getDuLieuBaoCaoTongSoKhuyenMai() {
-                $.ajax('/shophoa.vn/backend/api/baocao-tongkhuyenmai.php', {
-                success: function(data) {
-                    var dataObj = JSON.parse(data);
-                    var htmlString = `<h1>${dataObj.SoLuong}</h1>`;
-                    $('#baocaoKhuyenMai_SoLuong').html(htmlString);
-                },
-                error: function() {
-                    var htmlString = `<h1>Không thể xử lý</h1>`;
-                    $('#baocaoKhuyenMai_SoLuong').html(htmlString);
-                }
-                });
-            }
-            $('#refreshBaoCaoKhuyenMai').click(function(event) {
-                event.preventDefault();
-                getDuLieuBaoCaoTongSoKhuyenMai();
-            });
-            // ----------------- Tổng số khuyến mãi --------------------------
-            function getDuLieuBaoCaoTongSoBinhLuan() {
-                $.ajax('/shophoa.vn/backend/api/baocao-tongbinhluan.php', {
-                success: function(data) {
-                    var dataObj = JSON.parse(data);
-                    var htmlString = `<h1>${dataObj.SoLuong}</h1>`;
-                    $('#baocaoBinhLuan_SoLuong').html(htmlString);
-                },
-                error: function() {
-                    var htmlString = `<h1>Không thể xử lý</h1>`;
-                    $('#baocaoBinhLuan_SoLuong').html(htmlString);
-                }
-                });
-            }
-            $('#refreshBaoCaoBinhLuan').click(function(event) {
-                event.preventDefault();
-                getDuLieuBaoCaoTongSoBinhLuan();
-            });
              // ------------------ Vẽ biểu đồ thống kê Loại hoa sản phẩm -----------------
             var $objChartThongKeLoaiHoaSanPham;
             var $chartOfobjChartThongKeLoaiHoaSanPham = document.getElementById("chartOfobjChartThongKeLoaiHoaSanPham").getContext(
@@ -351,13 +259,57 @@
             $('#refreshThongKeSanPhamYeuThich').click(function(event) {
                 event.preventDefault();
                 renderChartThongKeSanPhamYeuThich();
+            }); 
+            // ------------------ Vẽ biểu đồ thống kê màu hoa sản phẩm -----------------
+            var $objChartThongKeMauHoaSanPham;
+            var $chartOfobjChartThongKeMauHoaSanPham = document.getElementById("chartOfobjChartThongKeMauHoaSanPham").getContext(
+              '2d');
+            function renderChartThongKeMauHoaSanPham() {
+                $.ajax({
+                url: '/shophoa.vn/backend/api/baocao-thongkesanpham-mauhoa.php',
+                type: "GET",
+                success: function(response) {
+                    var data = JSON.parse(response);
+                    var myLabels = [];
+                    var myData = [];
+                    $(data).each(function() {
+                    myLabels.push((this.TenMauHoa));
+                    myData.push(this.SoLuong);
+                    });
+                    myData.push(0);
+                    if (typeof $objChartThongKeMauHoaSanPham !== "undefined") {
+                        $objChartThongKeMauHoaSanPham.destroy();
+                    }
+                    $objChartThongKeMauHoaSanPham = new Chart($chartOfobjChartThongKeMauHoaSanPham, {
+                    type: "bar",
+                    data: {
+                        labels: myLabels,
+                        datasets: [{
+                        data: myData,
+                        borderColor:  ['#dc3545', '#fd7e14','#ffc107','#28a745','#007bff','#e83e8c','#6f42c1','#343a40','#fff'],
+                        backgroundColor: ['#dc3545', '#fd7e14','#ffc107','#28a745','#007bff','#e83e8c','#6f42c1','#343a40','#fff'],
+                        borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        legend: {
+                        display: false
+                        },
+                        title: {
+                        display: true,
+                        text: "Thống kê màu hoa sản phẩm"
+                        },
+                        responsive: true
+                    }
+                    });
+                }
+                });
+            };
+            $('#refreshThongKeMauHoaSanPham').click(function(event) {
+                event.preventDefault();
+                renderChartThongKeMauHoaSanPham();
             });
-            getDuLieuTongSoMatHang();
-            getDuLieuBaoCaoTongSoKhachHang();
-            getDuLieuBaoCaoTongSoDonHang();
-            getDuLieuBaoCaoTongSoChuDeSanPham();
-            getDuLieuBaoCaoTongSoKhuyenMai();
-            getDuLieuBaoCaoTongSoBinhLuan();
+            renderChartThongKeMauHoaSanPham();
             renderChartThongKeLoaiHoaSanPham();
             renderChartThongKeSanPhamYeuThich();
             renderChartThongKeChuDeSanPham();
