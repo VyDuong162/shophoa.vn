@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
-  <?php include_once(__DIR__.'/../layouts/styles.php');?>
+  <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
   <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css"/>
 </head>
 <body>
-    <?php include_once(__DIR__ . '/layouts/partials/header.php');?> 
+    <?php include_once(__DIR__ . '/../../layouts/partials/header.php');?> 
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3 position-static">
-                <?php include_once(__DIR__ . '/layouts/partials/sidebar.php');?>
+                <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php');?>
             </div>
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <div class="row" style="padding-right: inherit;padding-left: inherit;">
@@ -92,8 +92,8 @@
           </main>  
       </div>
   </div>
-  <?php include_once(__DIR__ . '/../layouts/partials/footer.php');?>
-  <?php include_once(__DIR__.'/../layouts/scripts.php');?>
+  <?php include_once(__DIR__ . '/../../layouts/partials/footer.php');?>
+  <?php include_once(__DIR__.'/../../layouts/scripts.php');?>
   <script src="/shophoa.vn/assets/vendor/Chart.js/Chart.min.js"></script>
     <script>
          $(document).ready(function(){

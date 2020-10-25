@@ -25,12 +25,6 @@ if (session_id() === '') {
 </head>
 
 <body class="text-center A4">
-     <!-- Phần loading trang web -->
-     <div id="load">
-        <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
     <?php include_once(__DIR__ . '/../../layouts/partials/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
@@ -136,14 +130,18 @@ EOT;
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $stt = 1; ?>
+                            <?php  
+                                $stt = 1;
+                                $dataDonDatHang['ddh_tongtien']=0;
+                            ?>
                             <?php foreach($dataDonDatHang['danhsachsanpham'] as $sanpham): ?>
-                            <tr>
+                            <tr> 
+                                <?php $dataDonDatHang['ddh_tongtien']+=$sanpham['sp_ctdh_soluong'] * $sanpham['sp_ctdh_dongia']?>
                                 <td align="center"><?= $stt; ?></td>
-                                <td align="center"><?= $sanpham['sp_ten'] ?></td>
+                                <td align="left"><?= $sanpham['sp_ten'] ?></td>
                                 <td align="right"><?= $sanpham['sp_ctdh_soluong']?></td>
-                                <td align="right"><?= number_format($sanpham['sp_ctdh_dongia'], 3, ".", ",") . ' vnđ' ?></td>
-                                <td align="right"><?= number_format($sanpham['sp_ctdh_soluong'] * $sanpham['sp_ctdh_dongia'] , 3, ".", ",") . ' vnđ' ?></td>
+                                <td align="right"><?= number_format($sanpham['sp_ctdh_dongia'], 3, ".", ",") ?></td>
+                                <td align="right"><?= number_format($sanpham['sp_ctdh_soluong'] * $sanpham['sp_ctdh_dongia'] , 3, ".", ",")  ?></td>
                             </tr>
                             <?php $stt++; ?>
                             <?php endforeach; ?>
@@ -151,7 +149,7 @@ EOT;
                         <tfoot>
                             <tr>
                                 <td colspan="4" align="right"><b>Tổng thành tiền</b></td>
-                                <td align="right"><b><?= $dataDonDatHang['ddh_tongtien'] ?></b></td>
+                                <td align="right"><b><?= number_format($dataDonDatHang['ddh_tongtien'], 3, ".", ",") . ' vnđ' ?></b></td>
                             </tr>
                         </tfoot>
                     </table>

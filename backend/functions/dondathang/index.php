@@ -107,7 +107,7 @@ EOT;
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a>
                                             <!-- Nút xóa -->
-                                            <a href="delete.php" class="btn btn-danger btnDelete" data-idxoa=<?php echo $ddh['ddh_id']; ?> data-toggle="tooltip" data-placement="top" title="xóa">
+                                            <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $ddh['ddh_id']; ?> data-toggle="tooltip" data-placement="top" title="xóa">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                                             </a>
                                         <?php else : ?>
