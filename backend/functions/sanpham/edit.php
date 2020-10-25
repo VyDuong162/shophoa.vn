@@ -236,8 +236,8 @@ while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC))
                         <div class="col-md-12">
                             <div class="form-group row d-flex align-items-end">
                                 <label for="sp_avt_tenfile" class="col-md-2">Ảnh sản phẩm</label>
-                                <input type="file" name="sp_avt_tenfile" id="sp_avt_tenfile" class="form-control col-sm-8">
-                                <div class="preview-img-container col-sm-2">
+                                <input type="file" name="sp_avt_tenfile" id="sp_avt_tenfile" class="form-control col-sm-10">
+                                <div class="preview-img-container col-md-2">
                                     <img src="/shophoa.vn/assets/uploads/img-product/<?= $dataSanPham['sp_avt_tenfile'] ?>" id="preview-img" class=" img-fluid" />
                                 </div>
                             </div>
@@ -261,11 +261,13 @@ while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC))
                         $upload_dir = __DIR__ . "/../../../assets/uploads/";
                         $subdir = 'img-product/';
                         if ($_FILES['sp_avt_tenfile']['error'] > 0) {
-                            $sp_avt_tenfile = '';
+                            $sp_avt_tenfile = $dataSanPham['sp_avt_tenfile'];
                         } else {
                             $old_file = $upload_dir . $subdir . $dataSanPham['sp_avt_tenfile'];
                             if (file_exists($old_file)) {
                                 unlink($old_file);
+                                $sqlXoaHinhSanPham = "DELETE FROM hinhsanpham WHERE hsp_tenfile = '{$dataSanPham['sp_avt_tenfile']}' AND sanpham_sp_id = {$sp_id};";
+                                mysqli_query($conn, $sqlXoaHinhSanPham);
                             }
                             $tentaptin = date('YmdHis') . '_' . $_FILES['sp_avt_tenfile']['name'];
                             $sp_avt_tenfile = $tentaptin;
@@ -280,8 +282,44 @@ while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC))
                     }
                     if (empty($km_id))
                         $km_id = "NULL";
-                    $sqlThemSanPham = "UPDATE sanpham SET sp_ten=N'$sp_ten', sp_gia=$sp_gia, sp_giacu=$sp_giacu, sp_mota_ngan=N'$sp_mota_ngan', sp_mota_chitiet=N'sp_mota_chitiet', sp_ngaycapnhat=NOW(), sp_avt_tenfile='$sp_avt_tenfile', km=$km_id WHERE sp_id = {$sp_id};";
-                    echo '<script>location.href = "/shophoa.vn/backend/functions/sanpham/;</script>';
+                    $sqlThemSanPham = "UPDATE sanpham SET sp_ten=N'$sp_ten', sp_gia=$sp_gia, sp_giacu=$sp_giacu, sp_mota_ngan=N'$sp_mota_ngan', sp_mota_chitiet=N'$sp_mota_chitiet', sp_ngaycapnhat=NOW(), sp_avt_tenfile='$sp_avt_tenfile', km=$km_id WHERE sp_id = {$sp_id};";
+                    mysqli_query($conn, $sqlThemSanPham);
+                    if (!empty($lh_id)) {
+                        foreach ($dataLoaiHoa as $lh) {
+                            $id = $lh['lh_id'];
+                            $sqlXoa = "DELETE FROM sanpham_has_loaihoa WHERE sanpham_sp_id={$sp_id} AND loaihoa_lh_id={$id};";
+                            mysqli_query($conn, $sqlXoa);
+                        }
+                        foreach ($lh_id as $id) {
+                            $sqlThemLoaiHoa = "INSERT INTO sanpham_has_loaihoa (sanpham_sp_id, loaihoa_lh_id) VALUES ($sp_id, $id);";
+                            mysqli_query($conn, $sqlThemLoaiHoa);
+                        }
+                    }
+                    if (!empty($mh_id)) {
+                        foreach ($dataMauHoa as $mh) {
+                            $id = $mh['mh_id'];
+                            $sqlXoa = "DELETE FROM sanpham_has_mauhoa WHERE sanpham_sp_id={$sp_id} AND mauhoa_mh_id={$id};";
+                            mysqli_query($conn, $sqlXoa);
+                        }
+                        foreach ($mh_id as $id) {
+                            $sqlThemMauHoa = "INSERT INTO sanpham_has_mauhoa (sanpham_sp_id, mauhoa_mh_id) VALUES ($sp_id, $id);";
+                            mysqli_query($conn, $sqlThemMauHoa);
+                        }
+                    }
+                    if (!empty($cd_id)) {
+                        foreach ($dataChuDe as $cd) {
+                            $id = $cd['cd_id'];
+                            $sqlXoa = "DELETE FROM sanpham_has_chude WHERE sanpham_sp_id={$sp_id} AND chude_cd_id={$id};";
+                            mysqli_query($conn, $sqlXoa);
+                        }
+                        foreach ($cd_id as $id) {
+                            $sqlThemChuDe = "INSERT INTO sanpham_has_chude (sanpham_sp_id, chude_cd_id) VALUES ($sp_id, $id);";
+                            mysqli_query($conn, $sqlThemChuDe);
+                        }
+                    }
+                    $sqlThemSanPham = "INSERT INTO hinhsanpham (hsp_tenfile, sanpham_sp_id) VALUES ('$sp_avt_tenfile', $sp_id)";
+                    mysqli_query($conn, $sqlThemSanPham);
+                    echo '<script>location.href="edit.php?sp_id=' . $dataSanPham['sp_id'] . '"</script>';
                 }
                 ?>
             </main>
@@ -325,6 +363,9 @@ while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC))
                 'cd_id[]': {
                     required: true,
                 },
+                // sp_avt_tenfile: {
+                //     required: true,
+                // },
             },
             messages: {
                 sp_ten: {

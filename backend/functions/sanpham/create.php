@@ -241,7 +241,9 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         $sqlThemLoaiHoa = "INSERT INTO sanpham_has_loaihoa (sanpham_sp_id, loaihoa_lh_id) VALUES ($sp_id, $id)";
                         mysqli_query($conn, $sqlThemLoaiHoa);
                     }
-                    echo '<script>location.href = "/shophoa.vn/backend/functions/sanpham/;</script>';
+                    $sqlThemSanPham = "INSERT INTO hinhsanpham (hsp_tenfile, sanpham_sp_id) VALUES ('$sp_avt_tenfile', $sp_id)";
+                    mysqli_query($conn, $sqlThemSanPham);
+                    echo '<script>location.href="index.php"</script>';
                 }
                 ?>
             </main>

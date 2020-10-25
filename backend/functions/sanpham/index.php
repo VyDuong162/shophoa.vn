@@ -105,7 +105,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                         <th>Ngày cập nhật</th>
                                         <th>Khuyến mãi</th>
                                         <th>Ảnh</th>
-                                        <th>Thực thi</th>
+                                        <th width="56px">Thực thi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -139,7 +139,6 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                                 </a>
                                                 <button class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa" data-sp_id="<?= $sp['sp_id'] ?>">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
-
                                                 </button>
                                         </tr>
                                     <?php endforeach ?>
@@ -208,15 +207,9 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                     });
             });
         });
-    </script>
-    <script>
-        $(document).ready(function(e) {
-            <?php foreach ($dataLoaiHoa as $lhid) : ?>
-                if (<?= $lhid['lh_id'] ?> % 2 != 0) {
-                    $('table tr:odd').addClass('odd');
-                }
-            <?php endforeach; ?>
-        });
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
 </body>
 
