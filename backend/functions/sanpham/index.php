@@ -159,6 +159,9 @@ include_once(__DIR__ . '/../../../dbconnect.php');
     <script src="/shophoa.vn/assets/vendor/DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/fancybox/jquery.fancybox.min.js"></script>
     <script>
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
         $(document).ready(function() {
             $('#tblDanhSach').DataTable({
                 dom: "<'row'<'col-md-12 text-center'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-sm-12'tr>><'row'<'col-md-6'i><'col-md-6'p>>",
@@ -188,27 +191,25 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                     }
                 }
             });
-            $('.btnDelete').click(function() {
-                swal({
-                        title: "Bạn có chắn chắn xóa không?",
-                        text: "Không thể phục hồi dữ liệu khi xóa!",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            var sp_id = $(this).data('sp_id');
-                            var url = 'delete.php?sp_id=' + sp_id;
-                            location.href = url;
-                        } else {
-                            swal("Hủy xóa thành công!");
-                        }
-                    });
-            });
-            $(function() {
-                $('[data-toggle="tooltip"]').tooltip()
-            })
+        });
+        $('.btnDelete').click(function() {
+            console.log(1);
+            swal({
+                    title: "Bạn có chắn chắn xóa không?",
+                    text: "Không thể phục hồi dữ liệu khi xóa!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        var sp_id = $(this).data('sp_id');
+                        var url = 'delete.php?sp_id=' + sp_id;
+                        location.href = url;
+                    } else {
+                        swal("Hủy xóa thành công!");
+                    }
+                });
         });
     </script>
 </body>

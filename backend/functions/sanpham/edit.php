@@ -238,7 +238,11 @@ while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC))
                                 <label for="sp_avt_tenfile" class="col-md-2">Ảnh sản phẩm</label>
                                 <input type="file" name="sp_avt_tenfile" id="sp_avt_tenfile" class="form-control col-sm-10">
                                 <div class="preview-img-container col-md-2">
+                                <?php if(!file_exists('../../../assets/uploads/img-product/'.$dataSanPham['sp_avt_tenfile']) || empty($dataSanPham['sp_avt_tenfile'])): ?>
+                                    <img src="/shophoa.vn/assets/shared/img/default.png" id="preview-img" class=" img-fluid" />
+                                        <?php else: ?>
                                     <img src="/shophoa.vn/assets/uploads/img-product/<?= $dataSanPham['sp_avt_tenfile'] ?>" id="preview-img" class=" img-fluid" />
+                                        <?php endif; ?>
                                 </div>
                             </div>
                         </div>
