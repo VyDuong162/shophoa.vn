@@ -74,7 +74,7 @@ EOT;
                                         <tr>
                                             <td class="align-middle text-center"><?= $sanpham['hasp_id'] ?></td>
                                             <td class="align-middle text-center">
-                                                <?php if (!file_exists("../../../assets/uploads/img-product/".$sanpham['hsp_tenfile']) || empty($sanpham['hsp_tenfile'])) : ?>
+                                                <?php if (!file_exists("../../../assets/uploads/img-product/" . $sanpham['hsp_tenfile']) || empty($sanpham['hsp_tenfile'])) : ?>
                                                     <a data-fancybox="gallery" href="/shophoa.vn/assets/shared/img/default.png" data-caption="[Ảnh mặc định] <?= $sanpham['sp_tomtat'] ?>">
                                                         <img src="/shophoa.vn/assets/shared/img/default.png" class="img-fluid" width="100px">
                                                     </a>
@@ -145,25 +145,25 @@ EOT;
                     [10, 15, 20, 25, 50, 100, "Tất cả"]
                 ]
             });
-            $('.btnDelete').click(function() {
-                swal({
-                        title: "Bạn có chắc chắn muốn xóa?",
-                        text: "Một khi đã xóa, không thể phục hồi....",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            var hasp_id = $(this).data('hasp_id');
-                            var url = "delete.php?hasp_id=" + hasp_id;
-                            location.href = url;
-                        } else {
-                            swal("Cẩn thận hơn nhé!");
-                        }
-                    });
+        });
+        $('.btnDelete').click(function() {
+            swal({
+                    title: "Bạn có chắc chắn muốn xóa?",
+                    text: "Một khi đã xóa, không thể phục hồi....",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        var hasp_id = $(this).data('hasp_id');
+                        var url = "delete.php?hasp_id=" + hasp_id;
+                        location.href = url;
+                    } else {
+                        swal("Cẩn thận hơn nhé!");
+                    }
+                });
 
-            });
         });
     </script>
 
