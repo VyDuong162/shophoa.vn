@@ -60,14 +60,14 @@ if (session_id() === '') {
                             </div>
                             <div class="form-group">
                                 <label for="sp_id">Sản phẩm</label>
-                                <select class="form-control" id="sp_id" name="sp_id" >
-                                <?php foreach ($dataSanPham as $sanpham) : ?>
-                                    <?php if ($sanpham['sp_id'] == $hinhsanphamRow['sanpham_sp_id']) : ?>
-                                    <option value="<?= $sanpham['sp_id'] ?>" selected><?= $sanpham['sp_tomtat'] ?></option>
-                                    <?php else : ?>
-                                    <option value="<?= $sanpham['sp_id'] ?>"><?= $sanpham['sp_tomtat'] ?></option>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
+                                <select class="form-control" id="sp_id" name="sp_id">
+                                    <?php foreach ($dataSanPham as $sanpham) : ?>
+                                        <?php if ($sanpham['sp_id'] == $hinhsanphamRow['sanpham_sp_id']) : ?>
+                                            <option value="<?= $sanpham['sp_id'] ?>" selected><?= $sanpham['sp_tomtat'] ?></option>
+                                        <?php else : ?>
+                                            <option value="<?= $sanpham['sp_id'] ?>"><?= $sanpham['sp_tomtat'] ?></option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
                                 </select>
                                 <div class="form-group">
                                     <label for="hsp_tenfile">Tập tin ảnh</label>
@@ -80,26 +80,26 @@ if (session_id() === '') {
                                     <!-- Input cho phép người dùng chọn FILE -->
                                     <input type="file" class="form-control" id="hsp_tenfile" name="hsp_tenfile">
                                 </div>
-                            <button class="btn btn-primary" name="btnSave">Lưu</button>
-                            <a href="index.php" class="btn btn-outline-secondary" name="btnBack" id="btnBack">Quay về</a>
+                                <button class="btn btn-primary" name="btnSave">Lưu</button>
+                                <a href="index.php" class="btn btn-outline-secondary" name="btnBack" id="btnBack">Quay về</a>
                         </form>
                     </div>
                 </div>
 
 
                 <?php
-                        if (isset($_POST['btnSave'])) {
-                        $hasp_id = $_GET['hasp_id'];
-                        if (isset($_FILES['hsp_tenfile'])) {
-                            
-                            $upload_dir = __DIR__ . "/../../../assets/uploads/";
-                            
-                            $subdir = 'img-product/';
-                          
-                            if ($_FILES['hsp_tenfile']['error'] > 0) {
+                if (isset($_POST['btnSave'])) {
+                    $hasp_id = $_GET['hasp_id'];
+                    if (isset($_FILES['hsp_tenfile'])) {
+
+                        $upload_dir = __DIR__ . "/../../../assets/uploads/";
+
+                        $subdir = 'img-product/';
+
+                        if ($_FILES['hsp_tenfile']['error'] > 0) {
                             echo 'File Upload Bị Lỗi';
                             die;
-                            } else {
+                        } else {
                             // Xóa file cũ để tránh rác trong thư mục UPLOADS
                             // Kiểm tra nếu file có tổn tại thì xóa file đi
                             $old_file = $upload_dir . $subdir . $hinhsanphamRow['hsp_tenfile'];
@@ -107,24 +107,24 @@ if (session_id() === '') {
                                 // Hàm unlink(filepath) dùng để xóa file trong PHP
                                 unlink($old_file);
                             }
-                         
+
                             $hsp_tenfile = $_FILES['hsp_tenfile']['name'];
-                            $tenfile = date('YmdHis') . '_' . $hsp_tenfile; 
-                           
+                            $tenfile = date('YmdHis') . '_' . $hsp_tenfile;
+
                             move_uploaded_file($_FILES['hsp_tenfile']['tmp_name'], $upload_dir . $subdir . $tenfile);
-                            }
-                        
-                            $sql = "UPDATE `hinhsanpham` SET hsp_tenfile='$tenfile' WHERE hasp_id=$hasp_id;";
-                            
-                            mysqli_query($conn, $sql);
-                            //var_dump($sql); die;
-                            // Đóng kết nối
-                            mysqli_close($conn);
-                            // Sau khi cập nhật dữ liệu, tự động điều hướng về trang Danh sách
-                            echo '<script>location.href = "index.php";</script>';
-                            }
                         }
-                        ?>
+
+                        $sql = "UPDATE `hinhsanpham` SET hsp_tenfile='$tenfile' WHERE hasp_id=$hasp_id;";
+
+                        mysqli_query($conn, $sql);
+                        //var_dump($sql); die;
+                        // Đóng kết nối
+                        mysqli_close($conn);
+                        // Sau khi cập nhật dữ liệu, tự động điều hướng về trang Danh sách
+                        echo '<script>location.href = "index.php";</script>';
+                    }
+                }
+                ?>
 
 
             </main>
@@ -134,6 +134,16 @@ if (session_id() === '') {
     <?php include_once(__DIR__ . '/../../layouts/scripts.php'); ?>
     <script src="/shophoa.vn/assets/vendor/ckeditor/ckeditor.js"></script>
     <script>
+        const reader = new FileReader();
+        const fileInput = document.getElementById("hsp_tenfile");
+        const img = document.getElementById("preview-img");
+        reader.onload = e => {
+            img.src = e.target.result;
+        }
+        fileInput.addEventListener('change', e => {
+            const f = e.target.files[0];
+            reader.readAsDataURL(f);
+        })
         CKEDITOR.replace('lh_mota');
     </script>
 </body>

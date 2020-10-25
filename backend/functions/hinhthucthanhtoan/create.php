@@ -67,6 +67,28 @@ if (session_id() === '') {
                 <?php
                 if (isset($_POST['btnsave'])) {
                     $httt_ten = $_POST['httt_ten'];
+                    $erorrs = [];
+                    if (empty( $httt_ten)) {
+                        $erorrs['httt_ten'][] = [
+                            'rule' => 'required',
+                            'rule_value' => true,
+                            'value' =>  $httt_ten,
+                            'mes' => 'không được bỏ trống',
+                        ];
+                    } else {
+                        if (strlen($httt_ten) > 50) {
+                            $erorrs['httt_ten'][] = [
+                                'rule' => 'maxlength',
+                                'rule_value' => 3,
+                                'value' => $httt_ten,
+                                'mes' => 'Tên chỉ được tối đa 50 ký tự',
+                            ];
+                        }
+                    }
+                }
+                ?>
+                <?php
+                if (isset($_POST['btnsave'])) {
                     $httt_ten = htmlentities($_POST['httt_ten']);
                     // Câu lệnh INSERT
                     $sql = "INSERT INTO `hinhthucthanhtoan` (httt_ten) VALUES ('$httt_ten');";

@@ -118,6 +118,9 @@ if (session_id() === '') {
     <script src="/shophoa.vn/assets/vendor/DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/fancybox/jquery.fancybox.min.js"></script>
     <script>
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
         $(document).ready(function() {
             $('#tblDanhSach').DataTable({
                 dom: "<'row'<'col-md-12 text-center'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-sm-12'tr>><'row'<'col-md-6'i><'col-md-6'p>>",
