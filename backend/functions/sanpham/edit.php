@@ -289,7 +289,7 @@ while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC))
                     $sqlThemSanPham = "UPDATE sanpham SET sp_ten=N'$sp_ten', sp_gia=$sp_gia, sp_giacu=$sp_giacu, sp_mota_ngan=N'$sp_mota_ngan', sp_mota_chitiet=N'$sp_mota_chitiet', sp_ngaycapnhat=NOW(), sp_avt_tenfile='$sp_avt_tenfile', km=$km_id WHERE sp_id = {$sp_id};";
                     mysqli_query($conn, $sqlThemSanPham);
                     if (!empty($lh_id)) {
-                        foreach ($dataLoaiHoa as $lh) {
+                        foreach ($dataLoaiSanPham as $lh) {
                             $id = $lh['lh_id'];
                             $sqlXoa = "DELETE FROM sanpham_has_loaihoa WHERE sanpham_sp_id={$sp_id} AND loaihoa_lh_id={$id};";
                             mysqli_query($conn, $sqlXoa);
