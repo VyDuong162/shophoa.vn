@@ -21,7 +21,7 @@ if (session_id() === '') {
             <div class="col-md-3 position-static">
                 <?php include_once(__DIR__ . '/../../layouts/partials/sidebar.php'); ?>
             </div>
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
                 include_once(__DIR__ . '/../../../dbconnect.php');
                 $sqlSanPham = "select * from `sanpham`";
@@ -42,7 +42,7 @@ if (session_id() === '') {
                 ?>
                 <div class="container-fluid">
                     <div class="row mb-10">
-                        <div class="col-md-12 text-center">
+                        <div class="col-md-12 text-center py-3">
                             <h1 id="frmtitle" class="h3 mb-0 text-gray-800 mb-3 shadow">Thêm mới hình sản phẩm</h1>
                         </div>
                         <?php
@@ -89,7 +89,7 @@ if (session_id() === '') {
                 <?php
                 if (isset($_POST['btnSave'])) {
                     // Nếu người dùng có chọn file để upload
-                    $sp_id=$_POST['sp_id'];
+                    $sp_id = $_POST['sp_id'];
                     if (isset($_FILES['hsp_tenfile'])) {
 
                         $upload_dir = __DIR__ . "/../../../assets/uploads/";
@@ -110,7 +110,8 @@ if (session_id() === '') {
                         // print_r($sql); die;
                         // Thực thi INSERT
                         mysqli_query($conn, $sql);
-                        var_dump($sql); die();
+                        var_dump($sql);
+                        die();
                         mysqli_close($conn);
 
                         //echo '<script>location.href = "index.php";</script>';
@@ -125,6 +126,16 @@ if (session_id() === '') {
     <?php include_once(__DIR__ . '/../../layouts/scripts.php'); ?>
     <script src="/shophoa.vn/assets/vendor/ckeditor/ckeditor.js"></script>
     <script>
+        const reader = new FileReader();
+        const fileInput = document.getElementById("hsp_tenfile");
+        const img = document.getElementById("preview-img");
+        reader.onload = e => {
+            img.src = e.target.result;
+        }
+        fileInput.addEventListener('change', e => {
+            const f = e.target.files[0];
+            reader.readAsDataURL(f);
+        })
         CKEDITOR.replace('lh_mota');
     </script>
 </body>
