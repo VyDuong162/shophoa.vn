@@ -103,7 +103,7 @@ EOT;
                                         <!-- Đơn hàng nào chưa thanh toán thì được phép phép Xóa, Sửa -->
                                         <?php if ($ddh['ddh_trangthai'] == 0) : ?>
                                             <!-- Nút sửa -->
-                                            <a href="edit.php?idupdate=<?php echo $ddh['ddh_id']; ?>" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="sửa">
+                                            <a href="edit.php?idupdate=<?php echo $ddh['ddh_id']; ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="sửa">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             </a>
                                             <!-- Nút xóa -->

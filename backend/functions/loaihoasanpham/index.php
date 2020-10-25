@@ -71,7 +71,7 @@ if (session_id() === '') {
                                             <td><?= $lh['lh_ten']; ?></td>
                                             <td><?= $lh['lh_mota']; ?></td>
                                             <td class="text-center">
-                                                <a href="edit.php?idupdate=<?php echo $lh['lh_id']; ?>" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="sửa">
+                                                <a href="edit.php?idupdate=<?php echo $lh['lh_id']; ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="sửa">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
                                                 <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $lh['lh_id']; ?> data-toggle="tooltip" data-placement="top" title="xóa">
