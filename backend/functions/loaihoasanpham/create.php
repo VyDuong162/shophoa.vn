@@ -70,7 +70,7 @@ if (session_id() === '') {
                     </form>
                 </div>
                 <?php
-                if (isset($_POST['btnsave'])) {
+                if (isset($_POST['btnsave']) && !empty($_POST['lh_ten'])) {
                     $lh_ten = htmlentities($_POST['lh_ten']);
                     $lh_mota = htmlentities($_POST['lh_mota']);
                     // Câu lệnh INSERT
