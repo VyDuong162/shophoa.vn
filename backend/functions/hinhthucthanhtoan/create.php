@@ -66,7 +66,7 @@ if (session_id() === '') {
                 </div>
                 <?php
                 if (isset($_POST['btnsave'])) {
-                    $httt_ten = $_POST['httt_ten'];
+                    $httt_ten = htmlentities($_POST['httt_ten']);
                     $erorrs = [];
                     if (empty($httt_ten)) {
                         $erorrs['httt_ten'][] = [
