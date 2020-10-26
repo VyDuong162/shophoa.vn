@@ -108,7 +108,6 @@ if (session_id() === '') {
                 <?php endif; ?>
                 <?php
                 if (isset($_POST['btnsave']) && !(isset($erorrs) && !empty($erorrs))) {
-                    $httt_ten = htmlentities($_POST['httt_ten']);
                     // Câu lệnh INSERT
                     $sql = "INSERT INTO `hinhthucthanhtoan` (httt_ten) VALUES ('$httt_ten');";
                     // print_r($sql); die;
