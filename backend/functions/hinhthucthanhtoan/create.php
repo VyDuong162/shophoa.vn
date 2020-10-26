@@ -42,7 +42,7 @@ if (session_id() === '') {
                 ?>
                 <div class="container-fluid">
                     <div class="row ">
-                        <div class="col-md-12 text-right mt-5">
+                        <div class="col-md-12 mt-5">
                             <a href="index.php"><button type="button" id="btndanhsach" class="btn btn-primary">Danh sách</button></a> <br><br>
                         </div>
                     </div>
