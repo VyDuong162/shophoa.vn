@@ -125,6 +125,42 @@ if (session_id() === '') {
     </div>
     <?php include_once(__DIR__ . '/../../layouts/partials/footer.php'); ?>
     <?php include_once(__DIR__ . '/../../layouts/scripts.php'); ?>
+    <script>
+        $(document).ready(function() {
+            $('#frmthemmoi').validate({
+                rules: {
+                    httt_ten: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                },
+                messages: {
+                    httt_ten: {
+                        required: "Bạn phải nhập tên hình thức thanh toán",
+                        minlength: "Bạn phải nhập họ tên tối thiểu 3 ký tự",
+                        maxlength: "Bạn chỉ được nhập họ tên tối đa 50 ký tự",
+                    },
+                },
+                errorElement: "em",
+                errorPlacement: function(error, element) {
+                    error.addClass("invalid-feedback");
+                    if (element.prop("type") === "checkbox") {
+                        error.insertAfter(element.parent("label"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                success: function(label, element) {},
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
