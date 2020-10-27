@@ -115,7 +115,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                     $km_noidung = htmlentities($_POST['km_noidung']);
                     if (isset($_FILES['km_anh'])) {
                         $upload_dir = __DIR__ . "/../../../assets/uploads/";
-                        $subdir = 'products/';
+                        $subdir = 'img-km/';
                         // Đối với mỗi file, sẽ có các thuộc tính như sau:
                         // $_FILES['hsp_tentaptin']['name']     : Tên của file chúng ta upload
                         // $_FILES['hsp_tentaptin']['type']     : Kiểu file mà chúng ta upload (hình ảnh, word, excel, pdf, txt, ...)
