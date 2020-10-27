@@ -117,7 +117,8 @@ EOT;
                                                     </a>
                                                 <?php endif; ?>
                                             </td>
-                                        <?php endforeach; ?>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
