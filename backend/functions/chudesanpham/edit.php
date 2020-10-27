@@ -2,6 +2,7 @@
 if (session_id() === '') {
     session_start();
 }
+include_once(__DIR__ . '/../../../dbconnect.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +30,6 @@ if (session_id() === '') {
             </div>
             <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
-                include_once(__DIR__ . '/../../../dbconnect.php');
                 $id = $_GET['idupdate'];
                 $sql = "SELECT cd_id,cd_ten FROM chude WHERE cd_id=$id";
                 $result = mysqli_query($conn, $sql);
@@ -43,7 +43,7 @@ if (session_id() === '') {
                 ?>
                 <div class="container-fluid">
                     <div class="row ">
-                        <div class="col-md-12 text-right mt-3">
+                        <div class="col-md-12 t-3">
                             <a href="index.php"><button type="button" id="btndanhsach" class="btn btn-primary">Danh sách</button></a> <br><br>
                         </div>
                     </div>
@@ -67,7 +67,48 @@ if (session_id() === '') {
                 </div>
                 <?php
                 if (isset($_POST['btnsave'])) {
-                    $cd_ten = $_POST['cd_ten'];
+                    $cd_ten = htmlentities($_POST['cd_ten']);
+                    $erorrs = [];
+                    if (empty($cd_ten)) {
+                        $erorrs['cd_ten'][] = [
+                            'rule' => 'required',
+                            'rule_value' => true,
+                            'value' =>  $cd_ten,
+                            'mes' => 'Tênchủ đề không được bỏ trống',
+                        ];
+                    } else {
+                        if (strlen($cd_ten) > 50) {
+                            $erorrs['cd_ten'][] = [
+                                'rule' => 'maxlength',
+                                'rule_value' => 50,
+                                'value' => $cd_ten,
+                                'mes' => 'Tên chủ đề chỉ được tối đa 50 ký tự',
+                            ];
+                        }
+                        if (strlen($cd_ten) < 3) {
+                            $erorrs['cd_ten'][] = [
+                                'rule' => 'minlength',
+                                'rule_value' => 3,
+                                'value' => $cd_ten,
+                                'mes' => 'Tên chủ đề phải tối thiểu 3 ký tự',
+                            ];
+                        }
+                    }
+                }
+                ?>
+                <?php if (isset($_POST['btnsave']) && (isset($erorrs) && !empty($erorrs))) : ?>
+                    <div class="alert alert-warning col-md-12" role="alert">
+                        <ul>
+                            <?php foreach ($erorrs as $loi) : ?>
+                                <?php foreach ($loi as $a) : ?>
+                                    <li><?= $a['mes'] ?></li>
+                                <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+                <?php
+                if (isset($_POST['btnsave']) && !(isset($erorrs) && !empty($erorrs))) {
                     // Câu lệnh UPDATE
                     $sql = "UPDATE `chude` SET cd_ten = '$cd_ten' WHERE cd_id='$id' ;";
                     // print_r($sql); die;
@@ -75,7 +116,7 @@ if (session_id() === '') {
                     mysqli_query($conn, $sql);
                     //Đóng kết nối
                     mysqli_close($conn);
-                    echo '<script>location.href = "index.php";</script>';
+                    echo '<script>location.href = "edit.php?idupdate='.$id.'";</script>';
                 }
                 ?>
             </main>
@@ -85,7 +126,40 @@ if (session_id() === '') {
     <?php include_once(__DIR__ . '/../../layouts/scripts.php'); ?>
     <script src="/shophoa.vn/assets/vendor/ckeditor/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace('lh_mota');
+        $(document).ready(function() {
+            $('#frmthemmoi').validate({
+                rules: {
+                    cd_ten: {
+                        required: true,
+                        maxlength: 50,
+                        minlength: 3
+                    },
+                },
+                messages: {
+                    cd_ten: {
+                        required: "Bạn phải nhập tên chủ đề",
+                        maxlength: "Bạn chỉ được nhập tên chủ đề tối đa 50 ký tự",
+                        minlength: "Bạn phải nhập tên chủ đề tối thiểu 3 ký tự",
+                    },
+                },
+                errorElement: "em",
+                errorPlacement: function(error, element) {
+                    error.addClass("invalid-feedback");
+                    if (element.prop("type") === "checkbox") {
+                        error.insertAfter(element.parent("label"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                success: function(label, element) {},
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                }
+            });
+        });
     </script>
 </body>
 

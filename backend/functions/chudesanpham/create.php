@@ -2,6 +2,7 @@
 if (session_id() === '') {
     session_start();
 }
+include_once(__DIR__ . '/../../../dbconnect.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +30,6 @@ if (session_id() === '') {
             </div>
             <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
-                include_once(__DIR__ . '/../../../dbconnect.php');
                 $sql = "SELECT cd_id,cd_ten FROM chude";
                 $result = mysqli_query($conn, $sql);
                 $dataChuDe = [];
@@ -42,7 +42,7 @@ if (session_id() === '') {
                 ?>
                 <div class="container-fluid">
                     <div class="row ">
-                        <div class="col-md-12 text-right mt-3">
+                        <div class="col-md-12 mt-3">
                             <a href="index.php"><button type="button" id="btndanhsach" class="btn btn-primary">Danh sách</button></a> <br><br>
                         </div>
                     </div>
@@ -95,7 +95,7 @@ if (session_id() === '') {
                 }
                 ?>
                 <?php if (isset($_POST['btnsave']) && (isset($erorrs) && !empty($erorrs))) : ?>
-                    <div class="alert alert-warning col-md-12"role="alert">
+                    <div class="alert alert-warning col-md-12" role="alert">
                         <ul>
                             <?php foreach ($erorrs as $loi) : ?>
                                 <?php foreach ($loi as $a) : ?>
@@ -155,4 +155,5 @@ if (session_id() === '') {
         });
     </script>
 </body>
+
 </html>
