@@ -182,7 +182,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             </table>
                         </fieldset>
                         <div class="col-md-12 text-center mb-5">
-                            <button class="btn btn-success text-center" name="btnsave">Lưu dữ liệu</button>
+                            <button class="btn btn-primary text-center" name="btnsave">Lưu dữ liệu</button>
                             <a href="index.php" class="btn btn-outline-secondary text-center" name="btnBack" id="btnBack">Quay về</a>
                         </div>
 

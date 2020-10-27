@@ -95,7 +95,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                 </div>
                             </div>
                             <div class="col-md-12 text-center mb-5">
-                                <button class="btn btn-success" name="btnsave" id="btnsave" type="submit">Lưu dữ liệu</button>
+                                <button class="btn btn-primary" name="btnsave" id="btnsave" type="submit">Lưu dữ liệu</button>
                             </div>
                         </div>
                     </form>
@@ -109,7 +109,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                     $km_noidung = htmlentities($_POST['km_noidung']);
                     if (isset($_FILES['km_anh'])) {
                         $upload_dir = __DIR__ . "/../../../assets/uploads/";
-                        $subdir = 'products/';
+                        $subdir = 'img-km/';
                         if ($_FILES['km_anh']['error'] > 0) {
                             echo 'File Upload Bị Lỗi';
                             die;

@@ -59,7 +59,7 @@ if (session_id() === '') {
                                 </div>
                             </div>
                             <div class="col-md-12 text-center mb-5">
-                                <button class="btn btn-success" name="btnsave" id="btnsave" type="submit">Thêm</button>
+                                <button class="btn btn-primary" name="btnsave" id="btnsave" type="submit">Thêm</button>
                             </div>
                         </div>
                     </form>

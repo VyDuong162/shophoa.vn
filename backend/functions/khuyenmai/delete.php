@@ -5,7 +5,7 @@
     $resultSelect = mysqli_query($conn, $sqlSelect);
     $dataKhuyenMai = mysqli_fetch_array($resultSelect, MYSQLI_ASSOC); 
     $upload_dir = __DIR__ . "/../../../assets/uploads/";
-    $subdir = 'products/';
+    $subdir = 'img-km/';
     $old_file = $upload_dir . $subdir . $dataKhuyenMai['km_anh'];
     if (file_exists($old_file)) {
         // Hàm unlink(filepath) dùng để xóa file trong PHP

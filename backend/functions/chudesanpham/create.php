@@ -58,7 +58,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                 </div>
                             </div>
                             <div class="col-md-12 text-center mb-5">
-                                <button class="btn btn-success" name="btnsave" id="btnsave" type="submit">Lưu dữ liệu</button>
+                                <button class="btn btn-primary" name="btnsave" id="btnsave" type="submit">Lưu dữ liệu</button>
                             </div>
                         </div>
                     </form>
