@@ -99,7 +99,7 @@ EOT;
                                                     <span class="badge badge-success">Đã giao hàng</span>
                                                 <?php endif; ?>
                                             </td>
-                                            <td class="text-center">
+                                            <td class="text-center align-middle">
                                                 <!-- Đơn hàng nào chưa thanh toán thì được phép phép Xóa, Sửa -->
                                                 <?php if ($ddh['ddh_trangthai'] == 0) : ?>
                                                     <!-- Nút sửa -->
