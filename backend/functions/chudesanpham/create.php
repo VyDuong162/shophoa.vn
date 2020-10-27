@@ -10,7 +10,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm khuyến mãi</title>
+    <title>Shop hoa | Thêm mới chủ đề</title>
     <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css" />
 </head>
