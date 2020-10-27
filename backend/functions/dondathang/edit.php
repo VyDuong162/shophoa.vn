@@ -178,7 +178,11 @@ while ($rowChiTietDonDatHang = mysqli_fetch_array($resultChiTietDonDatHang, MYSQ
                                         <select name="httt_id" id="httt_id" class="form-control">
                                             <option value="">Vui lòng chọn Hình thức thanh toán</option>
                                             <?php foreach ($dataHinhThucThanhToan as $httt) : ?>
-                                                <option value="<?= $httt['httt_id'] ?>"><?= $httt['httt_ten'] ?></option>
+                                                <?php if ($dataDonDatHang['hinhthucthantoan_httt_id'] == $httt['httt_id']) : ?>
+                                                    <option selected value="<?= $httt['httt_id'] ?>"><?= $httt['httt_ten'] ?></option>
+                                                <?php else : ?>
+                                                    <option value="<?= $httt['httt_id'] ?>"><?= $httt['httt_ten'] ?></option>
+                                                <?php endif; ?>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -223,10 +227,10 @@ while ($rowChiTietDonDatHang = mysqli_fetch_array($resultChiTietDonDatHang, MYSQ
                                 <tbody>
                                     <?php foreach ($dataChiTietDonDatHang as $ctdh) : ?>
                                         <tr class="text-center align-middle">
-                                            <td><?=$ctdh['sp_ten']?><input type="hidden" name="sp_id[]" value="<?=$ctdh['sanpham_sp_id']?>" /></td>
-                                            <td><?=$ctdh['sp_ctdh_soluong']?><input type="hidden" name="sp_ctdh_soluong[]" value="<?=$ctdh['sp_ctdh_soluong']?>" /></td>
-                                            <td><?=$ctdh['sp_ctdh_dongia']?><input type="hidden" name="sp_ctdh_dongia[]" value="<?=$ctdh['sp_ctdh_dongia']?>" /></td>
-                                            <td><?=$ctdh['sp_ctdh_dongia']*$ctdh['sp_ctdh_soluong']?></td>
+                                            <td><?= $ctdh['sp_ten'] ?><input type="hidden" name="sp_id[]" value="<?= $ctdh['sanpham_sp_id'] ?>" /></td>
+                                            <td><?= $ctdh['sp_ctdh_soluong'] ?><input type="hidden" name="sp_ctdh_soluong[]" value="<?= $ctdh['sp_ctdh_soluong'] ?>" /></td>
+                                            <td><?= number_format($ctdh['sp_ctdh_dongia'], 0, ".", ",") ?><input type="hidden" name="sp_ctdh_dongia[]" value="<?= $ctdh['sp_ctdh_dongia'] ?>" /></td>
+                                            <td><?= number_format($ctdh['sp_ctdh_dongia'] * $ctdh['sp_ctdh_soluong'], 0, ".", ",") ?></td>
                                             <td><button type="button" class="btn btn-danger btn-delete-row"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -255,23 +259,21 @@ while ($rowChiTietDonDatHang = mysqli_fetch_array($resultChiTietDonDatHang, MYSQ
                     for ($i = 0; $i < count($arr_sp_id); $i++) {
                         $sum += ($arr_sp_ddh_soluong[$i] * $arr_sp_ddh_dongia[$i]);
                     }
-                    //INSERT
-                    $sqlDonHang = "INSERT INTO `dondathang` (`ddh_ngaylap`, `ddh_ngaygiao`, ddh_tongtien, `ddh_diachi`, `ddh_trangthai`, `hinhthucthantoan_httt_id`, `khachhang_kh_id`) VALUES ('$ddh_ngaylap', '$ddh_ngaygiao', $sum, N'$ddh_diachi', $ddh_trangthai, $httt_id,$kh_id)";
-                    var_dump($sqlDonHang);
-                    mysqli_query($conn, $sqlDonHang);
-                    $ddh_id = $conn->insert_id;
+                    $sqlUpDateDonHang = "UPDATE dondathang SET ddh_diachi=N'$ddh_diachi', ddh_tongtien=$sum, ddh_ngaylap='$ddh_ngaylap', ddh_ngaygiao='$ddh_ngaygiao', ddh_trangthai=$ddh_trangthai, hinhthucthantoan_httt_id=$httt_id, khachhang_kh_id=$kh_id WHERE ddh_id= $id;";
+                    mysqli_query($conn, $sqlUpDateDonHang);
+                    
+                    $sqlXoaSP = "DELETE FROM dondathang_has_sanpham WHERE dondathang_ddh_id = $id";
+                    $resultXoaSP = mysqli_query($conn, $sqlXoaSP);
 
                     for ($i = 0; $i < count($arr_sp_id); $i++) {
-
                         $sp_id = $arr_sp_id[$i];
                         $sp_dh_soluong = $arr_sp_ddh_soluong[$i];
                         $sp_dh_dongia = $arr_sp_ddh_dongia[$i];
-
-                        $sqlInsertSanPhamDonDatHang = "INSERT INTO `dondathang_has_sanpham` (`dondathang_ddh_id`,`sanpham_sp_id` , `sp_ctdh_soluong`, `sp_ctdh_dongia`) VALUES ($ddh_id, $sp_id, $sp_dh_soluong, $sp_dh_dongia)";
+                        $sqlInsertSanPhamDonDatHang = "INSERT INTO `dondathang_has_sanpham` (`dondathang_ddh_id`,`sanpham_sp_id` , `sp_ctdh_soluong`, `sp_ctdh_dongia`) VALUES ($id, $sp_id, $sp_dh_soluong, $sp_dh_dongia)";
                         var_dump($sqlInsertSanPhamDonDatHang);
                         mysqli_query($conn, $sqlInsertSanPhamDonDatHang);
                     }
-                    echo '<script>location.href = "index.php";</script>';
+                    echo '<script>location.href = "edit.php?idupdate=' . $id . '";</script>';
                 }
                 ?>
             </main>
