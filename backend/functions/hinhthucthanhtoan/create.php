@@ -110,9 +110,6 @@ if (session_id() === '') {
                 if (isset($_POST['btnsave']) && !(isset($erorrs) && !empty($erorrs))) {
                     // Câu lệnh INSERT
                     $sql = "INSERT INTO `hinhthucthanhtoan` (httt_ten) VALUES ('$httt_ten');";
-                    // print_r($sql); die;
-                    // Thực thi INSERT
-                    //var_dump($sql);die;
                     mysqli_query($conn, $sql);
                     //Đóng kết nối
                     mysqli_close($conn);

@@ -65,12 +65,50 @@ if (session_id() === '') {
                 </div>
                 <?php
                 if (isset($_POST['btnsave'])) {
-                    $cd_ten = $_POST['cd_ten'];
+                    $cd_ten = htmlentities($_POST['cd_ten']);
+                    $erorrs = [];
+                    if (empty($cd_ten)) {
+                        $erorrs['cd_ten'][] = [
+                            'rule' => 'required',
+                            'rule_value' => true,
+                            'value' =>  $cd_ten,
+                            'mes' => 'Tênchủ đề không được bỏ trống',
+                        ];
+                    } else {
+                        if (strlen($cd_ten) > 50) {
+                            $erorrs['cd_ten'][] = [
+                                'rule' => 'maxlength',
+                                'rule_value' => 50,
+                                'value' => $cd_ten,
+                                'mes' => 'Tên chủ đề chỉ được tối đa 50 ký tự',
+                            ];
+                        }
+                        if (strlen($cd_ten) < 3) {
+                            $erorrs['cd_ten'][] = [
+                                'rule' => 'minlength',
+                                'rule_value' => 3,
+                                'value' => $cd_ten,
+                                'mes' => 'Tên chủ đề phải tối thiểu 3 ký tự',
+                            ];
+                        }
+                    }
+                }
+                ?>
+                <?php if (isset($_POST['btnsave']) && (isset($erorrs) && !empty($erorrs))) : ?>
+                    <div class="alert alert-warning col-md-12"role="alert">
+                        <ul>
+                            <?php foreach ($erorrs as $loi) : ?>
+                                <?php foreach ($loi as $a) : ?>
+                                    <li><?= $a['mes'] ?></li>
+                                <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+                <?php
+                if (isset($_POST['btnsave']) && !(isset($erorrs) && !empty($erorrs))) {
                     // Câu lệnh INSERT
                     $sql = "INSERT INTO `chude` (cd_ten) VALUES ('$cd_ten');";
-                    // print_r($sql); die;
-                    // Thực thi INSERT
-                    //var_dump($sql);die;
                     mysqli_query($conn, $sql);
                     //Đóng kết nối
                     mysqli_close($conn);
@@ -82,6 +120,39 @@ if (session_id() === '') {
     </div>
     <?php include_once(__DIR__ . '/../../layouts/partials/footer.php'); ?>
     <?php include_once(__DIR__ . '/../../layouts/scripts.php'); ?>
+    <script>
+        $(document).ready(function() {
+            $('#frmthemmoi').validate({
+                rules: {
+                    cd_ten: {
+                        required: true,
+                        maxlength: 50,
+                    },
+                },
+                messages: {
+                    cd_ten: {
+                        required: "Bạn phải nhập tên chủ đề",
+                        maxlength: "Bạn chỉ được nhập tên chủ đề tối đa 50 ký tự",
+                    },
+                },
+                errorElement: "em",
+                errorPlacement: function(error, element) {
+                    error.addClass("invalid-feedback");
+                    if (element.prop("type") === "checkbox") {
+                        error.insertAfter(element.parent("label"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                success: function(label, element) {},
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                }
+            });
+        });
+    </script>
 </body>
-
 </html>
