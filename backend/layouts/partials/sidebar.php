@@ -2,12 +2,14 @@
     <div class="sidebar-sticky pt-3 position-static">
         <?php if (isset($_SESSION['kh_tendangnhap_logged'])) : ?>
             <div class="my-2 text-center" id="avatar" style="padding-top:  1rem;">
-            <?php if (empty($_SESSION['kh_tendangnhap_anh'])) : ?>
-                <img src="/shophoa.vn/assets/shared/img/avatar-default.jpg" alt="<?= $_SESSION['kh_tendangnhap_name'] ?>" height="100px">
-            <?php else:?>
-                <img src="/shophoa.vn/assets/uploads/avatar/<?=$_SESSION['kh_tendangnhap_anh']?>" alt="<?= $_SESSION['kh_tendangnhap_name'] ?>" height="100px">
-            <?php endif;?>
-                <a href="/shophoa.vn/backend/functions/khachhang/edit.php?kh_id=<?= $_SESSION['kh_tendangnhap_id']?>" class="text-dark"><h6 class="m-0 mt-md-3"><?= $_SESSION['kh_tendangnhap_name'] ?></h6></a>
+                <?php if (empty($_SESSION['kh_tendangnhap_anh'])) : ?>
+                    <img src="/shophoa.vn/assets/shared/img/avatar-default.jpg" alt="<?= $_SESSION['kh_tendangnhap_name'] ?>" height="100px">
+                <?php else : ?>
+                    <img src="/shophoa.vn/assets/uploads/avatar/<?= $_SESSION['kh_tendangnhap_anh'] ?>" alt="<?= $_SESSION['kh_tendangnhap_name'] ?>" height="100px">
+                <?php endif; ?>
+                <a href="/shophoa.vn/backend/functions/khachhang/edit.php?kh_id=<?= $_SESSION['kh_tendangnhap_id'] ?>" class="text-dark">
+                    <h6 class="m-0 mt-md-3"><?= $_SESSION['kh_tendangnhap_name'] ?></h6>
+                </a>
             </div>
         <?php else : ?>
             <h5 class="my-2">Bạn chưa đăng nhập</h5>
@@ -19,9 +21,15 @@
                     Dashboard
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/shophoa.vn/frontend/">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                    Shophoa.vn
+                </a>
+            </li>
             <hr class="ml-3" style="border: 0.5px solid red; width: 80%;">
             <li class="nav-item">
-                <a class="nav-link" href="/shophoa.vn/backend/functions/khachhang/index.php" >
+                <a class="nav-link" href="/shophoa.vn/backend/functions/khachhang/index.php">
                     <i class="fa fa-users" aria-hidden="true"></i>
                     Khách hàng
                 </a>
