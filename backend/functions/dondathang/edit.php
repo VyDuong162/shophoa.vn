@@ -3,6 +3,22 @@ if (session_id() === '') {
     session_start();
 }
 include_once(__DIR__ . '/../../../dbconnect.php');
+$id = $_GET['idupdate'];
+$sqlDonDatHang = "SELECT * FROM dondathang WHERE ddh_id = $id;";
+$resultDonDatHang = mysqli_query($conn, $sqlDonDatHang);
+$dataDonDatHang = [];
+while ($rowDonDatHang = mysqli_fetch_array($resultDonDatHang, MYSQLI_ASSOC)) {
+    $dataDonDatHang = array(
+        'ddh_id' => $rowDonDatHang['ddh_id'],
+        'ddh_diachi' => $rowDonDatHang['ddh_diachi'],
+        'ddh_tongtien' => $rowDonDatHang['ddh_tongtien'],
+        'ddh_ngaylap' => $rowDonDatHang['ddh_ngaylap'],
+        'ddh_ngaygiao' => $rowDonDatHang['ddh_ngaygiao'],
+        'ddh_trangthai' => $rowDonDatHang['ddh_trangthai'],
+        'hinhthucthantoan_httt_id' => $rowDonDatHang['hinhthucthantoan_httt_id'],
+        'khachhang_kh_id' => $rowDonDatHang['khachhang_kh_id'],
+    );
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +26,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop hoa | Thêm mới đơn đặt hàng</title>
+    <title>Shop hoa | Cập nhật đơn đặt hàng</title>
     <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css" />
 </head>
@@ -76,7 +92,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                     <form name="frmdondathang" id="frmdondathang" method="post" action="" enctype="multipart/form-data">
                         <div class="form-row text-center">
                             <div class="col">
-                                <h1 id="frmtitle" class="h3 mb-0 text-gray-800 mb-3 shadow">Thêm mới đơn đặt hàng</h1>
+                                <h1 id="frmtitle" class="h3 mb-0 text-gray-800 mb-3 shadow">Cập nhật đơn đặt hàng</h1>
                             </div>
                         </div>
                         <fieldset id="dondathang_container">
@@ -86,9 +102,12 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                     <div class="form-group">
                                         <label>Khách hàng</label>
                                         <select name="kh_id" id="kh_id" class="form-control">
-                                            <option value="">Vui lòng chọn Khách hàng</option>
                                             <?php foreach ($dataKhachHang as $khachhang) : ?>
-                                                <option value="<?= $khachhang['kh_id'] ?>"><?= $khachhang['kh_tomtat'] ?></option>
+                                                <?php if ($khachhang['kh_id'] == $dataDonDatHang['khachhang_kh_id']) : ?>
+                                                    <option value="<?= $khachhang['kh_id'] ?>" selected><?= $khachhang['kh_tomtat'] ?></option>
+                                                <?php else : ?>
+                                                    <option value="<?= $khachhang['kh_id'] ?>"><?= $khachhang['kh_tomtat'] ?></option>
+                                                <?php endif; ?>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -98,19 +117,19 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                 <div class="col">
                                     <div class="form-group">
                                         <label>Ngày lập</label>
-                                        <input type="date" name="ddh_ngaylap" id="ddh_ngaylap" class="form-control" value="<?= date("Y-m-d", time()); ?>" readonly />
+                                        <input type="date" name="ddh_ngaylap" id="ddh_ngaylap" class="form-control" value="<?=date('Y-m-d',strtotime($dataDonDatHang['ddh_ngaylap']))?>" />
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label>Ngày giao</label>
-                                        <input type="date" name="ddh_ngaygiao" id="ddh_ngaygiao" class="form-control" value="<?= date("Y-m-d", time() + 1 * 24 * 60 * 60); ?>" min="<?= date("Y-m-d", time() + 1 * 24 * 60 * 60); ?>" />
+                                        <input type="date" name="ddh_ngaygiao" id="ddh_ngaygiao" class="form-control" value="<?=date('Y-m-d',strtotime($dataDonDatHang['ddh_ngaygiao']))?>" />
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label>Nơi giao</label>
-                                        <input type="text" name="ddh_diachi" id="ddh_diachi" class="form-control" />
+                                        <input type="text" name="ddh_diachi" id="ddh_diachi" class="form-control" value="<?=$dataDonDatHang['ddh_diachi']?>"/>
                                     </div>
                                 </div>
                             </div>
@@ -118,6 +137,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                 <div class="col">
                                     <div class="form-group">
                                         <label>Trạng thái thanh toán</label><br />
+                                        <?php if($dataDonDatHang['ddh_trangthai']==0):?>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <input type="radio" name="ddh_trangthai" id="dh_trangthai-1" class="custom-control-input" value="0" checked>
                                             <label class="custom-control-label" for="dh_trangthai-1">Chưa thanh toán</label>
@@ -126,6 +146,16 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                             <input type="radio" name="ddh_trangthai" id="dh_trangthai-2" class="custom-control-input" value="1">
                                             <label class="custom-control-label" for="dh_trangthai-2">Đã thanh toán</label>
                                         </div>
+                                        <?php else:?>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" name="ddh_trangthai" id="dh_trangthai-1" class="custom-control-input" value="0">
+                                            <label class="custom-control-label" for="dh_trangthai-1">Chưa thanh toán</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" name="ddh_trangthai" id="dh_trangthai-2" class="custom-control-input" value="1" checked>
+                                            <label class="custom-control-label" for="dh_trangthai-2">Đã thanh toán</label>
+                                        </div>
+                                        <?php endif;?>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -177,7 +207,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                     <th>Hành động</th>
                                 </thead>
                                 <tbody>
-
+                                    
                                 </tbody>
                             </table>
                         </fieldset>
