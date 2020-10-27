@@ -261,7 +261,7 @@ while ($rowChiTietDonDatHang = mysqli_fetch_array($resultChiTietDonDatHang, MYSQ
                     }
                     $sqlUpDateDonHang = "UPDATE dondathang SET ddh_diachi=N'$ddh_diachi', ddh_tongtien=$sum, ddh_ngaylap='$ddh_ngaylap', ddh_ngaygiao='$ddh_ngaygiao', ddh_trangthai=$ddh_trangthai, hinhthucthantoan_httt_id=$httt_id, khachhang_kh_id=$kh_id WHERE ddh_id= $id;";
                     mysqli_query($conn, $sqlUpDateDonHang);
-                    
+
                     $sqlXoaSP = "DELETE FROM dondathang_has_sanpham WHERE dondathang_ddh_id = $id";
                     $resultXoaSP = mysqli_query($conn, $sqlXoaSP);
 
@@ -282,7 +282,9 @@ while ($rowChiTietDonDatHang = mysqli_fetch_array($resultChiTietDonDatHang, MYSQ
     <?php include_once(__DIR__ . '/../../layouts/partials/footer.php'); ?>
     <?php include_once(__DIR__ . '/../../layouts/scripts.php'); ?>
     <script>
-        // $tongtien = 0;
+        function formatNumber(num) {
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        }
         $('#btnThemSanPham').click(function() {
 
             var sp_id = $('#sp_id').val();
@@ -292,8 +294,8 @@ while ($rowChiTietDonDatHang = mysqli_fetch_array($resultChiTietDonDatHang, MYSQ
             var htmlTemplate = '<tr class="text-center align-middle">';
             htmlTemplate += '<td>' + sp_ten + '<input type="hidden" name="sp_id[]" value="' + sp_id + '"/></td>';
             htmlTemplate += '<td>' + soluong + '<input type="hidden" name="sp_ctdh_soluong[]" value="' + soluong + '"/></td>';
-            htmlTemplate += '<td>' + sp_gia + '<input type="hidden" name="sp_ctdh_dongia[]" value="' + sp_gia + '"/></td>';
-            htmlTemplate += '<td>' + (soluong * sp_gia) + '</td>';
+            htmlTemplate += '<td>' + formatNumber(parseInt(sp_gia)) + '<input type="hidden" name="sp_ctdh_dongia[]" value="' + sp_gia + '"/></td>';
+            htmlTemplate += '<td>' + formatNumber(parseInt(soluong * sp_gia)) + '</td>';
             htmlTemplate += '<td><button type="button" class="btn btn-danger btn-delete-row"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>';
             htmlTemplate += '</tr>';
             // Thêm vào TABLE BODY

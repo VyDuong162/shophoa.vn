@@ -228,7 +228,9 @@ include_once(__DIR__ . '/../../../dbconnect.php');
     <?php include_once(__DIR__ . '/../../layouts/partials/footer.php'); ?>
     <?php include_once(__DIR__ . '/../../layouts/scripts.php'); ?>
     <script>
-        // $tongtien = 0;
+        function formatNumber(num) {
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+        }
         $('#btnThemSanPham').click(function() {
 
             var sp_id = $('#sp_id').val();
@@ -238,8 +240,8 @@ include_once(__DIR__ . '/../../../dbconnect.php');
             var htmlTemplate = '<tr class="text-center align-middle">';
             htmlTemplate += '<td>' + sp_ten + '<input type="hidden" name="sp_id[]" value="' + sp_id + '"/></td>';
             htmlTemplate += '<td>' + soluong + '<input type="hidden" name="sp_ctdh_soluong[]" value="' + soluong + '"/></td>';
-            htmlTemplate += '<td>' + sp_gia + '<input type="hidden" name="sp_ctdh_dongia[]" value="' + sp_gia + '"/></td>';
-            htmlTemplate += '<td>' + (soluong * sp_gia) + '</td>';
+            htmlTemplate += '<td>' + formatNumber(parseInt(sp_gia)) + '<input type="hidden" name="sp_ctdh_dongia[]" value="' + sp_gia + '"/></td>';
+            htmlTemplate += '<td>' + formatNumber(parseInt(soluong * sp_gia)) + '</td>';
             htmlTemplate += '<td><button type="button" class="btn btn-danger btn-delete-row"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>';
             htmlTemplate += '</tr>';
             // Thêm vào TABLE BODY
