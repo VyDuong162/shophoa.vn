@@ -19,6 +19,20 @@ while ($rowDonDatHang = mysqli_fetch_array($resultDonDatHang, MYSQLI_ASSOC)) {
         'khachhang_kh_id' => $rowDonDatHang['khachhang_kh_id'],
     );
 }
+$sqlChiTietDonDatHang = "SELECT * FROM dondathang_has_sanpham AS a, sanpham AS b WHERE a.sanpham_sp_id = b.sp_id AND dondathang_ddh_id = {$dataDonDatHang['ddh_id']}";
+$resultChiTietDonDatHang = mysqli_query($conn, $sqlChiTietDonDatHang);
+$dataChiTietDonDatHang = [];
+while ($rowChiTietDonDatHang = mysqli_fetch_array($resultChiTietDonDatHang, MYSQLI_ASSOC)) {
+    $dataChiTietDonDatHang[] = array(
+        'dondathang_ddh_id' => $rowChiTietDonDatHang['dondathang_ddh_id'],
+        'sanpham_sp_id' => $rowChiTietDonDatHang['sanpham_sp_id'],
+        'sp_ctdh_dongia' => $rowChiTietDonDatHang['sp_ctdh_dongia'],
+        'sp_ctdh_soluong' => $rowChiTietDonDatHang['sp_ctdh_soluong'],
+        'sp_ten' => $rowChiTietDonDatHang['sp_ten'],
+        'sp_gia' => $rowChiTietDonDatHang['sp_gia'],
+    );
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,19 +131,19 @@ while ($rowDonDatHang = mysqli_fetch_array($resultDonDatHang, MYSQLI_ASSOC)) {
                                 <div class="col">
                                     <div class="form-group">
                                         <label>Ngày lập</label>
-                                        <input type="date" name="ddh_ngaylap" id="ddh_ngaylap" class="form-control" value="<?=date('Y-m-d',strtotime($dataDonDatHang['ddh_ngaylap']))?>" />
+                                        <input type="date" name="ddh_ngaylap" id="ddh_ngaylap" class="form-control" value="<?= date('Y-m-d', strtotime($dataDonDatHang['ddh_ngaylap'])) ?>" />
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label>Ngày giao</label>
-                                        <input type="date" name="ddh_ngaygiao" id="ddh_ngaygiao" class="form-control" value="<?=date('Y-m-d',strtotime($dataDonDatHang['ddh_ngaygiao']))?>" />
+                                        <input type="date" name="ddh_ngaygiao" id="ddh_ngaygiao" class="form-control" value="<?= date('Y-m-d', strtotime($dataDonDatHang['ddh_ngaygiao'])) ?>" />
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
                                         <label>Nơi giao</label>
-                                        <input type="text" name="ddh_diachi" id="ddh_diachi" class="form-control" value="<?=$dataDonDatHang['ddh_diachi']?>"/>
+                                        <input type="text" name="ddh_diachi" id="ddh_diachi" class="form-control" value="<?= $dataDonDatHang['ddh_diachi'] ?>" />
                                     </div>
                                 </div>
                             </div>
@@ -137,25 +151,25 @@ while ($rowDonDatHang = mysqli_fetch_array($resultDonDatHang, MYSQLI_ASSOC)) {
                                 <div class="col">
                                     <div class="form-group">
                                         <label>Trạng thái thanh toán</label><br />
-                                        <?php if($dataDonDatHang['ddh_trangthai']==0):?>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" name="ddh_trangthai" id="dh_trangthai-1" class="custom-control-input" value="0" checked>
-                                            <label class="custom-control-label" for="dh_trangthai-1">Chưa thanh toán</label>
-                                        </div>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" name="ddh_trangthai" id="dh_trangthai-2" class="custom-control-input" value="1">
-                                            <label class="custom-control-label" for="dh_trangthai-2">Đã thanh toán</label>
-                                        </div>
-                                        <?php else:?>
+                                        <?php if ($dataDonDatHang['ddh_trangthai'] == 0) : ?>
                                             <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" name="ddh_trangthai" id="dh_trangthai-1" class="custom-control-input" value="0">
-                                            <label class="custom-control-label" for="dh_trangthai-1">Chưa thanh toán</label>
-                                        </div>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <input type="radio" name="ddh_trangthai" id="dh_trangthai-2" class="custom-control-input" value="1" checked>
-                                            <label class="custom-control-label" for="dh_trangthai-2">Đã thanh toán</label>
-                                        </div>
-                                        <?php endif;?>
+                                                <input type="radio" name="ddh_trangthai" id="dh_trangthai-1" class="custom-control-input" value="0" checked>
+                                                <label class="custom-control-label" for="dh_trangthai-1">Chưa thanh toán</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" name="ddh_trangthai" id="dh_trangthai-2" class="custom-control-input" value="1">
+                                                <label class="custom-control-label" for="dh_trangthai-2">Đã thanh toán</label>
+                                            </div>
+                                        <?php else : ?>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" name="ddh_trangthai" id="dh_trangthai-1" class="custom-control-input" value="0">
+                                                <label class="custom-control-label" for="dh_trangthai-1">Chưa thanh toán</label>
+                                            </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" name="ddh_trangthai" id="dh_trangthai-2" class="custom-control-input" value="1" checked>
+                                                <label class="custom-control-label" for="dh_trangthai-2">Đã thanh toán</label>
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
                                 <div class="col">
@@ -207,7 +221,15 @@ while ($rowDonDatHang = mysqli_fetch_array($resultDonDatHang, MYSQLI_ASSOC)) {
                                     <th>Hành động</th>
                                 </thead>
                                 <tbody>
-                                    
+                                    <?php foreach ($dataChiTietDonDatHang as $ctdh) : ?>
+                                        <tr class="text-center align-middle">
+                                            <td><?=$ctdh['sp_ten']?><input type="hidden" name="sp_id[]" value="<?=$ctdh['sanpham_sp_id']?>" /></td>
+                                            <td><?=$ctdh['sp_ctdh_soluong']?><input type="hidden" name="sp_ctdh_soluong[]" value="<?=$ctdh['sp_ctdh_soluong']?>" /></td>
+                                            <td><?=$ctdh['sp_ctdh_dongia']?><input type="hidden" name="sp_ctdh_dongia[]" value="<?=$ctdh['sp_ctdh_dongia']?>" /></td>
+                                            <td><?=$ctdh['sp_ctdh_dongia']*$ctdh['sp_ctdh_soluong']?></td>
+                                            <td><button type="button" class="btn btn-danger btn-delete-row"><i class="fa fa-trash-o" aria-hidden="true"></i></button></td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </fieldset>
