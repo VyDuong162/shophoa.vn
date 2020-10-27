@@ -109,7 +109,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                     $km_noidung = htmlentities($_POST['km_noidung']);
                     if (isset($_FILES['km_anh'])) {
                         $upload_dir = __DIR__ . "/../../../assets/uploads/";
-                        $subdir = 'products/';
+                        $subdir = 'img-km/';
                         if ($_FILES['km_anh']['error'] > 0) {
                             echo 'File Upload Bị Lỗi';
                             die;
