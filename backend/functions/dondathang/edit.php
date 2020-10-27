@@ -115,8 +115,8 @@ while ($rowChiTietDonDatHang = mysqli_fetch_array($resultChiTietDonDatHang, MYSQ
                                 <div class="col">
                                     <div class="form-group">
                                         <label>Khách hàng</label>
-                                        <option value="">Vui lòng chọn Khách hàng</option>
                                         <select name="kh_id" id="kh_id" class="form-control">
+                                            <option value="">Vui lòng chọn Khách hàng</option>
                                             <?php foreach ($dataKhachHang as $khachhang) : ?>
                                                 <?php if ($khachhang['kh_id'] == $dataDonDatHang['khachhang_kh_id']) : ?>
                                                     <option value="<?= $khachhang['kh_id'] ?>" selected><?= $khachhang['kh_tomtat'] ?></option>
