@@ -46,7 +46,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                 while ($rowSanPham = mysqli_fetch_array($resultSanPham, MYSQLI_ASSOC)) {
                     $km_tomtat = '';
                     if (!empty($rowSanPham['km_ten'])) {
-                        $km_tomtat = sprintf("%s (%s-%s)", $rowSanPham['km_ten'], date('d/m/Y', strtotime($rowSanPham['km_tungay'])), date('d/m/Y', strtotime($rowSanPham['km_denngay'])));
+                        $km_tomtat = sprintf("%s<br/>(%s - %s)", $rowSanPham['km_ten'], date('d/m/Y', strtotime($rowSanPham['km_tungay'])), date('d/m/Y', strtotime($rowSanPham['km_denngay'])));
                     }
                     $sqlLoaiHoa = "SELECT a.lh_ten FROM loaihoa AS a, sanpham_has_loaihoa AS b WHERE a.lh_id = b.loaihoa_lh_id AND b.sanpham_sp_id = {$rowSanPham['sp_id']};";
                     $resultLoaiHoa = mysqli_query($conn, $sqlLoaiHoa);
@@ -76,7 +76,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         'sp_giacu' => ($rowSanPham['sp_giacu'] > 0) ? number_format($rowSanPham['sp_giacu'], 0, ".", ",") : '',
                         'sp_yeuthich' => $rowSanPham['sp_yeuthich'],
                         'sp_mota_ngan' => $rowSanPham['sp_mota_ngan'],
-                        'sp_mota_chitiet' => $rowSanPham['sp_mota_chitiet'],
+                        'sp_mota_chitiet' => html_entity_decode($rowSanPham['sp_mota_chitiet']),
                         'sp_ngaycapnhat' => date('d/m/Y', strtotime($rowSanPham['sp_ngaycapnhat'])),
                         'sp_avt_tenfile' => $rowSanPham['sp_avt_tenfile'],
                         'km_tomtat' => $km_tomtat,
@@ -101,15 +101,16 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                 <thead class="thead-dark">
                                     <tr class="text-center">
                                         <th>STT</th>
-                                        <th>Tên</th>
+                                        <th width="170px">Tên</th>
                                         <th>Giá</th>
                                         <th>Giá cũ</th>
                                         <th>Yêu thích</th>
-                                        <th>Loại hoa</th>
-                                        <th>Màu hoa</th>
-                                        <th>Chủ đề hoa</th>
+                                        <th width="50px">Loại hoa</th>
+                                        <th width="50px">Màu hoa</th>
+                                        <th width="50px">Chủ đề hoa</th>
                                         <th>Ngày cập nhật</th>
                                         <th>Khuyến mãi</th>
+                                        <th>Mô tả</th>
                                         <th>Ảnh</th>
                                         <th width="56px">Thực thi</th>
                                     </tr>
@@ -128,6 +129,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                             <td class="text-center align-middle"><?= $sp['chuDe']; ?></td>
                                             <td class="text-center align-middle"><?= $sp['sp_ngaycapnhat']; ?></td>
                                             <td class="text-center align-middle"><?= $sp['km_tomtat']; ?></td>
+                                            <td class="align-middle"><?= $sp['sp_mota_ngan']; ?><br/><?= $sp['sp_mota_chitiet']; ?></td>
                                             <td class="text-center align-middle">
                                                 <?php if (!file_exists("../../../assets/uploads/img-product/" . $sp['sp_avt_tenfile']) || empty($sp['sp_avt_tenfile'])) : ?>
                                                     <a data-fancybox="gallery" href="/shophoa.vn/assets/shared/img/default.png" data-caption="[Ảnh mặc định] <?= $sp['sp_ten'] ?>">

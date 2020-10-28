@@ -123,7 +123,7 @@ while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC))
                     <div class="row mb-5">
 
                         <div class="col-md-12 text-center">
-                            <h1 id="frmtitle" class="h2 mb-0 text-gray-800 mb-3 shadow">Thêm mới sản phẩm</h1>
+                            <h1 id="frmtitle" class="h2 mb-0 text-gray-800 mb-3 shadow">Chỉnh sửa sản phẩm</h1>
                         </div>
 
                         <div class="col-md-12">
