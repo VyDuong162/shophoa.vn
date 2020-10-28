@@ -90,6 +90,9 @@ if (session_id() === '') {
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12 text-right mt-3">
+                    <a href="/shophoa.vn/frontend/pages/capnhat.php" class="btn btn-danger">Cập nhật tài khoản</a>
+                </div>
                 <div class="col-md-12 border mt-3">
                     <h4 class="text-danger myfont text-center py-2">Đơn hàng gần đây</h4>
                     <?php
