@@ -10,7 +10,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm khuyến mãi</title>
+    <title>Shop hoa | Chỉnh sửa khuyến mãi</title>
     <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css" />
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css" type="text/css">
@@ -115,7 +115,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                     $km_noidung = htmlentities($_POST['km_noidung']);
                     if (isset($_FILES['km_anh'])) {
                         $upload_dir = __DIR__ . "/../../../assets/uploads/";
-                        $subdir = 'products/';
+                        $subdir = 'img-km/';
                         // Đối với mỗi file, sẽ có các thuộc tính như sau:
                         // $_FILES['hsp_tentaptin']['name']     : Tên của file chúng ta upload
                         // $_FILES['hsp_tentaptin']['type']     : Kiểu file mà chúng ta upload (hình ảnh, word, excel, pdf, txt, ...)

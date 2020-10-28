@@ -16,7 +16,7 @@ while ($rowLoaiHoa = mysqli_fetch_array($resultLoaiHoa, MYSQLI_ASSOC)) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Hoa | San phẩm loại <?= $loaiHoa ?></title>
+    <title>Shop Hoa | Sản phẩm loại <?= $loaiHoa ?></title>
     <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css" />
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css" type="text/css">
@@ -102,7 +102,7 @@ while ($rowLoaiHoa = mysqli_fetch_array($resultLoaiHoa, MYSQLI_ASSOC)) {
                                                 <?php endif ?>
                                             </td>
                                             <td class="text-center align-middle">
-                                                <a href="/shophoa.vn/backend/functions/sanpham/edit.php?sp_id=<?= $sp['sp_id'] ?>" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Sửa">
+                                                <a href="/shophoa.vn/backend/functions/sanpham/edit.php?sp_id=<?= $sp['sp_id'] ?>" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Sửa">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
                                                 <button type="button" class="btn btn-danger btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa" data-sanpham_sp_id="<?= $sp['sp_id'] ?>" data-loaihoa_lh_id="<?= $lh_id ?>">

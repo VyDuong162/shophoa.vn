@@ -11,7 +11,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loại hoa sản phẩm</title>
+    <title>Shop hoa | Sản phẩm</title>
     <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css" />
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css" type="text/css">
@@ -26,6 +26,12 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 </head>
 
 <body>
+    <!-- Phần loading trang web -->
+    <div id="load">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
     <?php include_once(__DIR__ . '/../../layouts/partials/header.php'); ?>
     <div class="container-fluid">
         <div class="row">

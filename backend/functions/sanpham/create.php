@@ -16,6 +16,12 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 </head>
 
 <body>
+     <!-- Phần loading trang web -->
+     <div id="load">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
     <?php include_once(__DIR__ . '/../../layouts/partials/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
@@ -75,7 +81,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                 }
                 ?>
                 <div class="row ">
-                    <div class="col-md-12 text-right mt-3">
+                    <div class="col-md-12 mt-3">
                         <a href="index.php"><button type="button" id="btndanhsach" class="btn btn-primary">Danh sách</button></a> <br><br>
                     </div>
                 </div>
@@ -193,7 +199,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             </div>
                         </div>
                         <div class="col-md-12 text-center mb-5">
-                            <button class="btn btn-success" name="btnsave" id="btnsave">Lưu dữ liệu</button>
+                            <button class="btn btn-primary" name="btnsave" id="btnsave">Lưu dữ liệu</button>
                         </div>
                 </form>
                 <?php

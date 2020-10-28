@@ -9,7 +9,7 @@ if (session_id() === '') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loại hoa sản phẩm</title>
+    <title>Shop hoa | Khách hàng</title>
     <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css" />
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css" type="text/css">
@@ -43,8 +43,8 @@ if (session_id() === '') {
                         'kh_hoten' => $row['kh_hoten'],
                         'kh_tendangnhap' => $row['kh_tendangnhap'],
                         'kh_matkhau' => $row['kh_matkhau'],
-                        'kh_gioitinh' => ($row['kh_gioitinh']==1)?'Nam':'Nữ',
-                        'kh_ngaysinh' => date('d/m/Y',strtotime($row['kh_ngaysinh'])),
+                        'kh_gioitinh' => ($row['kh_gioitinh'] == 1) ? 'Nam' : 'Nữ',
+                        'kh_ngaysinh' => date('d/m/Y', strtotime($row['kh_ngaysinh'])),
                         'kh_sodienthoai' => $row['kh_sodienthoai'],
                         'kh_email' => $row['kh_email'],
                         'kh_diachi' => $row['kh_diachi'],
@@ -75,10 +75,10 @@ if (session_id() === '') {
                                         <th class="align-middle text-center">Ngày sinh</th>
                                         <th class="align-middle text-center">Số điện thoại</th>
                                         <th class="align-middle text-center">Email</th>
-                                        <th class="align-middle text-center">Địa chỉ</th>
+                                        <th class="align-middle text-center" width="20%">Địa chỉ</th>
                                         <th class="align-middle text-center">Ảnh đại diện</th>
                                         <th class="align-middle text-center">Quyền</th>
-                                        <th class="align-middle text-center">Thực thi</th>
+                                        <th class="align-middle text-center" width="100px">Thực thi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -94,7 +94,7 @@ if (session_id() === '') {
                                             <td class="align-middle text-center"><?= $khachhang['kh_email'] ?></td>
                                             <td class="align-middle text-center"><?= $khachhang['kh_diachi'] ?></td>
                                             <td class="align-middle text-center">
-                                                <?php if (!file_exists("../../../assets/uploads/avatar/".$khachhang['kh_avt_tenfile']) || empty($khachhang['kh_avt_tenfile'])) : ?>
+                                                <?php if (!file_exists("../../../assets/uploads/avatar/" . $khachhang['kh_avt_tenfile']) || empty($khachhang['kh_avt_tenfile'])) : ?>
                                                     <a data-fancybox="gallery" href="/shophoa.vn/assets/shared/img/avatar-default.jpg">
                                                         <img src="/shophoa.vn/assets/shared/img/avatar-default.jpg" class="img-fluid" width="100px">
                                                     </a>
@@ -105,11 +105,11 @@ if (session_id() === '') {
                                                 <?php endif ?>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <?php if($khachhang['kh_quantri']): ?>
+                                                <?php if ($khachhang['kh_quantri']) : ?>
                                                     <span class="badge badge-primary">admin</span>
-                                                <?php else:?>
+                                                <?php else : ?>
                                                     <span class="badge badge-secondary">user</span>
-                                                <?php endif;?>
+                                                <?php endif; ?>
                                             </td>
                                             <td class="align-middle text-center">
                                                 <a href="edit.php?kh_id=<?= $khachhang['kh_id']; ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
@@ -118,7 +118,7 @@ if (session_id() === '') {
                                                 <a href="#" class="btn btn-warning btnDelete" data-idxoa=<?php echo $khachhang['kh_id']; ?> data-toggle="tooltip" data-placement="top" title="xóa">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                 </a>
-                                               <!--  <a href="delete.php?idxoa=<?= $khachhang['kh_id'];?>">Xóa</a> -->
+                                                <!--  <a href="delete.php?idxoa=<?= $khachhang['kh_id']; ?>">Xóa</a> -->
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -138,6 +138,9 @@ if (session_id() === '') {
     <script src="/shophoa.vn/assets/vendor/DataTables/DataTables/js/dataTables.bootstrap4.min.js"></script>
     <script src="/shophoa.vn/assets/vendor/fancybox/jquery.fancybox.min.js"></script>
     <script>
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
         $(document).ready(function() {
             $('#tblDanhSach').DataTable({
                 dom: "<'row'<'col-md-12 text-center'B>><'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-sm-12'tr>><'row'<'col-md-6'i><'col-md-6'p>>",
@@ -171,24 +174,24 @@ if (session_id() === '') {
                     [10, 15, 20, 25, 50, 100, "Tất cả"]
                 ]
             });
-            $('.btnDelete').click(function() {
-                swal({
-                        title: "Bạn có chắn chắn xóa không?",
-                        text: "Không thể phục hồi dữ liệu khi xóa!",
-                        icon: "warning",
-                        buttons: true,
-                        dangerMode: true,
-                    })
-                    .then((willDelete) => {
-                        if (willDelete) {
-                            var kh_id = $(this).data('idxoa');
-                            var url = 'delete.php?idxoa=' + kh_id;
-                            location.href = url;
-                        } else {
-                            swal("Hủy xóa thành công!");
-                        }
-                    });
-            });
+        });
+        $('.btnDelete').click(function() {
+            swal({
+                    title: "Bạn có chắn chắn xóa không?",
+                    text: "Không thể phục hồi dữ liệu khi xóa!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        var kh_id = $(this).data('idxoa');
+                        var url = 'delete.php?idxoa=' + kh_id;
+                        location.href = url;
+                    } else {
+                        swal("Hủy xóa thành công!");
+                    }
+                });
         });
     </script>
 </body>

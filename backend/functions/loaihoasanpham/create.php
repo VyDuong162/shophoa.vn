@@ -54,17 +54,59 @@ if (session_id() === '') {
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="lh_ten">Tên loại hoa</label>
-                                    <input type="text" class="form-control" id="lh_ten" name="lh_ten" placeholder="Tên loại hoa" value="" required>
+                                    <input type="text" class="form-control" id="lh_ten" name="lh_ten" placeholder="Tên loại hoa" value="">
                                 </div>
                             </div>
                             <div class="col-md-12 text-center mb-5">
-                                <button class="btn btn-success" name="btnsave" id="btnsave" type="submit">Lưu dữ liệu</button>
+                                <button class="btn btn-primary" name="btnsave" id="btnsave" type="submit">Lưu dữ liệu</button>
                             </div>
                         </div>
                     </form>
                 </div>
                 <?php
-                if (isset($_POST['btnsave']) && !empty($_POST['lh_ten'])) {
+                if (isset($_POST['btnsave'])) {
+                    $lh_ten = htmlentities($_POST['lh_ten']);
+                    $erorrs = [];
+                    if (empty($lh_ten)) {
+                        $erorrs['lh_ten'][] = [
+                            'rule' => 'required',
+                            'rule_value' => true,
+                            'value' =>  $lh_ten,
+                            'mes' => 'Tên loại hoa không được bỏ trống',
+                        ];
+                    } else {
+                        if (strlen($lh_ten) > 50) {
+                            $erorrs['lh_ten'][] = [
+                                'rule' => 'maxlength',
+                                'rule_value' => 50,
+                                'value' => $lh_ten,
+                                'mes' => 'Tên loại hoa chỉ được tối đa 50 ký tự',
+                            ];
+                        }
+                        if (strlen($lh_ten) < 3) {
+                            $erorrs['lh_ten'][] = [
+                                'rule' => 'minlength',
+                                'rule_value' => 3,
+                                'value' => $lh_ten,
+                                'mes' => 'Tên loại hoa chứa tối thiểu 3 ký tự',
+                            ];
+                        }
+                    }
+                }
+                ?>
+                <?php if (isset($_POST['btnsave']) && (isset($erorrs) && !empty($erorrs))) : ?>
+                    <div class="alert alert-warning col-md-12" role="alert">
+                        <ul>
+                            <?php foreach ($erorrs as $loi) : ?>
+                                <?php foreach ($loi as $a) : ?>
+                                    <li><?= $a['mes'] ?></li>
+                                <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+                <?php
+                if (isset($_POST['btnsave']) && !(isset($erorrs) && !empty($erorrs))) {
                     $lh_ten = htmlentities($_POST['lh_ten']);
                     // Câu lệnh INSERT
                     $sql = "INSERT INTO `loaihoa` (lh_ten,lh_mota) VALUES ('$lh_ten','$lh_mota');";
@@ -80,13 +122,44 @@ if (session_id() === '') {
     </div>
     <?php include_once(__DIR__ . '/../../layouts/partials/footer.php'); ?>
     <?php include_once(__DIR__ . '/../../layouts/scripts.php'); ?>
-</body>
     <script>
-        $('#btnsave').click(function() {
-            var lh_ten = document.getElementById("lh_ten").value;
-            if(lh_ten==null || lh_ten==""){
-                alert('Chưa nhập dữ liệu!');
-            }
+        $(document).ready(function() {
+            // Kiểm tra logic phần frontend
+            $('#frmthemmoi').validate({
+                // Phần logic
+                rules: {
+                    lh_ten: {
+                        required: true,
+                        maxlength: 50,
+                    },
+                },
+                // Phần thông báo
+                messages: {
+                    lh_ten: {
+                        required: "Nhập tên dữ liệu",
+                        maxlenght: "Tên chỉ có tối đa 50 ký tự",
+                    },
+                },
+                // Phần mặc định
+                errorElement: "em",
+                errorPlacement: function(error, element) {
+                    error.addClass("invalid-feedback");
+                    if (element.prop("type") === "checkbox") {
+                        error.insertAfter(element.parent("label"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                success: function(label, element) {},
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                }
+            });
         });
     </script>
+</body>
+
 </html>

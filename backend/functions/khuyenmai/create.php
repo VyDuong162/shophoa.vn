@@ -10,7 +10,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Hoa | Thêm khuyến mãi</title>
+    <title>Shop Hoa | Thêm mới khuyến mãi</title>
     <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css" />
     <link rel="stylesheet" href="/shophoa.vn/assets/vendor/DataTables/datatables.min.css" type="text/css">
@@ -83,7 +83,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                 <div class="form-group">
                                     <label for="km_anh">Ảnh khuyến mãi</label>
                                     <div class="preview-img-container">
-                                        <img src="/shophoa.vn/assets/shared/img/default.png" id="preview-img" width="200px" />
+                                        <img src="/shophoa.vn/assets/shared/img/default.png" id="preview-img" name="preview-img" width="200px" />
                                     </div>
                                     <input type="file" class="form-control" id="km_anh" name="km_anh" placeholder="Ảnh khuyến mãi" value="">
                                 </div>
@@ -95,7 +95,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                 </div>
                             </div>
                             <div class="col-md-12 text-center mb-5">
-                                <button class="btn btn-success" name="btnsave" id="btnsave" type="submit">Lưu dữ liệu</button>
+                                <button class="btn btn-primary" name="btnsave" id="btnsave" type="submit">Lưu dữ liệu</button>
                             </div>
                         </div>
                     </form>
@@ -107,9 +107,10 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                     $km_denngay = $_POST['km_denngay'];
                     $km_ten = htmlentities($_POST['km_ten']);
                     $km_noidung = htmlentities($_POST['km_noidung']);
+                    $km_anh=$_FILES['km_anh'];
                     if (isset($_FILES['km_anh'])) {
                         $upload_dir = __DIR__ . "/../../../assets/uploads/";
-                        $subdir = 'products/';
+                        $subdir = 'img-km/';
                         if ($_FILES['km_anh']['error'] > 0) {
                             echo 'File Upload Bị Lỗi';
                             die;
@@ -125,6 +126,15 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 
                             move_uploaded_file($_FILES['km_anh']['tmp_name'], $upload_dir . $subdir . $tentaptin);
                         }
+                        $sql = "INSERT INTO `khuyenmai` (km_ten,km_tungay,km_denngay,km_noidung,km_anh) VALUES ('$km_ten','$km_tungay','$km_denngay','$km_noidung','$tentaptin');";
+                        mysqli_query($conn, $sql);
+                        mysqli_close($conn);
+                        echo '<script>location.href = "index.php";</script>';
+                    }
+                    else{
+                        $km_anh = $_FILES['preview-img']['name'];
+                        $tentaptin = date('YmdHis') . '_' . $km_anh;
+                        move_uploaded_file($_FILES['km_anh']['tmp_name'], $upload_dir . $subdir . $tentaptin);
                         $sql = "INSERT INTO `khuyenmai` (km_ten,km_tungay,km_denngay,km_noidung,km_anh) VALUES ('$km_ten','$km_tungay','$km_denngay','$km_noidung','$tentaptin');";
                         mysqli_query($conn, $sql);
                         mysqli_close($conn);

@@ -627,8 +627,9 @@ form #frmtitle{
     width: initial;
 }
 #main{
-    min-height: 82.5vh!important;
+    min-height: 87.8vh!important;
 }
+
 /*-css - bootrap - */
 #load {
     position: fixed;
