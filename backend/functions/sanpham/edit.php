@@ -44,7 +44,7 @@ while ($rowSanPhamChuDe = mysqli_fetch_array($resultSanPhamChuDe, MYSQLI_ASSOC))
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Hoa | Thêm mới sản phẩm</title>
+    <title>Shop Hoa | Chỉnh sửa sản phẩm</title>
     <?php include_once(__DIR__ . '/../../layouts/styles.php'); ?>
     <link rel="stylesheet" href="/shophoa.vn/assets/backend/css/style.css" type="text/css" />
 </head>
