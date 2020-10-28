@@ -26,6 +26,12 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 </head>
 
 <body>
+    <!-- Phần loading trang web -->
+    <div id="load">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
     <?php include_once(__DIR__ . '/../../layouts/partials/header.php'); ?>
     <div class="container-fluid">
         <div class="row">
