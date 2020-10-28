@@ -1,6 +1,14 @@
 <?php
     include_once(__DIR__ . '/../../../dbconnect.php');
     $id = $_GET['idxoa'];
+    $sqlrow=<<<EOT
+    UPDATE sanpham
+	SET
+		km=NULL
+	WHERE
+        km=$id; 
+EOT;
+    mysqli_query($conn, $sqlrow);
     $sqlSelect = "SELECT * FROM `khuyenmai` WHERE km_id=$id;";
     $resultSelect = mysqli_query($conn, $sqlSelect);
     $dataKhuyenMai = mysqli_fetch_array($resultSelect, MYSQLI_ASSOC); 
