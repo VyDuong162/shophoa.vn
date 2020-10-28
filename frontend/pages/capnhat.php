@@ -156,8 +156,7 @@ while ($row = mysqli_fetch_array($resultSelectKhachHang, MYSQLI_ASSOC)) {
                         </div>
                     </fieldset>
                     <div class="form-group text-center">
-                        <button class="btn btn-outline-success my-btn-cir font-weight-bold" name="btn_dangky">Đăng ký</button>
-                        <input type="reset" value="Nhập lại" class="btn btn-outline-danger my-btn-cir font-weight-bold">
+                        <button class="btn btn-outline-success my-btn-cir font-weight-bold" name="btn_dangky">Cập nhật</button>
                     </div>
                 </form>
                 <?php
@@ -312,14 +311,18 @@ while ($row = mysqli_fetch_array($resultSelectKhachHang, MYSQLI_ASSOC)) {
                         $upload_dir = __DIR__ . "/../../assets/uploads/";
                         $subdir = 'avatar/';
                         if ($_FILES['kh_avt_tenfile']['error'] > 0) {
-                            $kh_avt_tenfile = '';
+                            $kh_avt_tenfile = $khachhangRow['kh_avt_tenfile'];
                         } else {
+                            $old_file = $upload_dir . $subdir . $khachhangRow['kh_avt_tenfile'];
+                            if (file_exists($old_file)) {
+                                unlink($old_file);
+                            }
                             $tentaptin = date('YmdHis') . '_' . $_FILES['kh_avt_tenfile']['name'];
                             $kh_avt_tenfile = $tentaptin;
                             move_uploaded_file($_FILES['kh_avt_tenfile']['tmp_name'], $upload_dir . $subdir . $tentaptin);
                         }
                     } else {
-                        $kh_avt_tenfile = '';
+                        $kh_avt_tenfile = $khachhangRow['kh_avt_tenfile'];
                     }
                 }
                 ?>
@@ -339,8 +342,22 @@ while ($row = mysqli_fetch_array($resultSelectKhachHang, MYSQLI_ASSOC)) {
             <?php endif; ?>
             <?php
             if (isset($_POST['btn_dangky']) && !(isset($errors) && count($errors) > 0)) {
-                $sqlDangky = "INSERT INTO khachhang (kh_hoten, kh_tendangnhap, kh_matkhau, kh_gioitinh, kh_ngaysinh, kh_sodienthoai, kh_email, kh_diachi, kh_avt_tenfile, kh_trangthai, kh_quantri) VALUES (N'$ten', '$tendangnhap', '$matkhau', $gioitinh, '$ngaysinh', '$dienthoai', '$email', '$diachi', '$kh_avt_tenfile', 1, 0)";
+                $sqlDangky = "UPDATE khachhang
+                SET
+                    kh_hoten=N'$ten',
+                    kh_tendangnhap='$tendangnhap',
+                    kh_matkhau='$matkhau',
+                    kh_gioitinh=$gioitinh,
+                    kh_ngaysinh='$ngaysinh',
+                    kh_sodienthoai='$dienthoai',
+                    kh_email='$email',
+                    kh_diachi='$diachi',
+                    kh_avt_tenfile='$kh_avt_tenfile'
+                WHERE kh_id={$khachhangRow['kh_id']};";
+                echo $sqlDangky;
+                var_dump($_FILES);
                 mysqli_query($conn, $sqlDangky);
+                echo '<script>location.href="/shophoa.vn/frontend/pages/taikhoan.php"</script>';
             }
             ?>
         </div>
