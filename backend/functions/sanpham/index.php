@@ -97,7 +97,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="tblDanhSach" class="table mx-auto table-bordered ">
+                            <table id="tblDanhSach" class="table mx-auto table-bordered table-hover">
                                 <thead class="thead-dark">
                                     <tr class="text-center">
                                         <th>STT</th>
@@ -111,7 +111,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                         <th>Ngày cập nhật</th>
                                         <th>Khuyến mãi</th>
                                         <th>Mô tả</th>
-                                        <th>Ảnh</th>
+                                        <th width="50px">Ảnh</th>
                                         <th width="56px">Thực thi</th>
                                     </tr>
                                 </thead>
@@ -129,7 +129,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                             <td class="text-center align-middle"><?= $sp['chuDe']; ?></td>
                                             <td class="text-center align-middle"><?= $sp['sp_ngaycapnhat']; ?></td>
                                             <td class="text-center align-middle"><?= $sp['km_tomtat']; ?></td>
-                                            <td class="align-middle"><?= $sp['sp_mota_ngan']; ?><br/><?= $sp['sp_mota_chitiet']; ?></td>
+                                            <td class="align-middle"><?= $sp['sp_mota_ngan']; ?><hr/><?= $sp['sp_mota_chitiet']; ?></td>
                                             <td class="text-center align-middle">
                                                 <?php if (!file_exists("../../../assets/uploads/img-product/" . $sp['sp_avt_tenfile']) || empty($sp['sp_avt_tenfile'])) : ?>
                                                     <a data-fancybox="gallery" href="/shophoa.vn/assets/shared/img/default.png" data-caption="[Ảnh mặc định] <?= $sp['sp_ten'] ?>">
