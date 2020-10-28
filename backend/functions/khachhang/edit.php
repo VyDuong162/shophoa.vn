@@ -158,6 +158,7 @@ if (session_id() === '') {
                         </div>
                     </form>
                 </div>
+                
                 <?php
                 if (isset($_POST['btnsave'])) {
                     $kh_hoten = htmlentities($_POST['kh_hoten']);
