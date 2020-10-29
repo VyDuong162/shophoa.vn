@@ -2,6 +2,8 @@
 if (session_id() === '') {
     session_start();
 }
+
+include_once(__DIR__ . '/../../../dbconnect.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +31,6 @@ if (session_id() === '') {
             </div>
             <main role="main" id="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <?php
-                include_once(__DIR__ . '/../../../dbconnect.php');
                 $kh_id = $_GET['kh_id'];
                 $sql = "SELECT * FROM khachhang WHERE kh_id=$kh_id";
                 $result = mysqli_query($conn, $sql);
@@ -177,9 +178,13 @@ if (session_id() === '') {
                                     <label for="kh_avt_tenfile">Tập tin ảnh</label>
 
                                     <!-- Tạo khung div hiển thị ảnh cho người dùng Xem trước khi upload file lên Server -->
-                                    <div class="preview-img-container">
-                                        <img src="/shophoa.vn/assets/shared/img/default.png" id="preview-img" width="200px" />
-                                    </div>
+                                    <div class="preview-img-container col-sm-2">
+                            <?php if(!file_exists('../../../assets/uploads/avatar/'.$dataKhachHang['kh_avt_tenfile'])||empty($dataKhachHang['kh_avt_tenfile'])) :?>
+                                <img src="/shophoa.vn/assets/shared/img/avatar-default.jpg" id="preview-img" class=" img-fluid" />
+                            <?php else:?>
+                                <img src="/shophoa.vn/assets/uploads/avatar/<?=$dataKhachHang['kh_avt_tenfile']?>" id="preview-img" class=" img-fluid" />
+                            <?php endif; ?>
+                            </div>
 
                                     <!-- Input cho phép người dùng chọn FILE -->
                                     <input type="file" class="form-control" id="kh_avt_tenfile" name="kh_avt_tenfile">
@@ -205,33 +210,26 @@ if (session_id() === '') {
                     $kh_email = $_POST['kh_email'];
                     $kh_diachi = $_POST['kh_diachi'];
                     $kh_quantri = isset($_POST['kh_quantri']) ? $_POST['kh_quantri'] : '';
+                    
                     if (isset($_FILES['kh_avt_tenfile'])) {
-
                         $upload_dir = __DIR__ . "/../../../assets/uploads/";
-
                         $subdir = 'avatar/';
-
                         if ($_FILES['kh_avt_tenfile']['error'] > 0) {
-                            echo 'File Upload Bị Lỗi';
-                            //die;
+                            $kh_avt_tenfile = $dataKhachHang['kh_avt_tenfile'];
                         } else {
-                            // Xóa file cũ để tránh rác trong thư mục UPLOADS
-                            // Kiểm tra nếu file có tổn tại thì xóa file đi
-                            $old_file = $upload_dir . $subdir . $hinhsanphamRow['kh_avt_tenfile'];
+                            $old_file = $upload_dir . $subdir . $dataKhachHang['kh_avt_tenfile'];
                             if (file_exists($old_file)) {
-                                // Hàm unlink(filepath) dùng để xóa file trong PHP
                                 unlink($old_file);
                             }
-
-
-                            $kh_avt_tenfile = $_FILES['kh_avt_tenfile']['name'];
-                            $tenfile = date('YmdHis') . '_' . $kh_avt_tenfile;
-
-                            move_uploaded_file($_FILES['kh_avt_tenfile']['tmp_name'], $upload_dir . $subdir . $tenfile);
+                            $tentaptin = date('YmdHis') . '_' . $_FILES['kh_avt_tenfile']['name'];
+                            $kh_avt_tenfile = $tentaptin;
+                            move_uploaded_file($_FILES['kh_avt_tenfile']['tmp_name'], $upload_dir . $subdir . $tentaptin);
                         }
+                    } else {
+                        $kh_avt_tenfile = $dataKhachHang['kh_avt_tenfile'];
                     }
                     // Câu lệnh UPDATE
-                    $sql = "UPDATE `KhachHang` SET kh_hoten = '$kh_hoten', kh_tendangnhap='$kh_tendangnhap', kh_matkhau='$kh_matkhau',kh_gioitinh='$kh_gioitinh',kh_ngaysinh='$kh_ngaysinh',kh_sodienthoai='$kh_sodienthoai',kh_email='$kh_email',kh_diachi='$kh_diachi',kh_quantri='$kh_quantri',kh_avt_tenfile='$tenfile' WHERE kh_id='$kh_id' ;";
+                    $sql = "UPDATE `KhachHang` SET kh_hoten = '$kh_hoten', kh_tendangnhap='$kh_tendangnhap', kh_matkhau='$kh_matkhau',kh_gioitinh='$kh_gioitinh',kh_ngaysinh='$kh_ngaysinh',kh_sodienthoai='$kh_sodienthoai',kh_email='$kh_email',kh_diachi='$kh_diachi',kh_quantri='$kh_quantri',kh_avt_tenfile='$kh_avt_tenfile' WHERE kh_id='$kh_id' ;";
                     // print_r($sql); die;
                     //var_dump($sql);die;
                     mysqli_query($conn, $sql);
@@ -247,7 +245,100 @@ if (session_id() === '') {
     <?php include_once(__DIR__ . '/../../layouts/scripts.php'); ?>
     <script src="/shophoa.vn/assets/vendor/ckeditor/ckeditor.js"></script>
     <script>
-        CKEDITOR.replace('lh_mota');
+        $(document).ready(function() {
+            $('#frmthemmoi').validate({
+                // Phần logic
+                rules: {
+                    kh_hoten: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    kh_tendangnhap: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    kh_matkhau: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    kh_diachi: {
+                        required: true,
+                    },
+                    kh_sodienthoai: {
+                        required: true,
+                        minlength: 10,
+                    },
+                    kh_email: {
+                        required: true,
+                    },
+                    kh_ngaysinh: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    kh_tendangnhap: {
+                        required: 'Không được bỏ trống phần này',
+                        minlength: 'Tên đăng nhập quá ngắn, tối thiểu phải 3 ký tự',
+                        maxlength: 'Tên đăng nhập quá dài, tối đa chỉ 50 ký tự.',
+                    },
+                    kh_hoten: {
+                        required: 'Không được bỏ trống phần này',
+                        minlength: 'Tên đăng nhập quá ngắn, tối thiểu phải 3 ký tự',
+                        maxlength: 'Tên đăng nhập quá dài, tối đa chỉ 50 ký tự.',
+                    },
+                    kh_matkhau: {
+                        required: 'Không được bỏ trống phần này',
+                        minlength: 'Mật khẩu quá ngắn, tối thiểu phải 6 ký tự',
+                        maxlength: 'Mật khẩu nhập quá dài, tối đa chỉ 50 ký tự.',
+                    },
+                    kh_diachi: {
+                        required: 'Không được bỏ trống phần này',
+                    },
+                    kh_sodienthoai: {
+                        required: 'Không được bỏ trống phần này',
+                        minlength: 'Số điện thoại tối thiểu phải 10 ký tự',
+                    },
+                    kh_email: {
+                        required: 'Không được bỏ trống phần này',
+                    },
+                    kh_ngaysinh: {
+                        required: 'Không được bỏ trống phần này',
+                    },
+                    kh_quantri: {
+                        required: 'Không được bỏ trống phần này',
+                    },
+                },
+                errorElement: "em",
+                errorPlacement: function(error, element) {
+                    error.addClass("invalid-feedback");
+                    if (element.prop("type") === "checkbox") {
+                        error.insertAfter(element.parent("label"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                success: function(label, element) {},
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                }
+            });
+        });
+        const reader = new FileReader();
+        const fileInput = document.getElementById("kh_avt_tenfile");
+        const img = document.getElementById("preview-img");
+        reader.onload = e => {
+            img.src = e.target.result;
+        }
+        fileInput.addEventListener('change', e => {
+            const f = e.target.files[0];
+            reader.readAsDataURL(f);
+        })
     </script>
 </body>
 

@@ -163,7 +163,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         if (isset($_FILES['kh_avt_tenfile'])) {
 
                             $upload_dir = __DIR__ . "/../../../assets/uploads/";
-                            $subdir = 'img-product/';
+                            $subdir = 'avatar/';
     
                             if ($_FILES['kh_avt_tenfile']['error'] > 0) {
                                 echo 'File Upload Bị Lỗi';
@@ -283,6 +283,16 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                 }
             });
         });
+        const reader = new FileReader();
+        const fileInput = document.getElementById("kh_avt_tenfile");
+        const img = document.getElementById("preview-img");
+        reader.onload = e => {
+            img.src = e.target.result;
+        }
+        fileInput.addEventListener('change', e => {
+            const f = e.target.files[0];
+            reader.readAsDataURL(f);
+        })
     </script>
    
 </body>
