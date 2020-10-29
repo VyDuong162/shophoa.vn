@@ -100,47 +100,42 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         </div>
                     </form>
                 </div>
-
                 <?php
-                if (isset($_POST['btnsave'])) {
-                    $km_tungay = $_POST['km_tungay'];
-                    $km_denngay = $_POST['km_denngay'];
-                    $km_ten = htmlentities($_POST['km_ten']);
-                    $km_noidung = htmlentities($_POST['km_noidung']);
-                    $km_anh=$_FILES['km_anh'];
-                    if (isset($_FILES['km_anh'])) {
-                        $upload_dir = __DIR__ . "/../../../assets/uploads/";
-                        $subdir = 'img-km/';
-                        if ($_FILES['km_anh']['error'] > 0) {
-                            echo 'File Upload Bị Lỗi';
-                            die;
-                        } elseif ($_FILES['km_anh']['size'] > 800000) {
-                            echo 'Kích thước File Upload không cho phép';
-                            die;
-                        } elseif (!($_FILES['km_anh']['type'] = 'jpg' || $_FILES['km_anh']['type'] = 'png' || $_FILES['km_anh']['type'] = 'jpge')) {
-                            echo 'Chỉ cho phép File Upload là JPG hoặc PNG và JPEG';
-                            die;
-                        } else {
-                            $km_anh = $_FILES['km_anh']['name'];
-                            $tentaptin = date('YmdHis') . '_' . $km_anh;
-
-                            move_uploaded_file($_FILES['km_anh']['tmp_name'], $upload_dir . $subdir . $tentaptin);
+                    if (isset($_POST['btnsave'])) {
+                        $km_tungay = $_POST['km_tungay'];
+                        $km_denngay = $_POST['km_denngay'];
+                        $km_ten = htmlentities($_POST['km_ten']);
+                        $km_noidung = htmlentities($_POST['km_noidung']);
+                        $km_anh=$_FILES['km_anh'];
+                        if (isset($_FILES['km_anh'])) {
+                            $upload_dir = __DIR__ . "/../../../assets/uploads/";
+                            $subdir = 'img-km/';
+                            if ($_FILES['km_anh']['error'] > 0) {
+                                echo 'File Upload Bị Lỗi';
+                            } elseif ($_FILES['km_anh']['size'] > 800000) {
+                                echo 'Kích thước File Upload không cho phép';
+                            } elseif (!($_FILES['km_anh']['type'] = 'jpg' || $_FILES['km_anh']['type'] = 'png' || $_FILES['km_anh']['type'] = 'jpge')) {
+                                echo 'Chỉ cho phép File Upload là JPG hoặc PNG và JPEG';
+                            } else {
+                                $km_anh = $_FILES['km_anh']['name'];
+                                $tentaptin = date('YmdHis') . '_' . $km_anh;
+                                move_uploaded_file($_FILES['km_anh']['tmp_name'], $upload_dir . $subdir . $tentaptin);
+                            }
+                            $sql = "INSERT INTO `khuyenmai` (km_ten,km_tungay,km_denngay,km_noidung,km_anh) VALUES ('$km_ten','$km_tungay','$km_denngay','$km_noidung','$tentaptin');";
+                            mysqli_query($conn, $sql);
+                            mysqli_close($conn);
+                            echo '<script>location.href = "index.php";</script>';
                         }
-                        $sql = "INSERT INTO `khuyenmai` (km_ten,km_tungay,km_denngay,km_noidung,km_anh) VALUES ('$km_ten','$km_tungay','$km_denngay','$km_noidung','$tentaptin');";
-                        mysqli_query($conn, $sql);
-                        mysqli_close($conn);
-                        echo '<script>location.href = "index.php";</script>';
+                        else{
+                            $km_anh = $_FILES['preview-img']['name'];
+                            $tentaptin = date('YmdHis') . '_' . $km_anh;
+                            move_uploaded_file($_FILES['km_anh']['tmp_name'], $upload_dir . $subdir . $tentaptin);
+                            $sql = "INSERT INTO `khuyenmai` (km_ten,km_tungay,km_denngay,km_noidung,km_anh) VALUES ('$km_ten','$km_tungay','$km_denngay','$km_noidung','$tentaptin');";
+                            mysqli_query($conn, $sql);
+                            mysqli_close($conn);
+                            echo '<script>location.href = "index.php";</script>';
+                        }
                     }
-                    else{
-                        $km_anh = $_FILES['preview-img']['name'];
-                        $tentaptin = date('YmdHis') . '_' . $km_anh;
-                        move_uploaded_file($_FILES['km_anh']['tmp_name'], $upload_dir . $subdir . $tentaptin);
-                        $sql = "INSERT INTO `khuyenmai` (km_ten,km_tungay,km_denngay,km_noidung,km_anh) VALUES ('$km_ten','$km_tungay','$km_denngay','$km_noidung','$tentaptin');";
-                        mysqli_query($conn, $sql);
-                        mysqli_close($conn);
-                        echo '<script>location.href = "index.php";</script>';
-                    }
-                }
                 ?>
             </main>
         </div>
@@ -169,7 +164,44 @@ include_once(__DIR__ . '/../../../dbconnect.php');
             reader.readAsDataURL(f);
         })
     </script>
-
+    <script>
+        $(document).ready(function() {
+            // Kiểm tra logic phần frontend
+            $('#frmthemmoi').validate({
+                // Phần logic
+                rules: {
+                    lh_ten: {
+                        required: true,
+                        maxlength: 50,
+                    },
+                },
+                // Phần thông báo
+                messages: {
+                    lh_ten: {
+                        required: "Nhập tên dữ liệu",
+                        maxlenght: "Tên chỉ có tối đa 50 ký tự",
+                    },
+                },
+                // Phần mặc định
+                errorElement: "em",
+                errorPlacement: function(error, element) {
+                    error.addClass("invalid-feedback");
+                    if (element.prop("type") === "checkbox") {
+                        error.insertAfter(element.parent("label"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                success: function(label, element) {},
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
