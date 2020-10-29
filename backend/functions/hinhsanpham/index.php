@@ -86,10 +86,10 @@ EOT;
                                             </td>
                                             <td class="align-middle text-center"><?= $sanpham['sp_tomtat'] ?></td>
                                             <td class="align-middle text-center">
-                                                <a href="edit.php?hasp_id=<?= $sanpham['hasp_id']; ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
+                                                <a href="edit.php?hasp_id=<?= $sanpham['hasp_id']; ?>" class="btn btn-warning " data-toggle="tooltip" data-placement="top" title="Sửa">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <button class="btn btn-warning btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa" data-hasp_id="<?= $sanpham['hasp_id'] ?>">
+                                                <button class="btn btn-danger btnDelete" data-toggle="tooltip" data-placement="top" title="Xóa" data-hasp_id="<?= $sanpham['hasp_id'] ?>">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                 </button>
                                         </tr>

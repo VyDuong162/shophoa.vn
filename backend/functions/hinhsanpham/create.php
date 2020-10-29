@@ -110,11 +110,11 @@ if (session_id() === '') {
                         // print_r($sql); die;
                         // Thực thi INSERT
                         mysqli_query($conn, $sql);
-                        var_dump($sql);
-                        die();
+                        /* var_dump($sql);
+                        die(); */
                         mysqli_close($conn);
 
-                        //echo '<script>location.href = "index.php";</script>';
+                        echo '<script>location.href = "index.php";</script>';
                     }
                 }
                 ?>
@@ -137,6 +137,45 @@ if (session_id() === '') {
             reader.readAsDataURL(f);
         })
         CKEDITOR.replace('lh_mota');
+    </script>
+      <script>
+        // Kiểm tra logic 
+        $(document).ready(function() {
+            $('#frmhinhsanpham').validate({
+                // Phần logic
+                rules: {
+                    km_ten: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                },
+                // Phần thông báo
+                messages: {
+                    km_ten: {
+                        required: "Nhập tên khuyến mãi",
+                        minlength: "Tên ít nhất phải 3 kí tự",
+                        maxlenght: "Tên chỉ có tối đa 50 ký tự",
+                    },
+                },
+                errorElement: "em",
+                errorPlacement: function(error, element) {
+                    error.addClass("invalid-feedback");
+                    if (element.prop("type") === "checkbox") {
+                        error.insertAfter(element.parent("label"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                success: function(label, element) {},
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                }
+            });
+        });
     </script>
 </body>
 

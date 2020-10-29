@@ -62,15 +62,15 @@ include_once(__DIR__ . '/../../dbconnect.php');
               $email = $_POST['email'];
               $title = $_POST['title'];
               $message = $_POST['message'];
-              $mail = new PHPMailer(true);                                // Passing `true` enables exceptions
+              $mail = new PHPMailer(true);                                
               try {
-                  $mail->isSMTP();                                        // Set mailer to use SMTP
-                  $mail->Host = 'smtp.gmail.com';                         // Specify main and backup SMTP servers
-                  $mail->SMTPAuth = true;                                 // Enable SMTP authentication
-                  $mail->Username = 'linhduy8a5@gmail.com'; // SMTP username
-                  $mail->Password = 'qootyimeqvwgjhkc';                   // SMTP password
-                  $mail->SMTPSecure = 'tls';                              // Enable TLS encryption, `ssl` also accepted
-                  $mail->Port = 587;                                      // TCP port to connect to
+                  $mail->isSMTP();                                        
+                  $mail->Host = 'smtp.gmail.com';                        
+                  $mail->SMTPAuth = true;                                 
+                  $mail->Username = 'linhduy8a5@gmail.com';
+                  $mail->Password = 'qootyimeqvwgjhkc';                   
+                  $mail->SMTPSecure = 'tls';                              
+                  $mail->Port = 587;                                      
                   $mail->CharSet = "UTF-8";
                   $mail->SMTPOptions = array(
                       'ssl' => array(
@@ -79,23 +79,11 @@ include_once(__DIR__ . '/../../dbconnect.php');
                           'allow_self_signed' => true
                       )
                   );
-                  //Recipients
                   $mail->setFrom('linhduy8a5@gmail.com', 'Mail Liên hệ');
-                  $mail->addAddress('linhduy8a5@gmail.com');               // Add a recipient
+                  $mail->addAddress('linhduy8a5@gmail.com');               
                   $mail->addReplyTo($email);
-                  // $mail->addCC('cc@example.com');
-                  // $mail->addBCC('bcc@example.com');
-                  //Attachments
-                  // $mail->addAttachment('/var/tmp/file.tar.gz');        // Add attachments
-                  // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');   // Optional name
-                  //Content
-                  $mail->isHTML(true);                                    // Set email format to HTML
-                  // Tiêu đề Mail
+                  $mail->isHTML(true);                                   
                   $mail->Subject = "[Có người liên hệ] - $title";         
-                  // Nội dung Mail
-                  // Lưu ý khi thiết kế Mẫu gởi mail
-                  // - Chỉ nên sử dụng TABLE, TR, TD, và các định dạng cơ bản của CSS để thiết kế
-                  // - Các đường link/hình ảnh có sử dụng trong mẫu thiết kế MAIL phải là đường dẫn WEB có thật, ví dụ như logo,banner,...
                   $body = <<<EOT
                   <table border ="1">
                       <tr>

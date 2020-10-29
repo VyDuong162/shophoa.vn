@@ -112,10 +112,10 @@ if (session_id() === '') {
                                                 <?php endif; ?>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <a href="edit.php?kh_id=<?= $khachhang['kh_id']; ?>" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Sửa">
+                                                <a href="edit.php?kh_id=<?= $khachhang['kh_id']; ?>" class="btn btn-warning " data-toggle="tooltip" data-placement="top" title="Sửa">
                                                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                 </a>
-                                                <a href="#" class="btn btn-warning btnDelete" data-idxoa=<?php echo $khachhang['kh_id']; ?> data-toggle="tooltip" data-placement="top" title="xóa">
+                                                <a href="#" class="btn btn-danger btnDelete" data-idxoa=<?php echo $khachhang['kh_id']; ?> data-toggle="tooltip" data-placement="top" title="xóa">
                                                     <i class="fa fa-trash-o" aria-hidden="true"></i>
                                                 </a>
                                                 <!--  <a href="delete.php?idxoa=<?= $khachhang['kh_id']; ?>">Xóa</a> -->

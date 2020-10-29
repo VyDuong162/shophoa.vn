@@ -182,8 +182,8 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         VALUES ('$ten','$tendangnhap','$matkhau','$gioitinh' ,'$ngaysinh', '$sodienthoai','$email', '$diachi','$quantri','$tenfile');";
                         
                         mysqli_query($conn, $sql);
-                        var_dump($sql);
-                        die;
+                        /* var_dump($sql);
+                        die; */
                         mysqli_close($conn);
                         echo "<script>location.href = 'index.php';</script>";
                     }
@@ -197,6 +197,93 @@ include_once(__DIR__ . '/../../../dbconnect.php');
     <?php include_once(__DIR__ . '/../../layouts/partials/footer.php'); ?>
     <?php include_once(__DIR__ . '/../../layouts/scripts.php'); ?>
     <script src="/shophoa.vn/assets/vendor/ckeditor/ckeditor.js"></script>
+    <script>
+        // Kiểm tra logic 
+        $(document).ready(function() {
+            $('#frmthemmoi').validate({
+                // Phần logic
+                rules: {
+                    kh_hoten: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    kh_tendangnhap: {
+                        required: true,
+                        minlength: 6,
+                        maxlength: 50,
+                    },
+                    kh_matkhau: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                    kh_diachi: {
+                        required: true,
+                    },
+                    kh_sodienthoai: {
+                        required: true,
+                        minlength: 10,
+                    },
+                    kh_email: {
+                        required: true,
+                    },
+                    kh_ngaysinh: {
+                        required: true,
+                    },
+                },
+                messages: {
+                    kh_tendangnhap: {
+                        required: 'Không được bỏ trống phần này',
+                        minlength: 'Tên đăng nhập quá ngắn, tối thiểu phải 3 ký tự',
+                        maxlength: 'Tên đăng nhập quá dài, tối đa chỉ 50 ký tự.',
+                    },
+                    kh_hoten: {
+                        required: 'Không được bỏ trống phần này',
+                        minlength: 'Tên đăng nhập quá ngắn, tối thiểu phải 3 ký tự',
+                        maxlength: 'Tên đăng nhập quá dài, tối đa chỉ 50 ký tự.',
+                    },
+                    kh_matkhau: {
+                        required: 'Không được bỏ trống phần này',
+                        minlength: 'Mật khẩu quá ngắn, tối thiểu phải 6 ký tự',
+                        maxlength: 'Mật khẩu nhập quá dài, tối đa chỉ 50 ký tự.',
+                    },
+                    kh_diachi: {
+                        required: 'Không được bỏ trống phần này',
+                    },
+                    kh_sodienthoai: {
+                        required: 'Không được bỏ trống phần này',
+                        minlength: 'Số điện thoại tối thiểu phải 10 ký tự',
+                    },
+                    kh_email: {
+                        required: 'Không được bỏ trống phần này',
+                    },
+                    kh_ngaysinh: {
+                        required: 'Không được bỏ trống phần này',
+                    },
+                    kh_quantri: {
+                        required: 'Không được bỏ trống phần này',
+                    },
+                },
+                errorElement: "em",
+                errorPlacement: function(error, element) {
+                    error.addClass("invalid-feedback");
+                    if (element.prop("type") === "checkbox") {
+                        error.insertAfter(element.parent("label"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                success: function(label, element) {},
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                }
+            });
+        });
+    </script>
    
 </body>
 
