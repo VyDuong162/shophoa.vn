@@ -45,6 +45,7 @@ if (session_id() === '') {
                         'kh_sodienthoai' => $row['kh_sodienthoai'],
                         'kh_email' => $row['kh_email'],
                         'kh_diachi' => $row['kh_diachi'],
+                        'kh_quantri' => $row['kh_quantri'],
                         'kh_avt_tenfile' => $row['kh_avt_tenfile'],
                     );
                 }
@@ -83,40 +84,40 @@ if (session_id() === '') {
                                 <div class="form-group">
                                     <label for="kh_gioitinh">Giới tinh</label>
                                     <?php if ($dataKhachHang['kh_gioitinh'] == 1) : ?>
-                                    <div class="form-check">
-                                       
+                                        <div class="form-check">
+
                                             <input class="form-check-input" type="radio" name="kh_gioitinh" id="kh_gioitinh-nam" value="1" checked>
                                             <label class="form-check-label" for="kh_gioitinh-nam">
                                                 Nam
                                             </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="kh_gioitinh" id="kh_gioitinh-nu" value="0">
-                                        <label class="form-check-label" for="kh_gioitinh-nu">
-                                            Nữ
-                                        </label>
-                                    </div>
-                                <?php else : ?>
-                                    <div class="form-check">
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="kh_gioitinh" id="kh_gioitinh-nu" value="0">
+                                            <label class="form-check-label" for="kh_gioitinh-nu">
+                                                Nữ
+                                            </label>
+                                        </div>
+                                    <?php else : ?>
+                                        <div class="form-check">
 
-                                        <input class="form-check-input" type="radio" name="kh_gioitinh" id="kh_gioitinh-nam" value="1" >
-                                        <label class="form-check-label" for="kh_gioitinh-nam">
-                                            Nam
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="kh_gioitinh" id="kh_gioitinh-nu" value="0" checked>
-                                        <label class="form-check-label" for="kh_gioitinh-nu">
-                                            Nữ
-                                        </label>
-                                    </div>
-                                <?php endif; ?>
+                                            <input class="form-check-input" type="radio" name="kh_gioitinh" id="kh_gioitinh-nam" value="1">
+                                            <label class="form-check-label" for="kh_gioitinh-nam">
+                                                Nam
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="kh_gioitinh" id="kh_gioitinh-nu" value="0" checked>
+                                            <label class="form-check-label" for="kh_gioitinh-nu">
+                                                Nữ
+                                            </label>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="kh_ngaysinh">Ngày sinh</label>
-                                    <input type="text" class="form-control" id="kh_ngaysinh" name="kh_ngaysinh" placeholder="Ngày sinh" value="<?= $dataKhachHang['kh_ngaysinh'] ?>">
+                                    <input type="date" class="form-control" id="kh_ngaysinh" name="kh_ngaysinh" placeholder="Ngày sinh" value="<?= $dataKhachHang['kh_ngaysinh'] ?>">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -135,6 +136,40 @@ if (session_id() === '') {
                                 <div class="form-group">
                                     <label for="kh_diachi">Địa chỉ</label>
                                     <input type="text" class="form-control" id="kh_diachi" name="kh_diachi" placeholder="Địa chỉ" value="<?= $dataKhachHang['kh_diachi'] ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="kh_gioitinh">Quản trị</label>
+                                    <?php if ($dataKhachHang['kh_quantri'] == 1) : ?>
+                                        <div class="form-check">
+
+                                            <input class="form-check-input" type="radio" name="kh_quantri" id="kh_quantri-1" value="1" checked>
+                                            <label class="form-check-label" for="kh_quantri-1">
+                                                Admin
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="kh_quantri" id="kh_quantri-2" value="0">
+                                            <label class="form-check-label" for="kh_quantri-2">
+                                                User
+                                            </label>
+                                        </div>
+                                    <?php else : ?>
+                                        <div class="form-check">
+
+                                            <input class="form-check-input" type="radio" name="kh_quantri" id="kh_quantri-1" value="1">
+                                            <label class="form-check-label" for="kh_quantri-1">
+                                                Admin
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="kh_quantri" id="kh_quantri-2" value="0" checked>
+                                            <label class="form-check-label" for="kh_quantri-2">
+                                                User
+                                            </label>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -158,7 +193,7 @@ if (session_id() === '') {
                         </div>
                     </form>
                 </div>
-                
+
                 <?php
                 if (isset($_POST['btnsave'])) {
                     $kh_hoten = htmlentities($_POST['kh_hoten']);
@@ -169,6 +204,7 @@ if (session_id() === '') {
                     $kh_sodienthoai = $_POST['kh_sodienthoai'];
                     $kh_email = $_POST['kh_email'];
                     $kh_diachi = $_POST['kh_diachi'];
+                    $kh_quantri = isset($_POST['kh_quantri']) ? $_POST['kh_quantri'] : '';
                     if (isset($_FILES['kh_avt_tenfile'])) {
 
                         $upload_dir = __DIR__ . "/../../../assets/uploads/";
@@ -195,7 +231,7 @@ if (session_id() === '') {
                         }
                     }
                     // Câu lệnh UPDATE
-                    $sql = "UPDATE `KhachHang` SET kh_hoten = '$kh_hoten', kh_tendangnhap='$kh_tendangnhap', kh_matkhau='$kh_matkhau',kh_gioitinh='$kh_gioitinh',kh_ngaysinh='$kh_ngaysinh',kh_sodienthoai='$kh_sodienthoai',kh_email='$kh_email',kh_diachi='$kh_diachi',kh_avt_tenfile='$tenfile' WHERE kh_id='$kh_id' ;";
+                    $sql = "UPDATE `KhachHang` SET kh_hoten = '$kh_hoten', kh_tendangnhap='$kh_tendangnhap', kh_matkhau='$kh_matkhau',kh_gioitinh='$kh_gioitinh',kh_ngaysinh='$kh_ngaysinh',kh_sodienthoai='$kh_sodienthoai',kh_email='$kh_email',kh_diachi='$kh_diachi',kh_quantri='$kh_quantri',kh_avt_tenfile='$tenfile' WHERE kh_id='$kh_id' ;";
                     // print_r($sql); die;
                     //var_dump($sql);die;
                     mysqli_query($conn, $sql);
