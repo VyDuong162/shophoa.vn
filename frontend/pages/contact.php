@@ -54,7 +54,7 @@ include_once(__DIR__ . '/../../dbconnect.php');
           
         </form>
         <?php
-            require_once __DIR__.'/../vendor/autoload.php';
+            require_once __DIR__.'/../../vendor/autoload.php';
             // Sử dụng thư viện PHP Mailer
             use PHPMailer\PHPMailer\PHPMailer;
             use PHPMailer\PHPMailer\Exception;
