@@ -135,6 +135,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             mysqli_close($conn);
                             echo '<script>location.href = "index.php";</script>';
                         }
+                        
                     }
                 ?>
             </main>
