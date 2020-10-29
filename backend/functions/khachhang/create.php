@@ -92,7 +92,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="kh_ngaysinh">Ngày sinh</label>
-                                    <input type="text" class="form-control" id="kh_ngaysinh" name="kh_ngaysinh" placeholder="Ngày sinh" value="">
+                                    <input type="date" class="form-control" id="kh_ngaysinh" name="kh_ngaysinh" placeholder="Ngày sinh" value="">
                                 </div>
                             </div>
 
@@ -116,7 +116,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="kh_quantri">Trạng thái</label>
+                                    <label for="kh_quantri">Quản trị</label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="kh_quantri" id="kh_quantri-1" value="1" >
                                         <label class="form-check-label" for="kh_quantri-1">
@@ -158,8 +158,8 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         $sodienthoai = $_POST['kh_sodienthoai'];
                         $email = $_POST['kh_email'];
                         $diachi = $_POST['kh_diachi'];
-                        //$trangthai = $_POST['kh_quantri'];
-                        $trangthai = isset($_POST['kh_quantri']) ? $_POST['kh_quantri'] : '';   
+                        //$quantri = $_POST['kh_quantri'];
+                        $quantri = isset($_POST['kh_quantri']) ? $_POST['kh_quantri'] : '';   
                         if (isset($_FILES['kh_avt_tenfile'])) {
 
                             $upload_dir = __DIR__ . "/../../../assets/uploads/";
@@ -179,7 +179,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         //$kh_id=$_POST['kh_id'];
                         
                         $sql = "INSERT INTO `khachhang` (`kh_hoten`, `kh_tendangnhap`, `kh_matkhau`,`kh_gioitinh`,`kh_ngaysinh`, `kh_sodienthoai`, `kh_email`, `kh_diachi`,`kh_quantri`, `kh_avt_tenfile`) 
-                        VALUES ('$ten','$tendangnhap','$matkhau','$gioitinh' ,'$ngaysinh', '$sodienthoai','$email', '$diachi','$trangthai','$tenfile');";
+                        VALUES ('$ten','$tendangnhap','$matkhau','$gioitinh' ,'$ngaysinh', '$sodienthoai','$email', '$diachi','$quantri','$tenfile');";
                         
                         mysqli_query($conn, $sql);
                         var_dump($sql);
