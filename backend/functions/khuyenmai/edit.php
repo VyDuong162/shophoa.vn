@@ -43,8 +43,8 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         'km_id' => $row['km_id'],
                         'km_ten' => $row['km_ten'],
                         'km_noidung' => $row['km_noidung'],
-                        'km_tungay' => date('Y-m-d',strtotime($row['km_tungay'])),
-                        'km_denngay' => date('Y-m-d',strtotime($row['km_denngay'])),
+                        'km_tungay' => date('Y-m-d', strtotime($row['km_tungay'])),
+                        'km_denngay' => date('Y-m-d', strtotime($row['km_denngay'])),
                         'km_anh' => $row['km_anh']
                     );
                 }
@@ -53,7 +53,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 
                 <div class="container-fluid">
                     <div class="row ">
-                        <div class="col-md-12 text-right mt-5">
+                        <div class="col-md-12 mt-5">
                             <a href="index.php"><button type="button" id="btndanhsach" class="btn btn-primary">Danh sách</button></a> <br><br>
                         </div>
                     </div>
@@ -85,12 +85,12 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                 <div class="form-group">
                                     <label for="km_anh">Ảnh khuyến mãi</label>
                                     <div class="preview-img-container">
-                                    <?php if (!file_exists('../../../assets/uploads/img-km/'.$dataKhuyenMai['km_anh']) || empty($dataKhuyenMai['km_anh'])) : ?>
-                                        <img src="/shophoa.vn/assets/uploads/img-km/default-image.jpg" id="preview-img" height="200px"/>
-                                    <?php else : ?>
-                                        <img src="/shophoa.vn/assets/uploads/img-km/<?= $dataKhuyenMai['km_anh'] ?>" id="preview-img" height="200px" />
-                                    <?php endif; ?>
-                                </div>
+                                        <?php if (!file_exists('../../../assets/uploads/img-km/' . $dataKhuyenMai['km_anh']) || empty($dataKhuyenMai['km_anh'])) : ?>
+                                            <img src="/shophoa.vn/assets/uploads/img-km/default-image.jpg" id="preview-img" height="200px" />
+                                        <?php else : ?>
+                                            <img src="/shophoa.vn/assets/uploads/img-km/<?= $dataKhuyenMai['km_anh'] ?>" id="preview-img" height="200px" />
+                                        <?php endif; ?>
+                                    </div>
                                     <input type="file" class="form-control" id="km_anh" name="km_anh">
                                 </div>
                             </div>
@@ -116,55 +116,24 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                     if (isset($_FILES['km_anh'])) {
                         $upload_dir = __DIR__ . "/../../../assets/uploads/";
                         $subdir = 'img-km/';
-                        // Đối với mỗi file, sẽ có các thuộc tính như sau:
-                        // $_FILES['hsp_tentaptin']['name']     : Tên của file chúng ta upload
-                        // $_FILES['hsp_tentaptin']['type']     : Kiểu file mà chúng ta upload (hình ảnh, word, excel, pdf, txt, ...)
-                        // $_FILES['hsp_tentaptin']['tmp_name'] : Đường dẫn đến file tạm trên web server
-                        // $_FILES['hsp_tentaptin']['error']    : Trạng thái của file chúng ta upload, 0 => không có lỗi
-                        // $_FILES['hsp_tentaptin']['size']     : Kích thước của file chúng ta upload
-                        // 3.1. Chuyển file từ thư mục tạm vào thư mục Uploads
-                        // Nếu file upload bị lỗi, tức là thuộc tính error > 0
-                        //Lấy phần mở rộng của file (jpg, png, ...)
                         if ($_FILES['km_anh']['error'] > 0) {
-                            echo 'File Upload Bị Lỗi';
-                            die;
-                        } elseif ($_FILES['km_anh']['size'] > 800000) {
-                            echo 'Kích thước File Upload không cho phép';
-                            die;
-                        } elseif (!($_FILES['km_anh']['type'] = 'jpg' || $_FILES['km_anh']['type'] = 'png' || $_FILES['km_anh']['type'] = 'jpge')) {
-                            echo 'Chỉ cho phép File Upload là JPG hoặc PNG và JPEG';
-                            die;
+                            $km_anh = $dataKhuyenMai['km_anh'];
                         } else {
-
-                            // Xóa file cũ để tránh rác trong thư mục UPLOADS
-                            // Kiểm tra nếu file có tổn tại thì xóa file đi
-                            $old_file = $upload_dir . $subdir . $row['km_anh'];
+                            $old_file = $upload_dir . $subdir . $dataKhuyenMai['km_anh'];
                             if (file_exists($old_file)) {
-                                // Hàm unlink(filepath) dùng để xóa file trong PHP
                                 unlink($old_file);
                             }
-
-                            $km_anh = $_FILES['km_anh']['name'];
-                            $tentaptin = date('YmdHis') . '_' . $km_anh; //20200530154922_hoahong.jpg
+                            $tentaptin = date('YmdHis') . '_' . $_FILES['km_anh']['name'];
+                            $km_anh = $tentaptin;
                             move_uploaded_file($_FILES['km_anh']['tmp_name'], $upload_dir . $subdir . $tentaptin);
                         }
-                        $sql_update = " UPDATE `khuyenmai` SET
-                                km_ten = '$km_ten',
-                                km_tungay = '$km_tungay',
-                                km_denngay = '$km_denngay',
-                                km_noidung = '$km_noidung',
-                                km_anh = '$tentaptin'
-                            WHERE 
-                                km_id='$id'";
-
-                        // print_r($sql); die;
-                        // Thực thi INSERT
-                        //var_dump($sql_update);die;
-                        mysqli_query($conn, $sql_update);
-                        //Đóng kết nối
-                        mysqli_close($conn);
-                        echo '<script>location.href = "index.php";</script>';
+                    } else {
+                        $km_anh = $dataSanPham['km_anh'];
                     }
+                    $sql_update = " UPDATE `khuyenmai` SET km_ten = '$km_ten', km_tungay = '$km_tungay', km_denngay = '$km_denngay', km_noidung = '$km_noidung', km_anh = '$km_anh' WHERE km_id='$id'";
+                    mysqli_query($conn, $sql_update);
+                    mysqli_close($conn);
+                    echo '<script>location.href = "edit.php?idupdate='.$id.'";</script>';
                 }
                 ?>
             </main>
