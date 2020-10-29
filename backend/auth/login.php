@@ -121,7 +121,7 @@ if (session_id() === '') {
                 if (strlen($ten_dang_nhap) > 50) {
                     $erorrs['ten_dang_nhap'][] = [
                         'rule' => 'maxlength',
-                        'rule_value' => 3,
+                        'rule_value' => 50,
                         'value' => $ten_dang_nhap,
                         'mes' => 'Tên đăng nhập quá dài, chỉ được tối đa 50 ký tự',
                     ];
