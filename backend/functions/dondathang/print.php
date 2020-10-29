@@ -84,7 +84,7 @@ EOT;
                     <td align="center">
                         <b style="font-size: 2em;">Shop hoa - Đồng hành cùng bạn</b><br />
                         <small>Cung cấp các loại hoa tươi và các sản phẩm hoa</small><br />
-                        <small>Mang đến bạn những sản phẩm hoa tươi yêu thương và thân thiết</small>
+                        <small>Mang đến bạn những sản phẩm hoa tươi yêu thương và gắn kết </small>
                     </td>
                 </tr>
             </tbody>
