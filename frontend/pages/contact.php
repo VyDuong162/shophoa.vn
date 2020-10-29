@@ -54,7 +54,7 @@ include_once(__DIR__ . '/../../dbconnect.php');
           
         </form>
         <?php
-            require_once __DIR__.'/../../vendor/autoload.php';
+            require_once __DIR__.'/../vendor/autoload.php';
             // Sử dụng thư viện PHP Mailer
             use PHPMailer\PHPMailer\PHPMailer;
             use PHPMailer\PHPMailer\Exception;
@@ -62,11 +62,8 @@ include_once(__DIR__ . '/../../dbconnect.php');
               $email = $_POST['email'];
               $title = $_POST['title'];
               $message = $_POST['message'];
-              // Gởi mail kích hoạt tài khoản
               $mail = new PHPMailer(true);                                // Passing `true` enables exceptions
               try {
-                  //Server settings
-                  //$mail->SMTPDebug = 2;                                   // Enable verbose debug output
                   $mail->isSMTP();                                        // Set mailer to use SMTP
                   $mail->Host = 'smtp.gmail.com';                         // Specify main and backup SMTP servers
                   $mail->SMTPAuth = true;                                 // Enable SMTP authentication
@@ -75,7 +72,6 @@ include_once(__DIR__ . '/../../dbconnect.php');
                   $mail->SMTPSecure = 'tls';                              // Enable TLS encryption, `ssl` also accepted
                   $mail->Port = 587;                                      // TCP port to connect to
                   $mail->CharSet = "UTF-8";
-                  // Bật chế bộ tự mình mã hóa SSL
                   $mail->SMTPOptions = array(
                       'ssl' => array(
                           'verify_peer' => false,
