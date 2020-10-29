@@ -5,5 +5,5 @@
     mysqli_query($conn, $sql);
     //var_dump($sql); die();
     mysqli_close($conn);
-    //header('location:index.php');
+    header('location:index.php');
 ?>

@@ -38,7 +38,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         'kh_sodienthoai' => $row['kh_sodienthoai'],
                         'kh_email' => $row['kh_email'],
                         'kh_diachi' => $row['kh_diachi'],
-                        'kh_diachi' => $row['kh_trangthai'],
+                        'kh_quantri' => $row['kh_quantri'],
                         'kh_avt_tenfile' => $row['kh_avt_tenfile'],
                     );
                 }
@@ -74,8 +74,19 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="kh_gioitinh">Giới tính</label>
-                                    <input type="text" class="form-control" id="kh_gioitinh" name="kh_gioitinh" placeholder="Giới tính" value="">
+                                    <label for="kh_gioitinh">Giới tinh</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="kh_gioitinh" id="kh_gioitinh-nam" value="1" >
+                                        <label class="form-check-label" for="kh_gioitinh-nam">
+                                            Nam
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="kh_gioitinh" id="kh_gioitinh-nu" value="0" checked>
+                                        <label class="form-check-label" for="kh_gioitinh-nu">
+                                            Nữ
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -105,8 +116,19 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="kh_trangthai">Trạng thai</label>
-                                    <input type="text" class="form-control" id="kh_trangthai" name="kh_trangthai" placeholder="Địa chỉ" value="">
+                                    <label for="kh_quantri">Trạng thái</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="kh_quantri" id="kh_quantri-1" value="1" >
+                                        <label class="form-check-label" for="kh_quantri-1">
+                                            Admin
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="kh_quantri" id="kh_quantri-2" value="0" checked>
+                                        <label class="form-check-label" for="kh_quantri-2">
+                                            User
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -131,18 +153,36 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         $ten = $_POST['kh_hoten'];
                         $tendangnhap = $_POST['kh_tendangnhap'];
                         $matkhau = $_POST['kh_matkhau'];
-                        $gioitinh = $_POST['kh_gioitinh'];
-                        $ngaysinh = $_POST['kh_ngaysinh'];
+                        $gioitinh = isset($_POST['kh_gioitinh']) ? $_POST['kh_gioitinh'] : '';                       
+                         $ngaysinh = $_POST['kh_ngaysinh'];
                         $sodienthoai = $_POST['kh_sodienthoai'];
                         $email = $_POST['kh_email'];
                         $diachi = $_POST['kh_diachi'];
-                        $trangthai = $_POST['kh_trangthai'];
+                        //$trangthai = $_POST['kh_quantri'];
+                        $trangthai = isset($_POST['kh_quantri']) ? $_POST['kh_quantri'] : '';   
+                        if (isset($_FILES['kh_avt_tenfile'])) {
+
+                            $upload_dir = __DIR__ . "/../../../assets/uploads/";
+                            $subdir = 'img-product/';
+    
+                            if ($_FILES['kh_avt_tenfile']['error'] > 0) {
+                                echo 'File Upload Bị Lỗi';
+                                //die;
+                            } else {
+    
+                                $kh_avt_tenfile = $_FILES['kh_avt_tenfile']['name'];
+                                $tenfile = date('YmdHis') . '_' . $kh_avt_tenfile;
+    
+                                move_uploaded_file($_FILES['kh_avt_tenfile']['tmp_name'], $upload_dir . $subdir . $tenfile);
+                            }
+                        }
                         //$kh_id=$_POST['kh_id'];
                         
-                        $sql = "INSERT INTO `khachhang` (`kh_hoten`, `kh_tendangnhap`, `kh_matkhau`,`kh_gioitinh`,`kh_ngaysinh`, `kh_sodienthoai`, `kh_email`, `kh_diachi`, `kh_trangthai`) VALUES ('$ten','$tendangnhap','$matkhau',$gioitinh' ,'$ngaysinh', '$sodienthoai','$email', '$diachi','$trangthai');";
+                        $sql = "INSERT INTO `khachhang` (`kh_hoten`, `kh_tendangnhap`, `kh_matkhau`,`kh_gioitinh`,`kh_ngaysinh`, `kh_sodienthoai`, `kh_email`, `kh_diachi`,`kh_quantri`, `kh_avt_tenfile`) 
+                        VALUES ('$ten','$tendangnhap','$matkhau','$gioitinh' ,'$ngaysinh', '$sodienthoai','$email', '$diachi','$trangthai','$tenfile');";
                         
                         mysqli_query($conn, $sql);
-                        //var_dump($sql);
+                        var_dump($sql);
                         die;
                         mysqli_close($conn);
                         echo "<script>location.href = 'index.php';</script>";
