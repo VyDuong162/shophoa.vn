@@ -51,7 +51,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
 
                 <div class="container-fluid">
                     <div class="row ">
-                        <div class="col-md-12 mt-5">
+                        <div class="col-md-12 mt-3">
                             <a href="index.php"><button type="button" id="btndanhsach" class="btn btn-primary">Danh sách</button></a> <br><br>
                         </div>
                     </div>
@@ -70,13 +70,13 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="km_tungay">Ngày bắt đầu</label>
-                                    <input type="date" class="form-control" id="km_tungay" name="km_tungay" placeholder="Ngày bắt đầu" value="">
+                                    <input type="date" class="form-control" id="km_tungay" name="km_tungay" placeholder="Ngày bắt đầu" value="<?= date("Y-m-d",time())?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="km_denngay">Ngày kết thúc</label>
-                                    <input type="date" class="form-control" id="km_denngay" name="km_denngay" placeholder="Ngày kết thúc" value="">
+                                    <input type="date" class="form-control" id="km_denngay" name="km_denngay" placeholder="Ngày kết thúc" value="<?= date("Y-m-d",time())?>">
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -85,7 +85,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                                     <div class="preview-img-container">
                                         <img src="/shophoa.vn/assets/shared/img/default.png" id="preview-img" name="preview-img" width="200px" />
                                     </div>
-                                    <input type="file" class="form-control" id="km_anh" name="km_anh" placeholder="Ảnh khuyến mãi" value="">
+                                    <input type="file" class="form-control" id="km_anh" name="km_anh" placeholder="Ảnh khuyến mãi" value="" required>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -100,42 +100,36 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         </div>
                     </form>
                 </div>
-
                 <?php
                 if (isset($_POST['btnsave'])) {
                     $km_tungay = $_POST['km_tungay'];
                     $km_denngay = $_POST['km_denngay'];
                     $km_ten = htmlentities($_POST['km_ten']);
                     $km_noidung = htmlentities($_POST['km_noidung']);
-                    $km_anh=$_FILES['km_anh'];
+                    //$km_anh=$_FILES['km_anh'];
                     if (isset($_FILES['km_anh'])) {
                         $upload_dir = __DIR__ . "/../../../assets/uploads/";
                         $subdir = 'img-km/';
                         if ($_FILES['km_anh']['error'] > 0) {
                             echo 'File Upload Bị Lỗi';
-                            die;
-                        } elseif ($_FILES['km_anh']['size'] > 800000) {
+                            $tentaptin = "";
+                        } else if ($_FILES['km_anh']['size'] > 800000) {
                             echo 'Kích thước File Upload không cho phép';
-                            die;
-                        } elseif (!($_FILES['km_anh']['type'] = 'jpg' || $_FILES['km_anh']['type'] = 'png' || $_FILES['km_anh']['type'] = 'jpge')) {
+                            $tentaptin = "";
+                        } else if (!($_FILES['km_anh']['type'] == 'jpg' || $_FILES['km_anh']['type'] == 'png')) {
                             echo 'Chỉ cho phép File Upload là JPG hoặc PNG và JPEG';
-                            die;
+                            $tentaptin = "";
                         } else {
                             $km_anh = $_FILES['km_anh']['name'];
                             $tentaptin = date('YmdHis') . '_' . $km_anh;
-
                             move_uploaded_file($_FILES['km_anh']['tmp_name'], $upload_dir . $subdir . $tentaptin);
+                            $sql = "INSERT INTO `khuyenmai` (km_ten,km_tungay,km_denngay,km_noidung,km_anh) VALUES ('$km_ten','$km_tungay','$km_denngay','$km_noidung','$tentaptin');";
+                            mysqli_query($conn, $sql);
+                            mysqli_close($conn);
+                            echo '<script>location.href = "index.php";</script>';
                         }
-                        $sql = "INSERT INTO `khuyenmai` (km_ten,km_tungay,km_denngay,km_noidung,km_anh) VALUES ('$km_ten','$km_tungay','$km_denngay','$km_noidung','$tentaptin');";
-                        mysqli_query($conn, $sql);
-                        mysqli_close($conn);
-                        echo '<script>location.href = "index.php";</script>';
-                    }
-                    else{
-                        $km_anh = $_FILES['preview-img']['name'];
-                        $tentaptin = date('YmdHis') . '_' . $km_anh;
-                        move_uploaded_file($_FILES['km_anh']['tmp_name'], $upload_dir . $subdir . $tentaptin);
-                        $sql = "INSERT INTO `khuyenmai` (km_ten,km_tungay,km_denngay,km_noidung,km_anh) VALUES ('$km_ten','$km_tungay','$km_denngay','$km_noidung','$tentaptin');";
+                    } else {
+                        $sql = "INSERT INTO `khuyenmai` (km_ten,km_tungay,km_denngay,km_noidung,km_anh) VALUES ('$km_ten','$km_tungay','$km_denngay','$km_noidung',NULL);";
                         mysqli_query($conn, $sql);
                         mysqli_close($conn);
                         echo '<script>location.href = "index.php";</script>';
@@ -169,7 +163,45 @@ include_once(__DIR__ . '/../../../dbconnect.php');
             reader.readAsDataURL(f);
         })
     </script>
-
+    <script>
+        // Kiểm tra logic 
+        $(document).ready(function() {
+            $('#frmthemmoi').validate({
+                // Phần logic
+                rules: {
+                    km_ten: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50,
+                    },
+                },
+                // Phần thông báo
+                messages: {
+                    km_ten: {
+                        required: "Nhập tên khuyến mãi",
+                        minlength: "Tên ít nhất phải 3 kí tự",
+                        maxlenght: "Tên chỉ có tối đa 50 ký tự",
+                    },
+                },
+                errorElement: "em",
+                errorPlacement: function(error, element) {
+                    error.addClass("invalid-feedback");
+                    if (element.prop("type") === "checkbox") {
+                        error.insertAfter(element.parent("label"));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                success: function(label, element) {},
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-invalid").removeClass("is-valid");
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).addClass("is-valid").removeClass("is-invalid");
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

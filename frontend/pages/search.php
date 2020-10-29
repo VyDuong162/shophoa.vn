@@ -3,7 +3,7 @@ if (session_id() === '') {
     session_start();
 }
 include_once(__DIR__ . '/../../dbconnect.php');
-$search = $_GET['search'];
+$search = htmlentities($_GET['search']);
 $sql = "SELECT sp.sp_id, sp.sp_ten, sp.sp_gia, sp.sp_giacu, sp.sp_avt_tenfile, hsp.hsp_tenfile AS hsp_tenfile, AVG(bl.bl_sao) AS sao FROM sanpham AS sp LEFT JOIN hinhsanpham AS hsp ON hsp.sanpham_sp_id = sp.sp_id LEFT JOIN binhluan AS bl ON sp.sp_id = bl.sanpham_sp_id WHERE sp.sp_ten LIKE '%{$search}%' GROUP BY sp.sp_id;";
 $result = mysqli_query($conn, $sql);
 $data = [];
