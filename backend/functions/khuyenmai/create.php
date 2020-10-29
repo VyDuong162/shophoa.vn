@@ -127,6 +127,7 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             echo '<script>location.href = "index.php";</script>';
                         }
                         else{
+                            
                             $km_anh = $_FILES['preview-img']['name'];
                             $tentaptin = date('YmdHis') . '_' . $km_anh;
                             move_uploaded_file($_FILES['km_anh']['tmp_name'], $upload_dir . $subdir . $tentaptin);
