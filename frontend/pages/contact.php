@@ -33,7 +33,7 @@ include_once(__DIR__ . '/../../dbconnect.php');
 
       <div class="col-md-5">
         <h4 class="myfont text-danger">Gửi thắc mắc</h4>
-        <form>
+        <form method="post"> 
           <div class="form-group">
             <input type="text" class="form-control" name="title" id="title" placeholder="Tiêu đề">
           </div>
@@ -62,13 +62,13 @@ include_once(__DIR__ . '/../../dbconnect.php');
               $email = $_POST['email'];
               $title = $_POST['title'];
               $message = $_POST['message'];
-              $mail = new PHPMailer(true);                                
-              try {
-                  $mail->isSMTP();                                        
+              $mail = new PHPMailer(true);                               
+              try {                             
+                  $mail->isSMTP();                                               
                   $mail->Host = 'smtp.gmail.com';                        
                   $mail->SMTPAuth = true;                                 
-                  $mail->Username = 'linhduy8a5@gmail.com';
-                  $mail->Password = 'qootyimeqvwgjhkc';                   
+                  $mail->Username = 'dttvyd19388@cusc.ctu.edu.vn';
+                  $mail->Password = 'wciefbmqslcyhabw';                   
                   $mail->SMTPSecure = 'tls';                              
                   $mail->Port = 587;                                      
                   $mail->CharSet = "UTF-8";
@@ -79,26 +79,25 @@ include_once(__DIR__ . '/../../dbconnect.php');
                           'allow_self_signed' => true
                       )
                   );
-                  $mail->setFrom('linhduy8a5@gmail.com', 'Mail Liên hệ');
-                  $mail->addAddress('linhduy8a5@gmail.com');               
+                  $mail->setFrom('dttvyd19388@cusc.ctu.edu.vn', 'Mail Liên hệ');
+                  $mail->addAddress('dttvyd19388@cusc.ctu.edu.vn');               
                   $mail->addReplyTo($email);
                   $mail->isHTML(true);                                   
                   $mail->Subject = "[Có người liên hệ] - $title";         
                   $body = <<<EOT
-                  <table border ="1">
-                      <tr>
-                          <th>Ảnh điện dại</th>
+                  <table border ="1" width="100%" class="responsive" cellpadding="5" cellspacing="0">
+                      <tr> 
+                          <th rowspan="2"  width="15%">
+                               <img src="https://theme.hstatic.net/1000340764/1000483108/14/logo.png?v=18" width="100px" />
+                          </th>
                           <th>Nội dung liên hệ</th>
                       </tr>
                       <tr>
+                         
                           <td>
-                               <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/L_Old_London.svg/1200px-L_Old_London.svg.png"  width ="100px" heigh="200px" />
-                          </td>
-                          <td>
-                              Có người liên hệ cần giúp đỡ. <br />
-                              Email của khách: $email <br />
-                              Nội dung: $message
-                              <br />
+                              <i>Có người liên hệ cần giúp đỡ.</i> <br />
+                              <b>Email của khách</b>: $email <br />
+                              <b>Nội dung</b>: <br/>$message
                           </td>
                       </tr>
                   </table>
