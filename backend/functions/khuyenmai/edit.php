@@ -128,12 +128,12 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             move_uploaded_file($_FILES['km_anh']['tmp_name'], $upload_dir . $subdir . $tentaptin);
                         }
                     } else {
-                        $km_anh = $dataSanPham['km_anh'];
+                        $km_anh = $dataKhuyenMai['km_anh'];
                     }
                     $sql_update = " UPDATE `khuyenmai` SET km_ten = '$km_ten', km_tungay = '$km_tungay', km_denngay = '$km_denngay', km_noidung = '$km_noidung', km_anh = '$km_anh' WHERE km_id='$id'";
                     mysqli_query($conn, $sql_update);
                     mysqli_close($conn);
-                    echo '<script>location.href = "edit.php?idupdate='.$id.'";</script>';
+                    echo '<script>location.href = "index.php";</script>';
                 }
                 ?>
             </main>
