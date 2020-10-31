@@ -61,7 +61,7 @@ include_once(__DIR__ . '/../../dbconnect.php');
             if (isset($_POST['btnGoiLoiNhan'])) {
               $email = $_POST['email'];
               $title = $_POST['title'];
-              $message = $_POST['message'];
+              $messagekh = $_POST['message'];
               $mail = new PHPMailer(true);                               
               try {                             
                   $mail->isSMTP();                                               
@@ -79,9 +79,9 @@ include_once(__DIR__ . '/../../dbconnect.php');
                           'allow_self_signed' => true
                       )
                   );
-                  $mail->setFrom('dttvyd19388@cusc.ctu.edu.vn', 'Mail Liên hệ');
+                  $mail->setFrom('noreply@shophoa.com', 'Mail-ShopHoa');
                   $mail->addAddress('dttvyd19388@cusc.ctu.edu.vn');               
-                  $mail->addReplyTo($email);
+                  $mail->addReplyTo('noreply@shophoa.com');
                   $mail->isHTML(true);                                   
                   $mail->Subject = "[Có người liên hệ] - $title";         
                   $body = <<<EOT
@@ -97,17 +97,22 @@ include_once(__DIR__ . '/../../dbconnect.php');
                           <td>
                               <i>Có người liên hệ cần giúp đỡ.</i> <br />
                               <b>Email của khách</b>: $email <br />
-                              <b>Nội dung</b>: <br/>$message
+                              <b>Nội dung</b>: <br/>$messagekh
                           </td>
                       </tr>
                   </table>
     
 EOT;
                   $mail->Body    = $body;
-                  $mail->send();
+                  if(!$mail->Send()) {
+                    echo "Mailer Error: " . $mail->ErrorInfo;
+                  } else {
+                    echo "Message sent!";
+                  }
               } catch (Exception $e) {
                   echo 'Lỗi khi gởi mail: ', $mail->ErrorInfo;
               }
+             
             }
         ?>
       </div>

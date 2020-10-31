@@ -116,9 +116,6 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                         } else if ($_FILES['km_anh']['size'] > 800000) {
                             echo 'Kích thước File Upload không cho phép';
                             $tentaptin = "";
-                        } else if (!($_FILES['km_anh']['type'] == 'jpg' || $_FILES['km_anh']['type'] == 'png')) {
-                            echo 'Chỉ cho phép File Upload là JPG hoặc PNG và JPEG';
-                            $tentaptin = "";
                         } else {
                             $km_anh = $_FILES['km_anh']['name'];
                             $tentaptin = date('YmdHis') . '_' . $km_anh;
@@ -128,11 +125,6 @@ include_once(__DIR__ . '/../../../dbconnect.php');
                             mysqli_close($conn);
                             echo '<script>location.href = "index.php";</script>';
                         }
-                    } else {
-                        $sql = "INSERT INTO `khuyenmai` (km_ten,km_tungay,km_denngay,km_noidung,km_anh) VALUES ('$km_ten','$km_tungay','$km_denngay','$km_noidung',NULL);";
-                        mysqli_query($conn, $sql);
-                        mysqli_close($conn);
-                        echo '<script>location.href = "index.php";</script>';
                     }
                 }
                 ?>
